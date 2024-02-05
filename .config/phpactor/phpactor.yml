@@ -1,0 +1,7 @@
+phpunit.enabled: true
+
+language_server_phpstan.enabled: true
+language_server_phpstan.level: max
+language_server_phpstan.bin: /Users/sander/.composer/vendor/phpstan/phpstan/phpstan
+
+symfony.enabled: true
