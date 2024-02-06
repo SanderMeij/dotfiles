@@ -4,6 +4,7 @@ vim.o.shiftwidth = 4;
 vim.o.scrolloff = 4;
 vim.o.sidescrolloff = 4;
 -- vim.o.showtabline = 0;
+vim.o.cmdheight=0;
 vim.o.swapfile = 0;
 vim.o.hlsearch = true;
 
