@@ -32,8 +32,8 @@ tmux-session() {
             tmux new-session -ds $selected_name -c $selected
         fi
         tmux switch-client -t $selected_name
+        exit 0
     else
         tmux new-session -A -s $selected_name -c $selected
     fi
-    exit 0
 }
