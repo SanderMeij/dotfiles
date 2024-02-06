@@ -9,69 +9,57 @@ onedark_green="#8cb371"
 onedark_visual_grey="#3e4452"
 onedark_comment_grey="#5c6370"
 
-set() {
-   local option=$1
-   local value=$2
-   tmux set-option -gq "$option" "$value"
-}
+set-option -gq "status" "on"
+set-option -gq "status-justify" "left"
 
-setw() {
-   local option=$1
-   local value=$2
-   tmux set-window-option -gq "$option" "$value"
-}
+set-option -gq "status-left-length" "100"
+set-option -gq "status-right-length" "100"
+set-option -gq "status-right-attr" "none"
 
-set "status" "on"
-set "status-justify" "left"
+set-option -gq "message-fg" "$onedark_white"
+set-option -gq "message-bg" "$onedark_black"
 
-set "status-left-length" "100"
-set "status-right-length" "100"
-set "status-right-attr" "none"
+set-option -gq "message-command-fg" "$onedark_white"
+set-option -gq "message-command-bg" "$onedark_black"
 
-set "message-fg" "$onedark_white"
-set "message-bg" "$onedark_black"
+set-option -gq "status-attr" "none"
+set-option -gq "status-left-attr" "none"
 
-set "message-command-fg" "$onedark_white"
-set "message-command-bg" "$onedark_black"
+set-window-option -gq "window-status-fg" "$onedark_black"
+set-window-option -gq "window-status-bg" "$onedark_black"
+set-window-option -gq "window-status-attr" "none"
 
-set "status-attr" "none"
-set "status-left-attr" "none"
+set-window-option -gq "window-status-activity-bg" "$onedark_black"
+set-window-option -gq "window-status-activity-fg" "$onedark_black"
+set-window-option -gq "window-status-activity-attr" "none"
 
-setw "window-status-fg" "$onedark_black"
-setw "window-status-bg" "$onedark_black"
-setw "window-status-attr" "none"
+set-window-option -gq "window-status-separator" ""
 
-setw "window-status-activity-bg" "$onedark_black"
-setw "window-status-activity-fg" "$onedark_black"
-setw "window-status-activity-attr" "none"
+set-option -gq "window-style" "fg=$onedark_comment_grey"
+set-option -gq "window-active-style" "fg=$onedark_white"
 
-setw "window-status-separator" ""
+set-option -gq "pane-border-fg" "$onedark_white"
+set-option -gq "pane-border-bg" "$onedark_black"
+set-option -gq "pane-active-border-fg" "$onedark_green"
+set-option -gq "pane-active-border-bg" "$onedark_black"
 
-set "window-style" "fg=$onedark_comment_grey"
-set "window-active-style" "fg=$onedark_white"
+set-option -gq "display-panes-active-colour" "$onedark_yellow"
+set-option -gq "display-panes-colour" "$onedark_blue"
 
-set "pane-border-fg" "$onedark_white"
-set "pane-border-bg" "$onedark_black"
-set "pane-active-border-fg" "$onedark_green"
-set "pane-active-border-bg" "$onedark_black"
+set-option -gq "status-bg" "$onedark_black"
+set-option -gq "status-fg" "$onedark_white"
 
-set "display-panes-active-colour" "$onedark_yellow"
-set "display-panes-colour" "$onedark_blue"
-
-set "status-bg" "$onedark_black"
-set "status-fg" "$onedark_white"
-
-set "@prefix_highlight_fg" "$onedark_black"
-set "@prefix_highlight_bg" "$onedark_green"
-set "@prefix_highlight_copy_mode_attr" "fg=$onedark_black,bg=$onedark_green"
-set "@prefix_highlight_output_prefix" "  "
+set-option -gq "@prefix_highlight_fg" "$onedark_black"
+set-option -gq "@prefix_highlight_bg" "$onedark_green"
+set-option -gq "@prefix_highlight_copy_mode_attr" "fg=$onedark_black,bg=$onedark_green"
+set-option -gq "@prefix_highlight_output_prefix" "  "
 
 time_format="%R"
 date_format="%d/%m/%Y"
 
-set "status-right" "#[fg=$onedark_white,bg=$onedark_black,nounderscore,noitalics]  ${time_format} #[bg=$onedark_visual_grey]  ${date_format} #[fg=$onedark_black,bg=$onedark_blue,bold]  #h "
-set "status-left" "#[fg=$onedark_black,bg=$onedark_blue,bold] #S #{prefix_highlight}"
+set-option -gq "status-right" "#[fg=$onedark_white,bg=$onedark_black,nounderscore,noitalics]  ${time_format} #[bg=$onedark_visual_grey]  ${date_format} #[fg=$onedark_black,bg=$onedark_blue,bold]  #h "
+set-option -gq "status-left" "#[fg=$onedark_black,bg=$onedark_blue,bold] #S #{prefix_highlight}"
 
-set "window-status-format" "#[fg=$onedark_white,bg=$onedark_black] #W "
-set "window-status-current-format" "#[fg=$onedark_white,bg=$onedark_visual_grey,bold]  #W "
+set-option -gq "window-status-format" "#[fg=$onedark_white,bg=$onedark_black] #W "
+set-option -gq "window-status-current-format" "#[fg=$onedark_white,bg=$onedark_visual_grey,bold]  #W "
 
