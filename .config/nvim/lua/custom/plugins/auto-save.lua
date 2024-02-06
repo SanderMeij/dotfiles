@@ -1,7 +1,7 @@
 return {
     'pocco81/auto-save.nvim',
-    config = {
-        debounce_delay = 500
+    opts = {
+        debounce_delay = 2500
     }
 }
 

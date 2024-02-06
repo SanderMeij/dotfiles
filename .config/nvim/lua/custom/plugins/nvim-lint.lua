@@ -2,7 +2,7 @@ return {
   {
     'mfussenegger/nvim-lint',
     dependencies = 'williamboman/mason.nvim',
-    command = "Lint",
+    cmd = "Lint",
     init = function ()
       require('lint').linters_by_ft = {
         markdown = {'vale',},
