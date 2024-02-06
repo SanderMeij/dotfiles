@@ -1,0 +1,18 @@
+return {
+  {
+    'rshkarin/mason-nvim-lint',
+
+    dependencies = {
+      'williamboman/mason.nvim',
+      'mfussengger/nvim-lint',
+    },
+    opts = {
+      ensure_installed = {
+        'phpstan',
+        'phpcs'
+      },
+      automatic_installation = true
+    }
+  }
+}
+
