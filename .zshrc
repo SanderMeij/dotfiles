@@ -4,13 +4,17 @@ start=`gdate +%N`
 
 plug "zsh-users/zsh-autosuggestions"
 plug "zsh-users/zsh-syntax-highlighting"
-plug "zsh-users/zap-prompt"
+# plug "zsh-users/zap-prompt"
+plug "voronkovich/symfony-complete.plugin.zsh"
 
 autoload -Uz compinit
 compinit
 
+compdef _symfony_complete symfony
+compdef _symfony_complete composer
+compdef _symfony_complete console
+
 plug "Aloxaf/fzf-tab"
-plug "voronkovich/symfony-complete.plugin.zsh"
 
 plug "$HOME/.config/zsh/options.zsh"
 plug "$HOME/.config/zsh/aliases.zsh"
