@@ -1,4 +1,5 @@
 start=`gdate +%N`
+
 [ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh"
 
 plug "zsh-users/zsh-autosuggestions"
@@ -11,7 +12,11 @@ compinit
 plug "Aloxaf/fzf-tab"
 plug "voronkovich/symfony-complete.plugin.zsh"
 
-source ~/.config/zsh/main.zsh;
+plug "$HOME/.config/zsh/options.zsh"
+plug "$HOME/.config/zsh/aliases.zsh"
+plug "$HOME/.config/zsh/functions.zsh"
+plug "$HOME/.config/zsh/hooks.zsh"
+plug "$HOME/.config/zsh/keymaps.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
