@@ -1,9 +1,9 @@
 #!/bin/zsh
 
 alias watch='find . | entr "!!"';
-alias ls="exa -a --icons";
-alias ll="exa -al --icons";
-alias lt="exa -a --tree --icons";
+alias ls="eza -a --icons";
+alias ll="eza -al --icons";
+alias lt="eza -a --tree --icons";
 
 alias vi=edit
 alias ts=tmux-session
