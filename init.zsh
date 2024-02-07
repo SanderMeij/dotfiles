@@ -1,6 +1,9 @@
 # Install brew packages
 xargs brew install < brew_leaves
 
+# Install TPM
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # Symlink to home directory
 stow --adopt .
 
