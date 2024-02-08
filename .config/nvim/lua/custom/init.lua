@@ -8,6 +8,8 @@ vim.o.cmdheight=0;
 vim.o.swapfile = 0;
 vim.o.hlsearch = true;
 
+vim.g.tmux_navigator_no_wrap = 1
+
 require('custom.autocmd');
 
 require('custom.keymaps.general');
