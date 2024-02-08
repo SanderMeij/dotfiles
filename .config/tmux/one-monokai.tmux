@@ -60,6 +60,6 @@ date_format="%d/%m/%Y"
 set-option -gq "status-right" "#[fg=$onedark_white,bg=$onedark_black,nounderscore,noitalics]  ${time_format} #[bg=$onedark_visual_grey]  ${date_format} #[fg=$onedark_black,bg=$onedark_blue,bold]  #h "
 set-option -gq "status-left" "#[fg=$onedark_black,bg=$onedark_blue,bold] #S #{prefix_highlight}"
 
-set-option -gq "window-status-format" "#[fg=$onedark_white,bg=$onedark_black] #W "
-set-option -gq "window-status-current-format" "#[fg=$onedark_white,bg=$onedark_visual_grey,bold]  #W "
+set-option -gq "window-status-format" "#[fg=$onedark_white,bg=$onedark_black] 󰓪 #W "
+set-option -gq "window-status-current-format" "#[fg=$onedark_white,bg=$onedark_visual_grey,bold] 󰓩 #W "
 
