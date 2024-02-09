@@ -7,6 +7,7 @@ vim.o.sidescrolloff = 4;
 vim.o.cmdheight=0;
 vim.o.swapfile = 0;
 vim.o.hlsearch = true;
+vim.o.nrformats = 'unsigned';
 
 vim.g.tmux_navigator_no_wrap = 1
 

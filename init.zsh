@@ -13,6 +13,4 @@ stow --adopt .
 # Install Jetbrains font
 cp ./.config/fonts/* ~/Library/Fonts/
 
-# Link iterm2 config
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/.dotfiles/iterm2"
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+watson config options.stop_on_start true

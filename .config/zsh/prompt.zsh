@@ -10,5 +10,6 @@ precmd() {
 setopt prompt_subst
 
 # Prompt like  ~/dir 󰊍 ..  master 
-export PROMPT=' %F{4} %F{7}%B%~%b %(?.%F{2}.%F{1})󰊍 %F{7}'
+export PROMPT=' %F{4} %F{7}%B%~%b %(?.%F{2}.%F{1})󰅂  %F{7}'
 export RPROMPT='%F{4}${vcs_info_msg_0_}'
+

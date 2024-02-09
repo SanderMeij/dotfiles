@@ -27,6 +27,8 @@ tmux-session() {
 
     selected_name=$(basename "$selected" | tr . _)
 
+    watson start "$selected_name" > /dev/null
+
     if [[ $TMUX ]]; then
         if ! tmux has-session -t=$selected_name 2> /dev/null; then
             tmux new-session -ds $selected_name -c $selected
@@ -36,4 +38,5 @@ tmux-session() {
     else
         tmux new-session -A -s $selected_name -c $selected
     fi
+
 }

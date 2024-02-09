@@ -4,3 +4,5 @@
   - Horizontal layout
 
 SmiteshP/nvim-navbuddy
+Twig colors
+Twig comments
