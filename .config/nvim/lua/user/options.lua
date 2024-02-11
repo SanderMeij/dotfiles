@@ -25,7 +25,7 @@ vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.shortmess:append "c"
 vim.opt.showcmd = false
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 1 -- always show tabs
+vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 8
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.smartcase = true -- smart case
