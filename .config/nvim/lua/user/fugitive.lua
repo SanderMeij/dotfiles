@@ -11,6 +11,7 @@ function M.config()
         ["<leader>Gc"] = { "<cmd>G commit<CR>", "[G]it [c]ommit" },
         ["<leader>Gp"] = { "<cmd>G pull<CR>", "[G]it [p]ull" },
         ["<leader>Gs"] = { "<cmd>tab G<CR>", "[G]it [s]tatus" },
+        ["<leader>Ga"] = { "<cmd>G add .<CR>", "[G]it [a]dd all" },
     }
 end
 
