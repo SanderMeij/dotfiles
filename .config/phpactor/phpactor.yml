@@ -2,6 +2,9 @@ phpunit.enabled: true
 
 language_server_phpstan.enabled: true
 language_server_phpstan.level: max
-language_server_phpstan.bin: /Users/sander/.composer/vendor/phpstan/phpstan/phpstan
+language_server_phpstan.bin: ~/.composer/vendor/phpstan/phpstan/phpstan
+
+php_code_sniffer.enabled: true
+php_code_sniffer.bin: ~/.composer/vendor/squizlabs/php_codesniffer/bin/phpcs
 
 symfony.enabled: true

@@ -90,6 +90,9 @@ function M.config()
       },
     },
     virtual_text = false,
+    virtual_improved = {
+        current_line = 'only',
+    },
     update_in_insert = false,
     underline = true,
     severity_sort = true,
