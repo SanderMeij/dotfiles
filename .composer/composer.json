@@ -2,6 +2,8 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpstan/phpstan": "^1.10",
-        "phpstan/phpstan-strict-rules": "^1.5"
+        "phpstan/phpstan-strict-rules": "^1.5",
+        "php-stubs/wordpress-stubs": "^6.4",
+        "szepeviktor/phpstan-wordpress": "^1.3"
     }
 }
