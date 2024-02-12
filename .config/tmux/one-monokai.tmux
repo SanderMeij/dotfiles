@@ -6,7 +6,7 @@ onedark_yellow="#e5c07b"
 onedark_red="#e06c75"
 onedark_white="#aab2bf"
 onedark_green="#8cb371"
-onedark_visual_grey="#3e4452"
+onedark_visual_grey="#393e48"
 onedark_comment_grey="#5c6370"
 
 set-option -gq "status" "on"
@@ -56,10 +56,12 @@ set-option -gq "@prefix_highlight_output_prefix" "  "
 
 time_format="%R"
 date_format="%d/%m/%Y"
+background_primary="#{?client_prefix,#[bg=$onedark_green],#[bg=$onedark_blue]}#[fg=$onedark_black,bold]"
+background_gray="#[fg=$onedark_white,bg=$onedark_visual_grey,bold]"
 
-set-option -gq "status-left" "#[fg=$onedark_black,bg=$onedark_blue,bold] #S #{prefix_highlight}"
+set-option -gq "status-left" "$background_primary #S #{prefix_highlight}"
 
-set-option -gq "window-status-format" "#[fg=$onedark_white,bg=$onedark_black] 󰓪 #W "
-set-option -gq "window-status-current-format" "#[fg=$onedark_white,bg=$onedark_visual_grey,bold] 󰓩 #W "
+set-option -gq "window-status-format" " 󰓪 #W "
+set-option -gq "window-status-current-format" "$background_gray 󰓩 #W "
 
-set-option -gq "status-right" "#[bg=$onedark_visual_grey]   #(watson status -e) #[fg=$onedark_black,bg=$onedark_blue,bold]  #h "
+set-option -gq "status-right" "#[bg=$onedark_visual_grey]   #(watson status -e) $background_primary  #{s|/||:#{s|$HOME|~|:#{session_path}}} "

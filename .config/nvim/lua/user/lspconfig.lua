@@ -94,7 +94,7 @@ function M.config()
         current_line = 'only',
     },
     update_in_insert = false,
-    underline = true,
+    underline = false,
     severity_sort = true,
     float = {
       focusable = true,

@@ -89,6 +89,10 @@ function M.config()
       find_files = {
         theme = "dropdown",
         previewer = false,
+        hidden = true,
+        file_ignore_patterns = {
+            '.git',
+        },
       },
 
       buffers = {
