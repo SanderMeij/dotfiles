@@ -62,6 +62,6 @@ background_gray="#[fg=$onedark_white,bg=$onedark_visual_grey,bold]"
 set-option -gq "status-left" "$background_primary #S #{prefix_highlight}"
 
 set-option -gq "window-status-format" " 󰓪 #W "
-set-option -gq "window-status-current-format" "$background_gray 󰓩 #W "
+set-option -gq "window-status-current-format" "$background_gray #{?window_zoomed_flag,󰍋,󰓩} #W "
 
 set-option -gq "status-right" "#[bg=$onedark_visual_grey]   #(watson status -e) $background_primary  #{s|/||:#{s|$HOME|~|:#{session_path}}} "
