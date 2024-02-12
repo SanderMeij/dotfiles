@@ -1,1 +1,8 @@
-.composer/vendor
+# Codesniffer.conf
+# TODO move file somewhere else
+.composer/vendor/*
+!.composer/vendor/squizlabs
+.composer/vendor/squizlabs/*
+!.composer/vendor/squizlabs/php_codesniffer
+.composer/vendor/squizlabs/php_codesniffer/*
+!.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf
