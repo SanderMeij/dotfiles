@@ -5,10 +5,11 @@ plug "$HOME/.config/zsh/prompt.zsh"
 
 plug "zsh-users/zsh-autosuggestions"
 plug "voronkovich/symfony-complete.plugin.zsh"
-
 plug "$HOME/.config/zsh/completion.zsh"
-
 plug "Aloxaf/fzf-tab"
+
+# plug "larkery/zsh-histdb"
+# autoload -Uz add-zsh-hook
 
 plug "$HOME/.config/zsh/aliases.zsh"
 plug "$HOME/.config/zsh/functions.zsh"
@@ -17,6 +18,5 @@ plug "$HOME/.config/zsh/keymaps.zsh"
 plug "$HOME/.config/zsh/vi-mode.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 plug "zsh-users/zsh-syntax-highlighting"
