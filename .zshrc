@@ -13,6 +13,7 @@ plug "Aloxaf/fzf-tab"
 
 plug "$HOME/.config/zsh/aliases.zsh"
 plug "$HOME/.config/zsh/functions.zsh"
+plug "$HOME/.config/zsh/tmux-session.zsh"
 plug "$HOME/.config/zsh/hooks.zsh"
 plug "$HOME/.config/zsh/keymaps.zsh"
 plug "$HOME/.config/zsh/vi-mode.zsh"
