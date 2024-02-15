@@ -22,3 +22,7 @@ plug "$HOME/.config/zsh/vi-mode.zsh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 plug "zsh-users/zsh-syntax-highlighting"
+
+ export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"

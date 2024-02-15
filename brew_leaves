@@ -5,6 +5,7 @@ eza
 ffmpeg
 fzf
 go
+hurl
 imagemagick
 jesseduffield/lazygit/lazygit
 jq
@@ -12,6 +13,7 @@ koekeishiya/formulae/skhd
 koekeishiya/formulae/yabai
 mysql
 neovim
+nss
 nvm
 pcre
 rename
