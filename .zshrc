@@ -3,10 +3,11 @@
 plug "$HOME/.config/zsh/options.zsh"
 plug "$HOME/.config/zsh/prompt.zsh"
 
+
 plug "zsh-users/zsh-autosuggestions"
 plug "voronkovich/symfony-complete.plugin.zsh"
 plug "$HOME/.config/zsh/completion.zsh"
-plug "Aloxaf/fzf-tab"
+# plug "Aloxaf/fzf-tab"
 
 # plug "larkery/zsh-histdb"
 # autoload -Uz add-zsh-hook

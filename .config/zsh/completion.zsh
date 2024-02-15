@@ -16,3 +16,10 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --icons $realpath'
+
+_zsh_autosuggest_strategy_test() {
+    suggestion=$(fre --sorted --store "$HOME/.local/share/zsh/history$PWD/history.json" | grep -m 1 "$1")
+}
+
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
+ZSH_AUTOSUGGEST_STRATEGY=(test)

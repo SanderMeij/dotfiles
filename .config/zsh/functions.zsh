@@ -23,3 +23,7 @@ json-sort() {
 json-expand() {
     jq 'to_entries | map(setpath(["tmp"] + (.key | split(".")); .value)) | map(.tmp) | reduce .[] as $item ({}; . * $item)' --indent 4 $1
 }
+
+fre_dirstat() {
+    fre --stat --store "$HOME/.local/share/zsh/history$PWD/history.json"
+}
