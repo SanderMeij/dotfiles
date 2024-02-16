@@ -3,8 +3,8 @@
 plug "$HOME/.config/zsh/options.zsh"
 plug "$HOME/.config/zsh/prompt.zsh"
 
-
 plug "zsh-users/zsh-autosuggestions"
+# plug "marlonrichert/zsh-autocomplete"
 plug "voronkovich/symfony-complete.plugin.zsh"
 plug "$HOME/.config/zsh/completion.zsh"
 # plug "Aloxaf/fzf-tab"
