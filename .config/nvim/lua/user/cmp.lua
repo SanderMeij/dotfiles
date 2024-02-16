@@ -141,7 +141,10 @@ function M.config()
         },
         sources = {
             { name = "copilot" },
-            { name = "codeium" },
+            {
+                name = "codeium",
+                max_item_count = 1,
+            },
             { name = "nvim_lsp" },
             { name = "luasnip" },
             { name = "cmp_tabnine" },
