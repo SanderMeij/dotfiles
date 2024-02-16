@@ -16,8 +16,8 @@ function M.config()
         y = { name = "Yank" },
         yp = {'<cmd>let @+ = expand("%")<cr>', 'Yank path of current buffer' },
         j = { name = "Json" },
-        js = { '<cmd>%! json-sort<cr>', 'Json sort' },
-        je = {'<cmd>%! json-expand<cr>', 'Json expand' },
+        js = { '<cmd>%! json-sort<cr><cr>', 'Json sort' },
+        je = {'<cmd>%! json-expand<cr><cr>', 'Json expand' },
     }
 
     local which_key = require "which-key"
