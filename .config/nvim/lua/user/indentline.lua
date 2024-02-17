@@ -16,6 +16,7 @@ function M.config()
             "NvimTree",
             "Trouble",
             "text",
+            "pkl",
         },
         show_first_indent_level = false,
         use_treesitter = true,
