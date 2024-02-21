@@ -1,0 +1,14 @@
+import "colors.pkl"
+
+local class BashRenderer extends ValueRenderer {
+    function renderDocument(value: Any) = value
+        .toMap()
+        .entries
+        .map((pair) -> pair.key + "=\"" + pair.value + "\"")
+        .join("\n")
+}
+
+output {
+    renderer = new BashRenderer { }
+    value = colors
+}

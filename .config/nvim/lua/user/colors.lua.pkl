@@ -1,0 +1,15 @@
+import "../../../colors/colors.pkl"
+
+local class LuaRenderer extends ValueRenderer {
+    function renderDocument(value: Any) = "return {" +
+        value.toMap()
+            .entries
+            .map((pair) -> pair.key + " = \"" + pair.value + "\"")
+            .join(",") +
+        "}"
+}
+
+output {
+    value = colors
+    renderer = new LuaRenderer {}
+}

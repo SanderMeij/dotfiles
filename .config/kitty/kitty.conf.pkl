@@ -1,0 +1,92 @@
+import "../colors/colors.pkl"
+
+local class KittyRenderer extends ValueRenderer {
+    function renderDocument(value: Any) = value
+        .toMap()
+        .entries
+        .map((pair) -> pair.key + " " + pair.value)
+        .join("\n")
+}
+
+output {
+  renderer = new KittyRenderer { }
+}
+
+font_size = "16"
+
+font_family      = "Jetbrains Mono Medium"
+bold_font        = "Jetbrains Mono Bold"
+italic_font      = "Jetbrains Mono Italic"
+bold_italic_font = "Jetbrains Mono Bold Italic"
+
+symbol_map = "U+23FB-U+23FE,U+2665,U+26A1,U+2B58,U+E000-U+E00A,U+E0A0-U+E0A3,U+E0B0-U+E0D4,U+E200-U+E2A9,U+E300-U+E3E3,U+E5FA-U+E6AA,U+E700-U+E7C5,U+EA60-U+EBEB,U+F000-U+F2E0,U+F300-U+F32F,U+F400-U+F4A9,U+F500-U+F8FF,U+F0001-U+F1AF0 Symbols Nerd Font Mono"
+
+foreground = colors.foreground
+background = colors.background
+selection_foreground = colors.background
+selection_background = colors.rosewater
+
+// Cursor colors
+cursor = colors.rosewater
+cursor_text_color = colors.base
+
+// URL underline color when hovering with mouse
+url_color = colors.rosewater
+
+// Kitty window border colors
+active_border_color = colors.lavender
+inactive_border_color = colors.overlay0
+bell_border_color = colors.yellow
+
+// OS Window titlebar colors
+wayland_titlebar_color = colors.base
+macos_titlebar_color = colors.base
+
+// Tab bar colors
+active_tab_foreground = colors.crust
+active_tab_background = colors.mauve
+inactive_tab_foreground = colors.text
+inactive_tab_background = colors.mantle
+tab_bar_background = colors.crust
+
+// Colors for marks (marked text in the terminal)
+mark1_foreground = colors.base
+mark1_background = colors.mauve
+mark2_foreground = colors.base
+mark2_background = colors.mauve
+mark3_foreground = colors.base
+mark3_background = colors.sapphire
+
+// The 16 terminal colors
+
+// black
+color0 = colors.surface1
+color8 = colors.surface2
+
+// red
+color1 = colors.red
+color9 = colors.red
+
+// green
+color2 = colors.green
+color10 = colors.green
+
+// yellow
+color3  = colors.yellow
+color11 = colors.yellow
+
+// blue
+color4  = colors.blue
+color12 = colors.blue
+
+// magenta
+color5  = colors.pink
+color13 = colors.pink
+
+// cyan
+color6  = colors.teal
+color14 = colors.teal
+
+// white
+color7  = colors.subtext1
+color15 = colors.subtext0
