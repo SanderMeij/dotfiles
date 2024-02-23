@@ -29,18 +29,20 @@ set-window-option -gq "window-status-fg" "$onedark_black"
 set-window-option -gq "window-status-bg" "$onedark_black"
 set-window-option -gq "window-status-attr" "none"
 
+set-option -gq "popup-border-style" "fg=white bg=black"
+
 set-window-option -gq "window-status-activity-bg" "$onedark_black"
 set-window-option -gq "window-status-activity-fg" "$onedark_black"
 set-window-option -gq "window-status-activity-attr" "none"
 
 set-window-option -gq "window-status-separator" ""
 
-set-option -gq "window-style" "fg=$onedark_comment_grey"
-set-option -gq "window-active-style" "fg=$onedark_white"
+set-option -gq "window-style" "fg=$onedark_white"
+set-option -gq "window-active-style" ""
 
 set-option -gq "pane-border-fg" "$onedark_white"
 set-option -gq "pane-border-bg" "$onedark_black"
-set-option -gq "pane-active-border-fg" "$onedark_green"
+set-option -gq "pane-active-border-fg" "$onedark_blue"
 set-option -gq "pane-active-border-bg" "$onedark_black"
 
 set-option -gq "display-panes-active-colour" "$onedark_yellow"

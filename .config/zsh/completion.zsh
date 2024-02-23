@@ -22,4 +22,4 @@ _zsh_autosuggest_strategy_test() {
 }
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=7"
-ZSH_AUTOSUGGEST_STRATEGY=(test)
+# ZSH_AUTOSUGGEST_STRATEGY=(test)

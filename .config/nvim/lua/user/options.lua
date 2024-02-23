@@ -20,6 +20,7 @@ vim.opt.pumheight = 10 -- pop up menu height
 vim.opt.relativenumber = false -- set relative numbered lines
 vim.opt.ruler = false
 vim.opt.scrolloff = 4
+vim.opt.shell="bash"
 vim.opt.shellcmdflag = "-ic"
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.shortmess:append "c"
@@ -42,7 +43,7 @@ vim.opt.wrap = false -- display lines as one long line
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 
 vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd [[set iskeyword+=-]]
+-- vim.cmd [[set iskeyword+=-]]
 
 vim.g.netrw_banner = 0
 vim.g.netrw_mouse = 2

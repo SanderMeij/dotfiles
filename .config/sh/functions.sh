@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 edit() {
     if [[ $# -eq 0 ]]; then
@@ -26,4 +26,8 @@ json-expand() {
 
 fre_dirstat() {
     fre --stat --store "$HOME/.local/share/zsh/history$PWD/history.json"
+}
+
+repeat-below() {
+    tmux send-keys -t '{down-of}' '!!' Enter
 }
