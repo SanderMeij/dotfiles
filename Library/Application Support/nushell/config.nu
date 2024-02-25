@@ -1,3 +1,5 @@
+alias vi = nvim
+
 let $colors = (open "~/.config/colors/colors.json")
 let base00 = $colors.base 
 let base01 = $colors.surface0
