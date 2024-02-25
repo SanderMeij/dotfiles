@@ -1,13 +1,11 @@
-return {
-    'norcalli/nvim-colorizer.lua',
-    event = "VeryLazy",
-    config = function()
-        require('colorizer').setup ({
-            '*';
-        },
-        {
-            RRGGBBAA = true,
-            css = true,
-        })
-    end,
+M = {
+    "brenoprata10/nvim-highlight-colors"
 }
+
+M.config = function()
+    require('nvim-highlight-colors').setup {
+        -- render = 'first_column',
+    }
+end
+
+return M

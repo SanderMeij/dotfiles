@@ -6,6 +6,7 @@ plug "$HOME/.config/sh/tmux-session.sh"
 plug "$HOME/.config/sh/aliases.sh"
 
 plug "zsh-users/zsh-autosuggestions"
+# plug "marlonrichert/zsh-autocomplete"
 plug "voronkovich/symfony-complete.plugin.zsh"
 
 plug "$HOME/.config/zsh/completion.zsh"
