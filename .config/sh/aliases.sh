@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 alias watch='find . | entr "!!"';
 alias ls="eza -a --icons";

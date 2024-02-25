@@ -132,6 +132,12 @@ function M.config()
       require("neodev").setup {}
     end
 
+    if server == "phpactor" or server == "intelephense" then
+        opts['root_dir'] = function()
+            return vim.fs.dirname(vim.fs.find({'install.lock'}, { upward = true })[1])
+        end
+    end
+
     lspconfig[server].setup(opts)
   end
 end
