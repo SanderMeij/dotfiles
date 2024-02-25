@@ -11,14 +11,26 @@ def create_left_prompt [] {
         }
     )
 
-    let prompt = [
-        $"(ansi { fg: $colors.blue, bg: $colors.base })",
-        $"(ansi { fg: $colors.base, bg: $colors.blue }) ",
-        $"(ansi { fg: $colors.blue, bg: $colors.surface0 }) "
-        $"(ansi { fg: $colors.text, attr: b })($dir) ",
+    if $env.LAST_EXIT_CODE != 0 {
+        left_bubble $dir $colors.red 
+    } else if ("bin/console" | path exists) {
+        left_bubble $dir $colors.blue 
+    } else if (".git" | path exists) {
+        left_bubble $dir $colors.blue 
+    } else {
+        left_bubble $dir $colors.blue 
+    }
+}
+
+def left_bubble [content, color, icon] {
+    let bubble = [
+        $"(ansi { fg: $color, bg: $colors.base })",
+        $"(ansi { fg: $colors.base, bg: $color })($icon) ",
+        $"(ansi { fg: $color, bg: $colors.surface0 }) "
+        $"(ansi { fg: $colors.text, attr: b })($content) ",
         $"(ansi { fg: $colors.surface0, bg: $colors.base })"
     ]
-    $prompt | str join ""
+    $bubble | str join ""
 }
 
 def right_bubble [content, color, icon] {
@@ -56,14 +68,16 @@ def ahead_behind_bubble [gstat] {
 
 def create_right_prompt [] {
     let gstat = (gstat)
-    let prompt = [
-        $"(modified_bubble $gstat)",
-        $"(staged_bubble $gstat)",
-        $"(ahead_behind_bubble $gstat)",
-        $"(right_bubble $gstat.branch $colors.blue )"
-    ]
-    
-    $prompt | filter {|x| $x != ""} | str join " "
+    if $gstat.repo_name != "no_repository" {
+        let prompt = [
+            $"(modified_bubble $gstat)",
+            $"(staged_bubble $gstat)",
+            $"(ahead_behind_bubble $gstat)",
+            $"(right_bubble $gstat.branch $colors.blue )"
+        ]
+        
+        $prompt | filter {|x| $x != ""} | str join " "
+    }
 }
 
 # Use nushell functions to define your right and left prompt
