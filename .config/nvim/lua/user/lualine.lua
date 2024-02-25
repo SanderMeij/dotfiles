@@ -7,7 +7,7 @@ local bubbles_theme = {
   normal = {
     a = { fg = colors.base, bg = colors.blue },
     b = { fg = colors.text, bg = colors.surface0 },
-    c = { fg = colors.base, bg = colors.background },
+    c = { fg = colors.text, bg = colors.background },
   },
 
   insert = { a = { fg = colors.base, bg = colors.green } },
@@ -33,10 +33,10 @@ function M.config()
 		},
 		sections = {
 			lualine_a = {
-				{ "mode", separator = { left = "" }, right_padding = 2 },
+                {"mode", separator = { left = "", right = "" }, right_padding = 2 },
 			},
-			lualine_b = { { "filename", path = 1, "branch" } },
-			lualine_c = { "fileformat" },
+			lualine_b = { { "filename", path = 1 } },
+			lualine_c = { "branch", "diagnostics" },
 			lualine_x = {},
 			lualine_y = { "filetype", "progress" },
 			lualine_z = {
