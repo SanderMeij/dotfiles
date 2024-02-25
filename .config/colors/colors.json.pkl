@@ -1,0 +1,6 @@
+import "colors.pkl"
+
+output {
+    renderer = new JsonRenderer { }
+    value = colors
+}

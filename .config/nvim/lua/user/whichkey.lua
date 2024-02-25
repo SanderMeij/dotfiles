@@ -4,7 +4,8 @@ local M = {
 
 function M.config()
     local mappings = {
-        q = { "<cmd>confirm qa<CR>", "Quit" },
+        q = { "<cmd>confirm q<CR>", "Quit" },
+        Q = { "<cmd>confirm qa<CR>", "Quit all" },
         v = { "<cmd>vsplit<CR>", "Split" },
         f = { name = "Find" },
         G = { name = "Git" },
