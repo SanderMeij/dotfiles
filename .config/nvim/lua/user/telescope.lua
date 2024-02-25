@@ -29,7 +29,7 @@ function M.config()
         ["<leader>fc"] = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
         ["<leader>fh"] = { "<cmd>Telescope help_tags<cr>", "Help" },
         ["<leader>fl"] = { "<cmd>Telescope resume<cr>", "Last Search" },
-        ["<leader>gg"] = { "<cmd>Telescope git_status<cr>", "Git status" },
+        -- ["<leader>gg"] = { "<cmd>Telescope git_status<cr>", "Git status" },
         ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
         ["<leader>s"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
     }

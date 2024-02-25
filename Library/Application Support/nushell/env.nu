@@ -1,3 +1,5 @@
+let $colors = (open "~/.config/colors/colors.json")
+
 def create_left_prompt [] {
     let home =  $nu.home-path
 
@@ -9,29 +11,59 @@ def create_left_prompt [] {
         }
     )
 
-    let path_color = (if (is-admin) { ansi red_bold } else { ansi green_bold })
-    let separator_color = (if (is-admin) { ansi light_red_bold } else { ansi light_green_bold })
-    let path_segment = $"($path_color)($dir)"
+    let prompt = [
+        $"(ansi { fg: $colors.blue, bg: $colors.base })",
+        $"(ansi { fg: $colors.base, bg: $colors.blue }) ",
+        $"(ansi { fg: $colors.blue, bg: $colors.surface0 }) "
+        $"(ansi { fg: $colors.text, attr: b })($dir) ",
+        $"(ansi { fg: $colors.surface0, bg: $colors.base })"
+    ]
+    $prompt | str join ""
+}
 
-    $path_segment | str replace --all (char path_sep) $"($separator_color)(char path_sep)($path_color)"
+def right_bubble [content, color, icon] {
+    let bubble = [
+        $"(ansi { fg: $colors.surface0, bg: $colors.base })",
+        $"(ansi { fg: $colors.text, bg: $colors.surface0 }) ",
+        $"($content) ",
+        $"(ansi { fg: $color, bg: $colors.surface0 })"
+        $"(ansi { fg: $colors.surface0, bg: $color }) ($icon) "
+        $"(ansi { fg: $color, bg: $colors.base })"
+    ]
+    $bubble | str join ""
+}
+
+def modified_bubble [gstat] {
+    let modified = $gstat.wt_untracked + $gstat.wt_modified + $gstat.wt_deleted + $gstat.wt_type_changed + $gstat.wt_renamed
+    if $modified > 0 { 
+        right_bubble $modified $colors.green 
+    } 
+}
+
+def staged_bubble [gstat] {
+    let staged = $gstat.idx_added_staged + $gstat.idx_modified_staged + $gstat.idx_deleted_staged + $gstat.idx_renamed + $gstat.idx_type_changed
+    if $staged > 0 {
+        right_bubble $staged $colors.yellow 
+    }
+}
+
+def ahead_behind_bubble [gstat] {
+    if $gstat.ahead > 0 or $gstat.behind > 0 {
+        let ahead_behind = $"($gstat.ahead) | ($gstat.behind)"
+        right_bubble $ahead_behind $colors.peach 
+    }
 }
 
 def create_right_prompt [] {
-    # create a right prompt in magenta with green separators and am/pm underlined
-    let time_segment = ([
-        (ansi reset)
-        (ansi magenta)
-        (date now | format date '%x %X %p') # try to respect user's locale
-    ] | str join | str replace --regex --all "([/:])" $"(ansi green)${1}(ansi magenta)" |
-        str replace --regex --all "([AP]M)" $"(ansi magenta_underline)${1}")
-
-    let last_exit_code = if ($env.LAST_EXIT_CODE != 0) {([
-        (ansi rb)
-        ($env.LAST_EXIT_CODE)
-    ] | str join)
-    } else { "" }
-
-    ([$last_exit_code, (char space), $time_segment] | str join)
+    let gstat = (gstat)
+    let prompt = [
+        $"(modified_bubble $gstat)",
+        $"(staged_bubble $gstat)",
+        $"(ahead_behind_bubble $gstat)",
+        $"(right_bubble $gstat.branch $colors.blue )"
+    ]
+    
+    $prompt | filter {|x| $x != ""} | str join " "
 }
 
 # Use nushell functions to define your right and left prompt
@@ -41,22 +73,22 @@ $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
-$env.PROMPT_INDICATOR = {|| "> " }
-$env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
-$env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
-$env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+$env.PROMPT_INDICATOR = {|| " " }
+$env.PROMPT_INDICATOR_VI_INSERT = {|| " " }
+$env.PROMPT_INDICATOR_VI_NORMAL = {|| " " }
+$env.PROMPT_MULTILINE_INDICATOR = {|| " " }
 
 # If you want previously entered commands to have a different prompt from the usual one,
 # you can uncomment one or more of the following lines.
 # This can be useful if you have a 2-line prompt and it's taking up a lot of space
 # because every command entered takes up 2 lines instead of 1. You can then uncomment
 # the line below so that previously entered commands show with a single `🚀`.
-# $env.TRANSIENT_PROMPT_COMMAND = {|| "🚀 " }
-# $env.TRANSIENT_PROMPT_INDICATOR = {|| "" }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| "" }
-# $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| "" }
-# $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "" }
-# $env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| "" }
+$env.TRANSIENT_PROMPT_COMMAND = {|| "" }
+$env.TRANSIENT_PROMPT_INDICATOR = {|| "" }
+$env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| "" }
+$env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| "" }
+$env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "" }
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = {|| "" }
 
 # Specifies how environment variables are:
 # - converted from a string to a value on Nushell startup (from_string)

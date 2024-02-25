@@ -36,7 +36,7 @@ function M.config()
                 {"mode", separator = { left = "", right = "" }, right_padding = 2 },
 			},
 			lualine_b = { { "filename", path = 1 } },
-			lualine_c = { "branch", "diagnostics" },
+			lualine_c = { "branch", 'diff', "diagnostics" },
 			lualine_x = {},
 			lualine_y = { "filetype", "progress" },
 			lualine_z = {

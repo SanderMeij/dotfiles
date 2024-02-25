@@ -1,49 +1,20 @@
 let $colors = (open "~/.config/colors/colors.json")
-echo $colors
-let base00 = "#181818" # Default Background
-let base01 = "#282828" # Lighter Background (Used for status bars, line number and folding marks)
-let base02 = "#383838" # Selection Background
-let base03 = "#585858" # Comments, Invisibles, Line Highlighting
-let base04 = "#b8b8b8" # Dark Foreground (Used for status bars)
-let base05 = "#d8d8d8" # Default Foreground, Caret, Delimiters, Operators
-let base06 = "#e8e8e8" # Light Foreground (Not often used)
-let base07 = "#f8f8f8" # Light Background (Not often used)
-let base08 = "#ab4642" # Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-let base09 = "#dc9656" # Integers, Boolean, Constants, XML Attributes, Markup Link Url
-let base0a = "#f7ca88" # Classes, Markup Bold, Search Text Background
-let base0b = "#a1b56c" # Strings, Inherited Class, Markup Code, Diff Inserted
-let base0c = "#86c1b9" # Support, Regular Expressions, Escape Characters, Markup Quotes
-let base0d = "#7cafc2" # Functions, Methods, Attribute IDs, Headings
-let base0e = "#ba8baf" # Keywords, Storage, Selector, Markup Italic, Diff Changed
-let base0f = "#a16946" # Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
-
- colors.rosewater = "#f5e0dc"
- colors.flamingo  = "#f2cdcd"
- colors.pink      = "#f5c2e7"
- colors.mauve     = "#cba6f7"
- colors.red       = "#f38ba8"
- colors.maroon    = "#eba0ac"
- colors.peach     = "#fab387"
- colors.yellow    = "#f9e2af"
- colors.green     = "#a6e3a1"
- colors.teal      = "#94e2d5"
- colors.sky       = "#89dceb"
- colors.sapphire  = "#74c7ec"
- colors.blue      = "#89b4fa"
- colors.lavender  = "#b4befe"
- colors.text      = "#cdd6f4"
- colors.subtext1  = "#bac2de"
- colors.subtext0  = "#a6adc8"
- colors.overlay2  = "#9399b2"
- colors.overlay1  = "#7f849c"
- colors.overlay0  = "#6c7086"
- colors.surface2  = "#585b70"
- colors.surface1  = "#45475a"
- colors.surface0  = "#313244"
- colors.base      = "#1e1e2e"
- colors.mantle    = "#181825"
- colors.crust     = "#11111b"
-# we're creating a theme here that uses the colors we defined above.
+let base00 = $colors.base 
+let base01 = $colors.surface0
+let base02 = $colors.surface1
+let base03 = $colors.surface2
+let base04 = $colors.overlay0
+let base05 = $colors.overlay1
+let base06 = $colors.overlay2
+let base07 = $colors.subtext0
+let base08 = $colors.maroon
+let base09 = $colors.peach
+let base0a = $colors.yellow
+let base0b = $colors.green
+let base0c = $colors.teal
+let base0d = $colors.sapphire
+let base0e = $colors.mauve
+let base0f = $colors.red
 
 let base16_theme = {
     separator: $base03
@@ -780,22 +751,3 @@ $env.config = {
         }
     ]
 }
-
-
-# now let's apply our regular config settings but also apply the "color_config:" theme that we specified above.
-
-# $env.config = {
-#   filesize_metric: true
-#   table_mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
-#   use_ls_colors: true
-#   color_config: $base16_theme # <-- this is the theme
-#   use_grid_icons: true
-#   footer_mode: always #always, never, number_of_rows, auto
-#   animate_prompt: false
-#   float_precision: 2
-#   use_ansi_coloring: true
-#   filesize_format: "b" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
-#   edit_mode: emacs # vi
-#   max_history_size: 10000
-#   log_level: error
-# }
