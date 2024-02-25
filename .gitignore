@@ -1,6 +1,7 @@
 .config/colors/colors.json
 .config/colors/colors.sh
 .config/nvim/lua/user/colors.lua
+.config/kitty/kitty.conf
 
 # Codesniffer.conf
 # TODO move file somewhere else

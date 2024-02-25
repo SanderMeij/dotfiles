@@ -1,6 +1,6 @@
 require "user.launch"
 require "user.options"
 
-spec "user.one-monokai"
+spec "user.colorscheme"
 
 require "user.lazy"
