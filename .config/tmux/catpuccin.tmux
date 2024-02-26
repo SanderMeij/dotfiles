@@ -5,8 +5,8 @@ source-file ~/.config/colors/colors.sh
 # set-option -gq "status" "on"
 # set-option -gq "status-justify" "left"
 #
-# set-option -gq "status-left-length" "100"
-# set-option -gq "status-right-length" "100"
+set-option -gq "status-left-length" "100"
+set-option -gq "status-right-length" "100"
 # set-option -gq "status-right-attr" "none"
 #
 set-option -gq "message-fg" "$foreground"
@@ -67,4 +67,4 @@ set-option -gq "window-status-format" "${foreground_secondary}${background_se
 set-option -gq "window-status-current-format" "${foreground_primary}${background_primary}#{?window_zoomed_flag,󰍋,󰓩} ${foreground_primary}#[bg=$surface0]${background_gray} #W ${foreground_gray}"
 
 # Right
-set-option -gq "status-right" "${foreground_gray}${background_gray} #(watson status -e)#[fg=$secondary,bg=$surface0] ${background_secondary}  ${foreground_secondary} ${foreground_gray}${background_gray} #{s|/|$|:#{s|$HOME|~|:#{session_path}}}${foreground_primary}#[bg=$surface0] ${background_primary}  ${foreground_primary}"
+set-option -gq "status-right" "${foreground_gray}${background_gray} #(watson status -e)#[fg=$secondary,bg=$surface0] ${background_secondary}  ${foreground_secondary} ${foreground_gray}${background_gray} #{s|+|$|:#{s|$HOME|~|:#{session_path}}}${foreground_primary}#[bg=$surface0] ${background_primary}  ${foreground_primary}"

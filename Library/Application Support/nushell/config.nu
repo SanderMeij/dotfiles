@@ -1,4 +1,5 @@
 alias vi = nvim
+alias g = git
 
 let $colors = (open "~/.config/colors/colors.json")
 let base00 = $colors.base 
@@ -769,6 +770,19 @@ $env.config = {
             event: {
                 send: executehostcommand,
                 cmd: "cd .."
+            }
+        }
+        {
+            name: tab_history_completion
+            modifier: CONTROL
+            keycode: Char_f
+            mode: [ emacs, vi_insert, vi_normal ]
+            event: {
+                until: [
+                    { send: historyhintcomplete }
+                    { send: menuright }
+                    { send: right }
+                ]
             }
         }
 
