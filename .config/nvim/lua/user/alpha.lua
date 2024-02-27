@@ -1,68 +1,78 @@
 local M = {
-  "goolord/alpha-nvim",
-  event = "VimEnter",
+    "goolord/alpha-nvim",
+    event = "VimEnter",
 }
 
 function M.config()
-  local dashboard = require "alpha.themes.dashboard"
-  local icons = require "user.icons"
+    local dashboard = require "alpha.themes.dashboard"
+    local icons = require "user.icons"
+    local colors = require "user.colors"
 
-  local function button(sc, txt, keybind, keybind_opts)
-    local b = dashboard.button(sc, txt, keybind, keybind_opts)
-    b.opts.hl_shortcut = "Include"
-    return b
-  end
+    local function button(sc, txt, keybind, keybind_opts)
+        local b = dashboard.button(sc, txt, keybind, keybind_opts)
+        b.opts.hl_shortcut = "Include"
+        return b
+    end
 
-  dashboard.section.header.val = {
-	[[                                                                       ]],
-	[[                                                                     ]],
-	[[       ████ ██████           █████      ██                     ]],
-	[[      ███████████             █████                             ]],
-	[[      █████████ ███████████████████ ███   ███████████   ]],
-	[[     █████████  ███    █████████████ █████ ██████████████   ]],
-	[[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-	[[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-	[[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-  }
+    vim.api.nvim_set_hl(0, "NeovimDashboardLogo1", { fg = colors.blue })
+    vim.api.nvim_set_hl(0, "NeovimDashboardLogo2", { fg = colors.green, bg = colors.blue})
+    vim.api.nvim_set_hl(0, "NeovimDashboardLogo3", { fg = colors.green })
 
-  dashboard.section.buttons.val = {
-    button("f", icons.ui.Files .. " Find file", ":Telescope find_files <CR>"),
-    button("n", icons.ui.NewFile .. " New file", ":ene <BAR> startinsert <CR>"),
-    button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles <CR>"),
-    button("t", icons.ui.Text .. " Find text", ":Telescope live_grep <CR>"),
-    button("q", icons.ui.SignOut .. " Quit", ":qa<CR>"),
-  }
-  local function footer()
-    return "Sander Meij"
-  end
+    dashboard.section.header.val = {
+        [[     █  █     ]],
+        [[     ██ ██     ]],
+        [[     █████     ]],
+        [[     ██ ███     ]],
+        [[     █  █     ]],
+    }
 
-  dashboard.section.footer.val = footer()
+    dashboard.section.header.opts.hl = {
+        { { "NeovimDashboardLogo1", 6, 8 },  { "NeovimDashboardLogo3", 9, 22 } },
+        { { "NeovimDashboardLogo1", 6, 8 },  { "NeovimDashboardLogo2", 9, 11 }, { "NeovimDashboardLogo3", 12, 24 } },
+        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 26 } },
+        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 24 } },
+        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 22 } },
+    }
 
-  dashboard.section.header.opts.hl = "Keyword"
-  dashboard.section.buttons.opts.hl = "Include"
-  dashboard.section.footer.opts.hl = "Type"
+    dashboard.section.buttons.val = {
+        button("f", icons.ui.Files .. " Find file", ":Telescope find_files <CR>"),
+        button("n", icons.ui.NewFile .. " New file", ":ene <BAR> startinsert <CR>"),
+        button("r", icons.ui.History .. " Recent files", ":Telescope oldfiles <CR>"),
+        button("t", icons.ui.Text .. " Find text", ":Telescope live_grep <CR>"),
+        button("q", icons.ui.SignOut .. " Quit", ":qa<CR>"),
+    }
 
-  dashboard.opts.opts.noautocmd = true
-  require("alpha").setup(dashboard.opts)
+    local function footer()
+        return "Sander Meij"
+    end
 
-  vim.api.nvim_create_autocmd("User", {
-    pattern = "LazyVimStarted",
-    callback = function()
-      local stats = require("lazy").stats()
-      local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-      dashboard.section.footer.val = "Loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-      pcall(vim.cmd.AlphaRedraw)
-    end,
-  })
+    dashboard.section.footer.val = footer()
 
-  vim.api.nvim_create_autocmd({ "User" }, {
-    pattern = { "AlphaReady" },
-    callback = function()
-      vim.cmd [[
+    -- dashboard.section.header.opts.hl = "Keyword"
+    dashboard.section.buttons.opts.hl = "Include"
+    dashboard.section.footer.opts.hl = "Type"
+
+    dashboard.opts.opts.noautocmd = true
+    require("alpha").setup(dashboard.opts)
+
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "LazyVimStarted",
+        callback = function()
+            local stats = require("lazy").stats()
+            local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+            dashboard.section.footer.val = "Loaded " .. stats.count .. " plugins in " .. ms .. "ms"
+            pcall(vim.cmd.AlphaRedraw)
+        end,
+    })
+
+    vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = { "AlphaReady" },
+        callback = function()
+            vim.cmd [[
       set laststatus=0 | autocmd BufUnload <buffer> set laststatus=3
-    ]]
-    end,
-  })
+      ]]
+        end,
+    })
 end
 
 return M

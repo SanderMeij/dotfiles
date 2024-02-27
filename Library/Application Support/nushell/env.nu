@@ -1,11 +1,17 @@
 let $colors = (open "~/.config/colors/colors.json")
 
 def create_left_prompt [] {
-    let home =  $nu.home-path
+    mut home = $nu.home-path
+    mut indicator = "~>"
+    let session_path = (tmux display-message -p '#{session_path}')
+    if $session_path != "" {
+        $home = $session_path
+        $indicator = "->"
+    }
 
     let dir = (
         if ($env.PWD | path split | zip ($home | path split) | all { $in.0 == $in.1 }) {
-            ($env.PWD | str replace $home "~")
+            ($env.PWD | str replace $home $indicator)
         } else {
             $env.PWD
         }
@@ -16,7 +22,7 @@ def create_left_prompt [] {
     } else if ("bin/console" | path exists) {
         left_bubble $dir $colors.blue 
     } else if (".git" | path exists) {
-        left_bubble $dir $colors.blue 
+        left_bubble $dir $colors.blue 
     } else {
         left_bubble $dir $colors.blue 
     }
