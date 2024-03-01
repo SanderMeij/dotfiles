@@ -40,7 +40,7 @@ function M.config()
 			lualine_x = {},
 			lualine_y = { "filetype", "progress" },
 			lualine_z = {
-				{ "location", separator = { right = "" }, left_padding = 2 },
+				{ "location", separator = { left = "", right = "" }, left_padding = 2 },
 			},
 		},
 	})
