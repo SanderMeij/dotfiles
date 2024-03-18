@@ -122,12 +122,12 @@ $env.config = {
         case_sensitive: false # set to true to enable case-sensitive completions
         quick: true    # set this to false to prevent auto-selecting completions when only one remains
         partial: true    # set this to false to prevent partial filling of the prompt
-        algorithm: "prefix"    # prefix or fuzzy
+        algorithm: "fuzzy"    # prefix or fuzzy
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
             completer: null # check 'carapace_completer' above as an example
-        }
+        },
     }
 
     filesize: {
@@ -788,3 +788,48 @@ $env.config = {
 
     ]
 }
+
+def symfony_console [] {
+    bin/console -v list --raw | split row "\n" |
+        each {|r| $r | split row " " | filter {|w| $w != "" } } |
+        filter {|c| not ($c | is-empty)} |
+        each {|r| {value: ($r | first), description: ($r | range 1.. | str join " ") } }
+}
+
+def symfony_console_completion [] {
+    let cache = ".symfony_console_cache"
+    if ($cache | path exists) {
+        open $cache | from json
+    } else {
+        let completion = (symfony_console)
+        $completion | to json | save '.symfony_console_cache'
+        $completion
+    }
+}
+
+def bc [command: string@symfony_console_completion] {
+    bin/console $command
+}
+
+def history_commands [] {
+    history | get command
+}
+
+export extern "r" [
+    string@history_commands
+]
+
+# export extern "git push" [
+#     remote?: string@"echo 'hi'",  # the name of the remote
+#     refspec?: string@"echo 'hey'" # the branch / refspec
+# ]
+
+def git-rm-cached [] {
+    git ls-files -i -c --exclude-from=.gitignore | str trim | git rm --cached $in
+}
+
+def ssh [ url ] {
+    $env.TERM = "screen-256color"
+    /usr/bin/ssh $url
+}
+

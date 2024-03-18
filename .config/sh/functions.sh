@@ -29,5 +29,5 @@ fre_dirstat() {
 }
 
 repeat-below() {
-    tmux send-keys -t '{down-of}' '!!' Enter
+    tmux send-keys -t '{down-of}' '!!' Enter Enter
 }

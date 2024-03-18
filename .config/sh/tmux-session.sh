@@ -20,6 +20,9 @@ tmux_session() {
     watson start "$selected_name" > /dev/null
 
     if [[ $TMUX ]]; then
+        tmux kill-session -t "wp"
+        chmod +x $selected/attach.sh
+        tmux new-session -ds "wp" -c $selected $selected/attach.sh
         if ! tmux has-session -t=$selected_name 2> /dev/null; then
             tmux new-session -ds $selected_name -c $selected
         fi

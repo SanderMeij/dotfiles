@@ -5,7 +5,7 @@ alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
 
 # toggle window float
-shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+shift + alt - t : yabai -m window --toggle float --grid 1:1:1:1:1:1
 
 # maximize a window
 shift + alt - m : yabai -m window --toggle zoom-fullscreen
