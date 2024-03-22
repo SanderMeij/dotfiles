@@ -1,5 +1,7 @@
 #!/bin/sh
 
+export PATH=$PATH:/opt/homebrew/bin
+
 # Use Neovim as default text editor
 export VISUAL=nvim
 export EDITOR=$VISUAL

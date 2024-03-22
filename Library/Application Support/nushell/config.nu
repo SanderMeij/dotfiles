@@ -252,9 +252,75 @@ $env.config = {
                 description_text: yellow
             }
         }
+        {
+          name: fzf_history_menu_fzf_ui
+          only_buffer_difference: false
+          marker: "# "
+          type: {
+              layout: columnar
+              columns: 4
+              col_width: 20
+              col_padding: 2
+          }
+          style: {
+              text: green
+              selected_text: green_reverse
+              description_text: yellow
+          }
+          source: { |buffer, position|
+              open -r $nu.history-path | fzf +s --tac | str trim
+              | where $it =~ $buffer
+              | each { |v| {value: ($v | str trim) } }
+          }
+        }
+        {
+            name: fzf_menu_nu_ui
+            only_buffer_difference: false
+            marker: "# "
+            type: {
+                layout: list
+                page_size: 10
+            }
+            style: {
+                text: "#66ff66"
+                selected_text: { fg: "#66ff66" attr: r }
+                description_text: yellow
+            }        
+            source: { |buffer, position|
+                open -r $nu.history-path
+                | fzf -f $buffer
+                | lines
+                | each { |v| {value: ($v | str trim) } }
+            }
+        }
     ]
 
     keybindings: [
+        {
+          name: change_dir_with_fzf
+          modifier: control
+          keycode: "char_ "
+          mode: [ vi_normal, vi_insert ]
+          event: {
+            send: executehostcommand,
+            cmd: "cd (ls -a **/* | where type == dir | where name !~ .git | get name | str join '\n' | fzf)"
+          }
+        }
+
+        {
+          name: fzf_history_menu_fzf_ui
+          modifier: control
+          keycode: char_e
+          mode: [emacs, vi_normal, vi_insert]
+          event: { send: menu name: fzf_history_menu_fzf_ui }
+        }
+        {
+          name: fzf_menu_nu_ui
+          modifier: control
+          keycode: char_w
+          mode: [emacs, vi_normal, vi_insert]
+          event: { send: menu name: fzf_menu_nu_ui }
+        }
         {
             name: completion_menu
             modifier: none
@@ -262,7 +328,7 @@ $env.config = {
             mode: [emacs vi_normal vi_insert]
             event: {
                 until: [
-                    { send: menu name: completion_menu }
+                    { send: menu name: ide_completion_menu }
                     { send: menunext }
                     { edit: complete }
                 ]
@@ -833,3 +899,16 @@ def ssh [ url ] {
     /usr/bin/ssh $url
 }
 
+let carapace_completer = {|spans|
+    carapace $spans.0 nushell ...$spans | from json
+}
+
+$env.config.completions.external = {
+    enable: true
+    max_results: 100
+    completer: $carapace_completer
+}
+
+$env.PATH = ($env.PATH | prepend "/home/vaibhavdn/.fnm")
+load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
+$env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
