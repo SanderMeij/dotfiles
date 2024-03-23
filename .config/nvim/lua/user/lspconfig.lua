@@ -77,7 +77,8 @@ function M.config()
     "jsonls",
     "yamlls",
     "phpactor",
-    "intelephense"
+    "intelephense",
+    "gopls"
   }
 
   local default_diagnostic_config = {

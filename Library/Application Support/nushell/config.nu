@@ -548,6 +548,7 @@ $env.config = {
             mode: [emacs, vi_insert]
             event: {edit: backspaceword}
         }
+
         {
             name: move_left
             modifier: none
@@ -755,22 +756,11 @@ $env.config = {
             name: go_up_insert
             modifier: CONTROL
             keycode: Char_u
-            mode: vi_insert
-            event: {
-                send: executehostcommand,
-                cmd: "cd .."
-            }
-        },
-        {
-            name: go_up_normal
-            modifier: CONTROL
-            keycode: Char_u
-            mode: vi_normal
+            mode: [ vi_insert vi_normal ]
             event: {
                 send: executehostcommand,
                 cmd: "cd .."
             }
         }
-
     ]
 }
