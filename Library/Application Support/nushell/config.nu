@@ -306,13 +306,15 @@ $env.config = {
             cmd: "cd (ls -a **/* | where type == dir | where name !~ .git | get name | str join '\n' | fzf)"
           }
         }
-
         {
-          name: fzf_history_menu_fzf_ui
+          name: open_neovim
           modifier: control
           keycode: char_e
           mode: [emacs, vi_normal, vi_insert]
-          event: { send: menu name: fzf_history_menu_fzf_ui }
+          event: {
+              send: executehostcommand,
+              cmd: "nvim"
+          }
         }
         {
           name: fzf_menu_nu_ui
@@ -515,18 +517,6 @@ $env.config = {
             name: move_to_line_end_or_take_history_hint
             modifier: none
             keycode: end
-            mode: [emacs, vi_normal, vi_insert]
-            event: {
-                until: [
-                    {send: historyhintcomplete}
-                    {edit: movetolineend}
-                ]
-            }
-        }
-        {
-            name: move_to_line_end_or_take_history_hint
-            modifier: control
-            keycode: char_e
             mode: [emacs, vi_normal, vi_insert]
             event: {
                 until: [

@@ -14,24 +14,27 @@ function M.config()
         return b
     end
 
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo1", { fg = colors.blue })
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo2", { fg = colors.green, bg = colors.blue})
-    vim.api.nvim_set_hl(0, "NeovimDashboardLogo3", { fg = colors.green })
+    vim.api.nvim_set_hl(0, "fg_blue", { fg = colors.blue })
 
     dashboard.section.header.val = {
-        [[     █  █     ]],
-        [[     ██ ██     ]],
-        [[     █████     ]],
-        [[     ██ ███     ]],
-        [[     █  █     ]],
+        '                                                                     ',
+        ' ███   ███                                                           ',
+        ' ███▀▄ ███   ▄██▀▀▀██▄   ▄██▀▀▀██▄   ███   ███   ███   ███▄▀██▄▄▀██▄ ',
+        ' ███  ▀███   ███▄▄▄███   ███   ███   ███   ███   ▄▄▄   ███  ███  ███ ',
+        ' ███   ███   ███         ███   ███   ███  ███    ███   ███  ███  ███ ',
+        ' ███   ███   ▀██▄▄▄▄█▀   ▀██▄▄▄██▀   ▀██▄██▀     ███   ███  ███  ███ ',
+        '                                                                     ',
     }
 
     dashboard.section.header.opts.hl = {
-        { { "NeovimDashboardLogo1", 6, 8 },  { "NeovimDashboardLogo3", 9, 22 } },
-        { { "NeovimDashboardLogo1", 6, 8 },  { "NeovimDashboardLogo2", 9, 11 }, { "NeovimDashboardLogo3", 12, 24 } },
-        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 26 } },
-        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 24 } },
-        { { "NeovimDashboardLogo1", 6, 11 }, { "NeovimDashboardLogo3", 12, 22 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
+        { { "fg_blue", 0, 200 } },
     }
 
     dashboard.section.buttons.val = {
