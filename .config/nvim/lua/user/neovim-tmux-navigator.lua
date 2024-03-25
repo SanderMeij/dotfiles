@@ -1,5 +1,5 @@
 M = {
-    dir = '~/Workspace/NeovimTmuxNavigator',
+    'SanderMeij/NeovimTmuxNavigator',
     opts = {
         bottom_reached = function()
             os.execute("tmux split-window -l 10")
