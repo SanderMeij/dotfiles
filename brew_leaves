@@ -3,6 +3,7 @@ composer
 coreutils
 eza
 ffmpeg
+fnm
 fzf
 go
 hurl
@@ -13,7 +14,9 @@ koekeishiya/formulae/skhd
 koekeishiya/formulae/yabai
 mysql
 neovim
+node
 nss
+nushell
 nvm
 pcre
 rename
@@ -24,3 +27,4 @@ stow
 symfony-cli/tap/symfony-cli
 tmux
 watson
+wp-cli
