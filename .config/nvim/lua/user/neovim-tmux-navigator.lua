@@ -5,8 +5,7 @@ M = {
             os.execute("tmux split-window -l 10")
         end,
         left_reached = function()
-            print('hi')
-            vim.cmd("NvimTreeToggle")
+            vim.cmd("vsplit")
         end,
         right_reached = function()
             vim.cmd("vsplit")
