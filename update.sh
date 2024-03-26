@@ -1,5 +1,7 @@
 #!/bin/bash
 
+xargs brew install < brew_leaves
+
 # Define your function
 process_file() {
     output=$(dirname $1)/$(basename $1 ".pkl")

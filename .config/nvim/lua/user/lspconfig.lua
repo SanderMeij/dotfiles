@@ -53,6 +53,7 @@ function M.config()
     ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     ["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    ["<leader>ls"] = { "<cmd>TailwindSort<cr>", "Tailwind sort" },
   }
 
   wk.register {
@@ -78,7 +79,8 @@ function M.config()
     "yamlls",
     "phpactor",
     "intelephense",
-    "gopls"
+    "gopls",
+    "tailwindcss"
   }
 
   local default_diagnostic_config = {
