@@ -139,3 +139,19 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/bin')
+
+$env.TMUX_NOTIFICATIONS = ($nu.home-path | append '/.tmux/notifications.sqlite' | str join "")
+def notify [ message, type = "message", color = "yellow" ] {
+    let query = $"INSERT INTO notifications VALUES \('($type)', '($message)', '($color)', DateTime\('now'\)\) ON CONFLICT(type) DO UPDATE SET message='($message)', color='($color)', updated_at=DateTime\('now'\)"
+    open $env.TMUX_NOTIFICATIONS | query db $query
+    tmux refresh-client -S
+}
+
+def clear_notifications [] {
+    try {
+        rm $env.TMUX_NOTIFICATIONS
+    }
+    stor reset
+    stor export --file-name $env.TMUX_NOTIFICATIONS
+    open $env.TMUX_NOTIFICATIONS | query db "CREATE TABLE notifications (type TEXT NOT NULL UNIQUE, message TEXT, color TEXT, updated_at DATETIME)"
+}

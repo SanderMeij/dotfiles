@@ -67,4 +67,4 @@ set-option -gq "window-status-format" "${foreground_secondary}${background_se
 set-option -gq "window-status-current-format" "${foreground_primary}${background_primary}#{?window_zoomed_flag,󰍋,󰓩} ${foreground_primary}#[bg=$surface0]${background_gray} #W ${foreground_gray}"
 
 # Right
-set-option -gq "status-right" "${foreground_gray}${background_gray}#[italics] #(watson status -e)#[fg=$secondary,bg=$surface0, noitalics] ${background_secondary}  ${foreground_secondary} ${foreground_gray}${background_gray} #{s|+|$|:#{s|$HOME|~>|:#{session_path}}}${foreground_primary}#[bg=$surface0] ${background_primary}  ${foreground_primary}"
+set-option -gq "status-right" "#(nu /Users/sander/.dotfiles/notifications.nu || echo 'failed!') ${foreground_gray} ${background_gray}#[italics] #(watson status -e)#[fg=$secondary,bg=$surface0, noitalics] ${background_secondary}  ${foreground_secondary} ${foreground_gray}${background_gray} #{s|+|$|:#{s|$HOME|~>|:#{session_path}}}${foreground_primary}#[bg=$surface0] ${background_primary}  ${foreground_primary}"
