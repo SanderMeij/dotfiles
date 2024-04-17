@@ -1,7 +1,7 @@
 alias vi = nvim
 alias g = git
 
-let $colors = (open "~/.config/colors/colors.json")
+let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 let base00 = $colors.base 
 let base01 = $colors.surface0
 let base02 = $colors.surface1

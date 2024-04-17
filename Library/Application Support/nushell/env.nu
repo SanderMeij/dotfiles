@@ -1,4 +1,4 @@
-let $colors = (open "~/.config/colors/colors.json")
+let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 
 def create_left_prompt [] {
     mut home = $nu.home-path

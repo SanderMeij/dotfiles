@@ -20,6 +20,7 @@ nss
 nushell
 nvm
 pcre
+pkl
 rename
 ripgrep
 rust

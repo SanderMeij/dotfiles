@@ -5,7 +5,7 @@ xargs brew install < brew_leaves
 # Define your function
 process_file() {
     output=$(dirname $1)/$(basename $1 ".pkl")
-    ./pkl eval $1 -o $output
+    pkl eval $1 -o $output
 }
 
 export -f process_file
