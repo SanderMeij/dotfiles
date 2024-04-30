@@ -46,6 +46,8 @@ brew "imagemagick"
 brew "jj"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Next-gen compiler infrastructure
+brew "llvm"
 # Fast and user friendly build system
 brew "meson"
 # Open source relational database management system
@@ -102,8 +104,6 @@ brew "koekeishiya/formulae/yabai"
 brew "rsteube/tap/carapace"
 # Symfony CLI helps Symfony developers manage projects, from local code to remote infrastructure
 brew "symfony-cli/tap/symfony-cli"
-# Developer targeted fonts with a high number of glyphs
-cask "font-hack-nerd-font"
 # Visual desktop tool suite for working with the Fuse framework
 cask "fuse"
 # Vector graphics editor
