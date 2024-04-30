@@ -1,8 +1,9 @@
-let $colors = (open "~/.config/colors/colors.json")
+let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 let $icons = {
     js: '󰌞',
     message: '󰍡',
     sass: '',
+    symfony: '',
 }
 
 def format [values] {

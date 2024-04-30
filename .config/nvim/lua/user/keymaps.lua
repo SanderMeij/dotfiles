@@ -37,3 +37,6 @@ keymap("n", "<leader>w", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", opts)
 
 keymap("n", "<leader>.", "<cmd>!repeat-below<cr><cr>", opts)
 keymap('v', '/', "\"fy/\\V<c-r>f<cr>ggn")
+
+keymap("n", "[q", ":cprev<cr>", opts)
+keymap("n", "]q", ":cnext<cr>", opts)

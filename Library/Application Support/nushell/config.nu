@@ -1,5 +1,12 @@
 alias vi = nvim
+
 alias g = git
+alias gP = git push
+alias ga = git add
+alias gc = git commit
+alias gg = git status
+alias gp = git pull
+alias gs = git switch
 
 let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 let base00 = $colors.base 
@@ -307,6 +314,17 @@ $env.config = {
           }
         }
         {
+          name: ls
+          modifier: control
+          keycode: char_s
+          mode: [emacs, vi_normal, vi_insert]
+          event: [
+            { edit: clear }
+            { edit: insertstring value: 'ls -a' }
+            { send: enter }
+          ]
+        }
+        {
           name: open_neovim
           modifier: control
           keycode: char_e
@@ -413,7 +431,7 @@ $env.config = {
         {
             name: clear_screen
             modifier: control
-            keycode: char_l
+            keycode: char_x
             mode: [emacs, vi_normal, vi_insert]
             event: { send: clearscreen }
         }
@@ -891,3 +909,4 @@ $env.config.completions.external = {
 $env.PATH = ($env.PATH | prepend "/home/vaibhavdn/.fnm")
 load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column = | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
+

@@ -31,3 +31,11 @@ fre_dirstat() {
 repeat-below() {
     tmux send-keys -t '{down-of}' '!!' Enter Enter
 }
+
+notify() {
+    echo $1 >> ~/.tmux/notification
+    tmux refresh-client -S
+    sleep 2
+    sed -i '' '1d' ~/.tmux/notification
+    tmux refresh-client -S
+}

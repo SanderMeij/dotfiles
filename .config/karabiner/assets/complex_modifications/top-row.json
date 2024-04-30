@@ -1,0 +1,86 @@
+{
+    "title": "Top row",
+    "rules": [
+        {
+            "description": "Top row modifications",
+            "manipulators": [
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "9",
+                        "modifiers": {
+                            "mandatory": "shift"
+                        }
+                    },
+                    "to": {
+                        "key_code": "hyphen"
+                    }
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "9"
+                    },
+                    "to": {
+                        "key_code": "9",
+                        "modifiers": [
+                            "shift"
+                        ]
+                    }
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "0",
+                        "modifiers": {
+                            "mandatory": "shift"
+                        }
+                    },
+                    "to": {
+                        "key_code": "hyphen",
+                        "modifiers": [
+                            "shift"
+                        ]
+                    }
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "0"
+                    },
+                    "to": {
+                        "key_code": "0",
+                        "modifiers": [
+                            "shift"
+                        ]
+                    }
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "hyphen"
+                    },
+                    "to": {
+                        "key_code": "equal_sign"
+                    }
+                },
+                {
+                    "type": "basic",
+                    "from": {
+                        "key_code": "hyphen",
+                        "modifiers": {
+                            "mandatory": "shift"
+                        }
+
+                    },
+                    "to": {
+                        "key_code": "equal_sign",
+                        "modifiers": [
+                            "shift"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
