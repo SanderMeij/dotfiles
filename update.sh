@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xargs brew install < brew_leaves
+brew bundle --cleanup
 
 # Define your function
 process_file() {
