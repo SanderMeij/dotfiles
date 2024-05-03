@@ -2,6 +2,6 @@ require "user.launch"
 require "user.options"
 
 spec "user.colorscheme"
-spec "user.headlines"
+spec "user.markdown"
 
 require "user.lazy"
