@@ -632,6 +632,16 @@
                             "key_code": "vk_none"
                         }
                     ]
+                },
+                {
+                    "from": {
+                        "key_code": "5"
+                    },
+                    "to": [
+                        {
+                            "key_code": "vk_none"
+                        }
+                    ]
                 }
             ],
             "virtual_hid_keyboard": {

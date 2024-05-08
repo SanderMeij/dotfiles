@@ -15,7 +15,7 @@ function M.config()
         ob = {'<cmd>!openb %<cr><cr>', 'Open file in browser'},
         b =  {'<cmd>!./build.sh<cr><cr>', 'Build stuff' },
         y = { name = "Yank" },
-        yp = {'<cmd>let @+ = expand("%")<cr>', 'Yank path of current buffer' },
+        yp = {'<cmd>let @+ = expand("%")<cr><cmd>lua vim.notify("Yanked path: " .. vim.fn.expand("%"))<cr>', 'Yank path of current buffer' },
         j = { name = "Json" },
         js = { '<cmd>%! json-sort<cr><cr>', 'Json sort' },
         je = {'<cmd>%! json-expand<cr><cr>', 'Json expand' },
@@ -60,6 +60,38 @@ function M.config()
     }
 
     which_key.register(mappings, opts)
+
+    local bracket_mapping = function(mapping, previous, next, description)
+        local ctrl = function()
+            vim.keymap.set("n", "<c-[>", function () vim.cmd(previous) end, { noremap = true, silent = true })
+            vim.keymap.set("n", "<c-]>", function () vim.cmd(next) end, { noremap = true, silent = true })
+        end
+        which_key.register (
+            {
+                ['[' .. mapping] = { 
+                    function ()
+                        vim.cmd(previous)
+                        ctrl()
+                    end,
+                    "Previous " .. description,
+                },
+                [']' .. mapping] = {
+                    function ()
+                        vim.cmd(next)
+                        ctrl()
+                    end,
+                    "Next " .. description,
+                }
+            },
+            {
+                mode = "n",
+            }
+        )
+    end
+
+    bracket_mapping('q', 'try | cprev | catch | clast | catch | endtry',  'try | cnext | catch | cfirst | catch | endtry', 'quickfix item')
+    bracket_mapping('d', 'lua vim.diagnostic.goto_prev()',  'lua vim.diagnostic.goto_next()', 'diagnostic')
+    bracket_mapping('g', 'lua require("gitsigns").prev_hunk()', 'lua require("gitsigns").next_hunk()', 'hunk')
 end
 
 return M
