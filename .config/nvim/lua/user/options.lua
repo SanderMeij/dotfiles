@@ -20,7 +20,6 @@ vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.ruler = false
 vim.opt.scrolloff = 4
 vim.opt.shell="bash"
-vim.opt.shellcmdflag = "-ic"
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.shortmess:append "c"
 vim.opt.showcmd = false
