@@ -63,8 +63,8 @@ function M.config()
 
     local bracket_mapping = function(mapping, previous, next, description)
         local ctrl = function()
-            vim.keymap.set("n", "<c-[>", function () vim.cmd(previous) end, { noremap = true, silent = true })
-            vim.keymap.set("n", "<c-]>", function () vim.cmd(next) end, { noremap = true, silent = true })
+            vim.keymap.set("n", "<c-p>", function () vim.cmd(previous) end, { noremap = true, silent = true })
+            vim.keymap.set("n", "<c-n>", function () vim.cmd(next) end, { noremap = true, silent = true })
         end
         which_key.register (
             {
