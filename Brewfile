@@ -1,5 +1,6 @@
 tap "camdencheek/brew"
 tap "drn/tap"
+tap "friendsofshopware/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/services"
@@ -94,6 +95,8 @@ brew "watson"
 brew "wp-cli"
 # A commandline frecency tracker
 brew "camdencheek/brew/fre"
+# Shopware CLI helps Shopware developers manage extensions
+brew "friendsofshopware/tap/shopware-cli"
 # A simple terminal UI for git commands, written in Go
 brew "jesseduffield/lazygit/lazygit"
 # Simple hotkey-daemon for macOS.
