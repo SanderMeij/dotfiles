@@ -5,6 +5,7 @@ local M = {
         "nvim-lua/plenary.nvim",
         "sindrets/diffview.nvim",
     },
+    branch = "nightly",
 }
 
 function M.config()
