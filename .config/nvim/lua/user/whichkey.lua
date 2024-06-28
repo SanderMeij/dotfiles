@@ -2,6 +2,12 @@ local M = {
     "folke/which-key.nvim",
 }
 
+M.command = function (command)
+    vim.opt.shellcmdflag="-ic"
+    vim.cmd("%! " .. command)
+    vim.opt.shellcmdflag="-ic"
+end
+
 function M.config()
     local mappings = {
         q = { "<cmd>confirm q<CR>", "Quit" },
@@ -11,14 +17,13 @@ function M.config()
         G = { name = "Git" },
         l = { name = "LSP" },
         T = { name = "Treesitter" },
-        o = { name = "Open" },
-        ob = {'<cmd>!openb %<cr><cr>', 'Open file in browser'},
+        o = {'<cmd>!nu -c "start %"<cr><cr>', 'Open file'},
         b =  {'<cmd>!./build.sh<cr><cr>', 'Build stuff' },
         y = { name = "Yank" },
         yp = {'<cmd>let @+ = expand("%")<cr><cmd>lua vim.notify("Yanked path: " .. vim.fn.expand("%"))<cr>', 'Yank path of current buffer' },
         j = { name = "Json" },
-        js = { '<cmd>%! json-sort<cr><cr>', 'Json sort' },
-        je = {'<cmd>%! json-expand<cr><cr>', 'Json expand' },
+        js = { function() M.command('json-sort') end, 'Json sort' },
+        je = { function() M.command('json-expand') end, 'Json expand' },
     }
 
     local which_key = require "which-key"

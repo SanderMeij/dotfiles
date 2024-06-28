@@ -25,6 +25,8 @@ brew "php"
 brew "composer"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Load/unload environment variables based on $PWD
+brew "direnv"
 # Modern, maintained replacement for ls
 brew "eza"
 # OpenType text shaping engine
@@ -33,6 +35,8 @@ brew "harfbuzz"
 brew "ffmpeg"
 # Fast and simple Node.js version manager
 brew "fnm"
+# Infamous electronic fortune-cookie generator
+brew "fortune"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GNU implementation of the famous stream editor
@@ -89,6 +93,8 @@ brew "sponge"
 brew "stow"
 # Terminal multiplexer
 brew "tmux"
+# Vi 'workalike' with many additional features
+brew "vim"
 # Command-line tool to track (your) time
 brew "watson"
 # Command-line interface for WordPress

@@ -22,9 +22,9 @@ end
 M.on_attach = function(client, bufnr)
   lsp_keymaps(bufnr)
 
-  if client.supports_method "textDocument/inlayHint" then
-    vim.lsp.inlay_hint.enable(bufnr, true)
-  end
+  -- if client.supports_method "textDocument/inlayHint" then
+  --   vim.lsp.inlay_hint.enable(bufnr)
+  -- end
 end
 
 function M.common_capabilities()
@@ -78,7 +78,8 @@ function M.config()
     "phpactor",
     "intelephense",
     "gopls",
-    "tailwindcss"
+    "tailwindcss",
+    "htmx-lsp"
   }
 
   local default_diagnostic_config = {

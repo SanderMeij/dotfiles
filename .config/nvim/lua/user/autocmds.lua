@@ -75,8 +75,20 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = { "*" },
-	command = [[%s/\s\+$//e]],
+vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+    callback = function()
+        require('cmp').setup({enabled = false})
+    end,
 })
 
+vim.api.nvim_create_autocmd({ "CmdWinLeave" }, {
+    callback = function()
+        require('cmp').setup({enabled = true})
+    end,
+})
+
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+-- 	pattern = { "*" },
+-- 	command = [[%s/\s\+$//e]],
+-- })
+--
