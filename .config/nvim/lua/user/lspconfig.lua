@@ -79,7 +79,7 @@ function M.config()
     "intelephense",
     "gopls",
     "tailwindcss",
-    "htmx-lsp"
+    -- "htmx-lsp"
   }
 
   local default_diagnostic_config = {

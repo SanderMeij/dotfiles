@@ -1,5 +1,7 @@
 local M = {
     "folke/which-key.nvim",
+    branch = "main",
+    commit = "0099511294f16b81c696004fa6a403b0ae61f7a0"
 }
 
 M.command = function (command)
@@ -45,7 +47,7 @@ function M.config()
                 g = true,
             },
         },
-        window = {
+        win = {
             border = "rounded",
             position = "bottom",
             padding = { 1, 2, 0, 2 },

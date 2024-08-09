@@ -31,6 +31,8 @@ brew "direnv"
 brew "eza"
 # OpenType text shaping engine
 brew "harfbuzz"
+# Subtitle renderer for the ASS/SSA subtitle format
+brew "libass"
 # Play, record, convert, and stream audio and video
 brew "ffmpeg"
 # Fast and simple Node.js version manager

@@ -5,8 +5,32 @@ alias gP = git push
 alias ga = git add
 alias gc = git commit
 alias gg = git status
+alias gf = git fetch
 alias gp = git pull
-alias gs = git switch
+
+alias f = echo "Respect has been paid"
+alias wtf = echo `What the fuck did you just fucking say about me, you little bitch? I'll have
+you know I graduated top of my class in the Navy Seals, and I've been involved
+in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I
+am trained in gorilla warfare and I'm the top sniper in the entire US armed
+forces. You are nothing to me but just another target. I will wipe you the fuck
+out with precision the likes of which has never been seen before on this Earth,
+mark my fucking words. You think you can get away with saying that shit to me
+over the Internet? Think again, fucker. As we speak I am contacting my secret
+network of spies across the USA and your IP is being traced right now so you
+better prepare for the storm, maggot. The storm that wipes out the pathetic
+little thing you call your life. You're fucking dead, kid. I can be anywhere,
+anytime, and I can kill you in over seven hundred ways, and that's just with my
+bare hands. Not only am I extensively trained in unarmed combat, but I have
+access to the entire arsenal of the United States Marine Corps and I will use
+it to its full extent to wipe your miserable ass off the face of the continent,
+you little shit. If only you could have known what unholy retribution your
+little "clever" comment was about to bring down upon you, maybe you would have
+held your fucking tongue. But you couldn't, you didn't, and now you're paying
+the price, you goddamn idiot. I will shit fury all over you and you will drown
+in it. You're fucking dead, kiddo.`
+alias ? = echo "Has anyone really been far even as decided to use even go want to do look more like?"
+alias hotchip = echo "BITCHES BORN IN THA 90'S THATS UNDER 25 CAN'T COOK CAN'T CLEAN THEY DON'T WANT TO WORK NOTHING. NIGGAZ THAT'S 31 & OVER GET IN RELATIONSHIPS WITH THEM & WONDER WHY SHIT AIN'T WORKING THAT'S BECAUSE ALL YOUNG BITCHES WANT TO DO IS POP PILLS, SMOKE WEED, GET DRUNK, LAY AROUND, SUCK DICK, EAT HOT CHEETOS, CHARGE THEY PHONE, GET A SEW IN WEAVE TWERK, BE BI SEXUAL, EAT MCDONALD'S, WASH THEY PUSSY IN THA SINK, LIE TAKE SELFIES AND TALK SHIT THRU WIFI CUZ THEY PHONE NEVER ON."
 
 let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 let base00 = $colors.base 
@@ -886,6 +910,24 @@ $env.config = {
             }
         }
     ]
+}
+
+def gs [branch] {
+    try {
+        git switch $branch
+    } catch {
+        print "Invalid branch, trying after fetch.."
+        git fetch
+        try {
+            git switch $branch
+        } catch {
+            print "Still invalid, do you want to create it?"
+            let user_input = (input)
+            if ($user_input == 'y') {
+                git switch -c $branch
+            }
+        }
+    }
 }
 
 def symfony_console [] {
