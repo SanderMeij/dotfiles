@@ -7,6 +7,7 @@ vim.opt.cursorline = true -- highlight the current line
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.fillchars = vim.opt.fillchars + "eob: "
 vim.opt.fillchars:append { stl = " ", }
+vim.opt.gdefault = true
 vim.opt.hlsearch = true -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.laststatus = 3
