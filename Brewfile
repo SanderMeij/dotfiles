@@ -58,7 +58,7 @@ brew "llvm"
 # Fast and user friendly build system
 brew "meson"
 # Open source relational database management system
-brew "mysql", restart_service: true
+brew "mysql@8.0", restart_service: true, link: true
 # FTP client with an advanced user interface
 brew "ncftp"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -121,5 +121,7 @@ cask "cyberduck"
 cask "fuse"
 # Vector graphics editor
 cask "inkscape"
+# GPU-based terminal emulator
+cask "kitty"
 # Control your tools with a few keystrokes
 cask "raycast"
