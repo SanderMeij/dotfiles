@@ -80,9 +80,11 @@ brew "nvm"
 # General-purpose scripting language
 brew "php@8.1"
 # General-purpose scripting language
-brew "php@8.2"
+brew "php@8.2", link: true
 # CLI for the Pkl programming language
 brew "pkl"
+# Parse HTML at the command-line
+brew "pup"
 # Perl-powered file rename script with many helpful built-ins
 brew "rename"
 # Search tool like grep and The Silver Searcher
@@ -117,6 +119,8 @@ brew "rsteube/tap/carapace"
 brew "symfony-cli/tap/symfony-cli"
 # Server and cloud storage browser
 cask "cyberduck"
+# Collaborative team software
+cask "figma"
 # Visual desktop tool suite for working with the Fuse framework
 cask "fuse"
 # Vector graphics editor
