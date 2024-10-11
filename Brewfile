@@ -9,6 +9,16 @@ tap "koekeishiya/formulae"
 tap "rsteube/tap"
 tap "shivammathur/php"
 tap "symfony-cli/tap"
+# Apache Portable Runtime library
+brew "apr"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
+# Companion library to apr, the Apache Portable Runtime library
+brew "apr-util"
+# Improved shell history for zsh, bash, fish and nushell
+brew "atuin"
+# Library for command-line editing
+brew "readline"
 # Automatic configure script builder
 brew "autoconf"
 # Interpreted, interactive, object-oriented programming language
@@ -19,6 +29,8 @@ brew "glib"
 brew "certbot"
 # Cross-platform make
 brew "cmake"
+# Libraries to talk to Microsoft SQL Server and Sybase databases
+brew "freetds"
 # General-purpose scripting language
 brew "php"
 # Dependency Manager for PHP
@@ -67,6 +79,8 @@ brew "neovim"
 brew "nginx"
 # Platform built on V8 to build network applications
 brew "node"
+# JavaScript implementation of a Sass compiler
+brew "node-sass"
 # Libraries for security-enabled client and server applications
 brew "nss"
 # Perl compatible regular expressions library
@@ -80,7 +94,7 @@ brew "nvm"
 # General-purpose scripting language
 brew "php@8.1"
 # General-purpose scripting language
-brew "php@8.2", link: true
+brew "php@8.2"
 # CLI for the Pkl programming language
 brew "pkl"
 # Parse HTML at the command-line
@@ -95,6 +109,8 @@ brew "rust"
 brew "sponge"
 # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# Official tldr client written in Rust
+brew "tlrc"
 # Terminal multiplexer
 brew "tmux"
 # Vi 'workalike' with many additional features
@@ -103,6 +119,10 @@ brew "vim"
 brew "watson"
 # Command-line interface for WordPress
 brew "wp-cli"
+# Python-powered, cross-platform, Unix-gazing shell language and command prompt
+brew "xonsh"
+# Bring your favorite shell wherever you go through the ssh
+brew "xxh"
 # A commandline frecency tracker
 brew "camdencheek/brew/fre"
 # Shopware CLI helps Shopware developers manage extensions

@@ -1,4 +1,5 @@
 alias vi = nvim
+alias ssh = xxh
 
 alias g = git
 alias gP = git push
@@ -173,7 +174,6 @@ $env.config = {
     }
 
     color_config: $base16_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    use_grid_icons: true
     footer_mode: "25" # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
@@ -391,7 +391,17 @@ $env.config = {
           mode: [emacs, vi_normal, vi_insert]
           event: {
               send: executehostcommand,
-              cmd: "nvim"
+              cmd: 'nvim'
+          }
+        }
+        {
+          name: open_neovim_with_pane_capture
+          modifier: control
+          keycode: char_v
+          mode: [vi_normal, vi_insert]
+          event: {
+              send: executehostcommand,
+              cmd: 'tmux capture-pane -p -J -E - -S - | nvim -c $"w! ($env.TMPDIR)capture" -c "normal G"'
           }
         }
         {
@@ -969,15 +979,6 @@ def git-rm-cached [] {
     git ls-files -i -c --exclude-from=.gitignore | str trim | git rm --cached $in
 }
 
-def ssh [url?: string] {
-    $env.TERM = "screen-256color"
-    if ($url == null) {
-        /usr/bin/ssh $env.REMOTE
-    } else {
-        /usr/bin/ssh $url
-    }
-}
-
 let carapace_completer = {|spans|
     carapace $spans.0 nushell ...$spans | from json
 }
@@ -993,3 +994,6 @@ load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace 
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 
 $env.DIRENV_LOG_FORMAT = ""
+
+use '/Users/sander/.config/broot/launcher/nushell/br' *
+source ~/.config/atuin/init.nu

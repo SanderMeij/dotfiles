@@ -26,6 +26,7 @@ function M.config()
         j = { name = "Json" },
         js = { function() M.command('json-sort') end, 'Json sort' },
         je = { function() M.command('json-expand') end, 'Json expand' },
+        n = { function() vim.fn.input('Nushell') end, 'Nushell' },
     }
 
     local which_key = require "which-key"
