@@ -1,5 +1,4 @@
 alias vi = nvim
-alias ssh = xxh
 
 alias g = git
 alias gP = git push
@@ -32,6 +31,9 @@ the price, you goddamn idiot. I will shit fury all over you and you will drown
 in it. You're fucking dead, kiddo.`
 alias ? = echo "Has anyone really been far even as decided to use even go want to do look more like?"
 alias hotchip = echo "BITCHES BORN IN THA 90'S THATS UNDER 25 CAN'T COOK CAN'T CLEAN THEY DON'T WANT TO WORK NOTHING. NIGGAZ THAT'S 31 & OVER GET IN RELATIONSHIPS WITH THEM & WONDER WHY SHIT AIN'T WORKING THAT'S BECAUSE ALL YOUNG BITCHES WANT TO DO IS POP PILLS, SMOKE WEED, GET DRUNK, LAY AROUND, SUCK DICK, EAT HOT CHEETOS, CHARGE THEY PHONE, GET A SEW IN WEAVE TWERK, BE BI SEXUAL, EAT MCDONALD'S, WASH THEY PUSSY IN THA SINK, LIE TAKE SELFIES AND TALK SHIT THRU WIFI CUZ THEY PHONE NEVER ON."
+alias no = echo "ok"
+
+alias rga = rg --no-ignore --hidden 
 
 let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 let base00 = $colors.base 
@@ -174,7 +176,7 @@ $env.config = {
     }
 
     color_config: $base16_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
-    footer_mode: "25" # always, never, number_of_rows, auto
+    footer_mode: always # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
     buffer_editor: "" # command that will be used to edit the current line buffer with ctrl+o, if unset fallback to $env.EDITOR and $env.VISUAL
     use_ansi_coloring: true
@@ -977,6 +979,16 @@ export extern "r" [
 
 def git-rm-cached [] {
     git ls-files -i -c --exclude-from=.gitignore | str trim | git rm --cached $in
+}
+
+def ssh [ url ] {
+    $env.TERM = "screen-256color"
+    ^ssh $url
+}
+
+def xxh [ url ] {
+    $env.TERM = "screen-256color"
+    ^xxh $url
 }
 
 let carapace_completer = {|spans|

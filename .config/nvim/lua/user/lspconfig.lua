@@ -78,6 +78,7 @@ function M.config()
     "intelephense",
     "gopls",
     "tailwindcss",
+    "twiggy-language-server",
     -- "htmx-lsp"
   }
 

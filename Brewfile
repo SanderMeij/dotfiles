@@ -9,6 +9,7 @@ tap "koekeishiya/formulae"
 tap "rsteube/tap"
 tap "shivammathur/php"
 tap "symfony-cli/tap"
+tap "thash/asana"
 # Apache Portable Runtime library
 brew "apr"
 # Cryptography and SSL/TLS Toolkit
@@ -21,10 +22,10 @@ brew "atuin"
 brew "readline"
 # Automatic configure script builder
 brew "autoconf"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.12"
 # Core application library for C
 brew "glib"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.12"
 # Tool to obtain certs from Let's Encrypt and autoenable HTTPS
 brew "certbot"
 # Cross-platform make
@@ -137,6 +138,8 @@ brew "koekeishiya/formulae/yabai"
 brew "rsteube/tap/carapace"
 # Symfony CLI helps Symfony developers manage projects, from local code to remote infrastructure
 brew "symfony-cli/tap/symfony-cli"
+# Manage team projects and tasks
+cask "asana"
 # Server and cloud storage browser
 cask "cyberduck"
 # Collaborative team software
@@ -145,6 +148,8 @@ cask "figma"
 cask "fuse"
 # Vector graphics editor
 cask "inkscape"
+# Programming language for mathematical, statistical and logical analysis of data
+cask "j"
 # GPU-based terminal emulator
 cask "kitty"
 # Control your tools with a few keystrokes

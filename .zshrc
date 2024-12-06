@@ -24,3 +24,5 @@ plug "zsh-users/zsh-syntax-highlighting"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 bindkey '^ ' fzf-cd-widget
+
+source /Users/sander/.config/broot/launcher/bash/br

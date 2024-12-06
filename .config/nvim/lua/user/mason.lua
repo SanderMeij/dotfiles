@@ -15,7 +15,8 @@ function M.config()
     "pyright",
     "bashls",
     "jsonls",
-    "gopls"
+    "gopls",
+    "twiggy-language-server",
   }
 
   require("mason").setup {

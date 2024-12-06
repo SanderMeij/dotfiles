@@ -4,3 +4,5 @@ source ~/.config/sh/functions.sh
 source ~/.config/sh/tmux-session.sh
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+source /Users/sander/.config/broot/launcher/bash/br

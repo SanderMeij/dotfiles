@@ -155,3 +155,26 @@ def clear_notifications [] {
     stor export --file-name $env.TMUX_NOTIFICATIONS
     open $env.TMUX_NOTIFICATIONS | query db "CREATE TABLE notifications (type TEXT NOT NULL UNIQUE, message TEXT, color TEXT, updated_at DATETIME)"
 }
+
+def commit [$message] {
+    if ($message == null) {
+      print "Error: No commit message provided."
+      exit 1
+    }
+
+    let commit_message = ($message | str trim)
+    let branch_name = (echo $commit_message | str replace -a " " "-" | str downcase | str replace "[^a-z0-9-]" "") 
+    git checkout master
+    git pull origin master
+    git checkout -b $branch_name
+    try { 
+        git commit -m $commit_message
+    } catch {
+        git add .
+        git commit -m $commit_message
+    }
+    git push -u origin $branch_name
+    git checkout master
+    start (git remote get-url origin | str replace '.git' '' | append '/-/merge_requests/new?merge_request%5Bsource_branch%5D=' | append $branch_name | str join '')
+    print ("Branch '" + $branch_name + "' created, committed, and pushed successfully.")
+}

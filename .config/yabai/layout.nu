@@ -9,14 +9,15 @@ def save_window_mapping [ id, mapping ] {
 }
 
 def layout [ layout, window ] {
+    print $window.app
     if ($layout == 1) {
         yabai -m window $window.id --grid 1:1:1:1:1:1
     } else if ($layout == 2) {
         if ($window.app == "kitty") {
             yabai -m window $window.id --grid 1:12:4:1:5:1
             save_window_mapping $window.id k
-        } else if ($window.app == "Opera") {
-            if ($window.title =~ "DevTools") {
+        } else if ($window.app == "Opera" or $window.app == "Safari" or $window.app == "Google Chrome") {
+            if ($window.title =~ "DevTools" or $window.title =~ "Inspector") {
                 yabai -m window $window.id --grid 1:12:9:1:3:1
                 save_window_mapping $window.id l
             } else {
