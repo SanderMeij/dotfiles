@@ -23,7 +23,7 @@ end
 function M.config()
     local wk = require "which-key"
     wk.register {
-        ["<leader> "] = { "<cmd>Telescope find_files<cr>", "Find files" },
+        ["<leader> "] = { "<cmd>Telescope find_files previewer=false<cr>", "Find files" },
         ["<TAB>"] = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
         ["<leader>fb"] = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
         ["<leader>fc"] = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
@@ -31,7 +31,7 @@ function M.config()
         ["<leader>fl"] = { "<cmd>Telescope resume<cr>", "Last Search" },
         -- ["<leader>gg"] = { "<cmd>Telescope git_status<cr>", "Git status" },
         ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
-        ["<leader>s"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+        ["<leader>s"] = { "<cmd>Telescope live_grep previewer=false<cr>", "Find Text" },
     }
 
     local icons = require "user.icons"

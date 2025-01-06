@@ -1,2 +1,0 @@
-source .envrc
-ssh $REMOTE

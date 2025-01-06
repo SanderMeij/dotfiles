@@ -11,3 +11,5 @@
 !.composer/vendor/squizlabs/php_codesniffer
 .composer/vendor/squizlabs/php_codesniffer/*
 !.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf
+
+keyd

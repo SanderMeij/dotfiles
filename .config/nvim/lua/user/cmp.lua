@@ -36,12 +36,12 @@ local M = {
         {
             "hrsh7th/cmp-nvim-lua",
         },
-        {
-            "Exafunction/codeium.nvim",
-            cmd = "Codeium",
-            build = ":Codeium Auth",
-            opts = {},
-        },
+        -- {
+        --     "Exafunction/codeium.nvim",
+        --     cmd = "Codeium",
+        --     build = ":Codeium Auth",
+        --     opts = {},
+        -- },
     },
 }
 
