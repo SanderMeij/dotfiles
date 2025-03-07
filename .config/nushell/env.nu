@@ -73,7 +73,6 @@ def ahead_behind_bubble [gstat] {
 }
 
 def create_right_prompt [] {
-    return
     let gstat = (gstat)
     if $gstat.repo_name != "no_repository" {
         let prompt = [
@@ -142,6 +141,9 @@ $env.NU_PLUGIN_DIRS = [
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/bin')
 
 $env.TMUX_NOTIFICATIONS = ($nu.home-path | append '/.tmux/notifications.sqlite' | str join "")
+
+open ~/.env | from toml | load-env
+
 def notify [ message, type = "message", color = "yellow" ] {
     let query = $"INSERT INTO notifications VALUES \('($type)', '($message)', '($color)', DateTime\('now'\)\) ON CONFLICT(type) DO UPDATE SET message='($message)', color='($color)', updated_at=DateTime\('now'\)"
     open $env.TMUX_NOTIFICATIONS | query db $query
@@ -156,3 +158,24 @@ def clear_notifications [] {
     stor export --file-name $env.TMUX_NOTIFICATIONS
     open $env.TMUX_NOTIFICATIONS | query db "CREATE TABLE notifications (type TEXT NOT NULL UNIQUE, message TEXT, color TEXT, updated_at DATETIME)"
 }
+
+def change-php [version:string] {
+    sudo update-alternatives --set php ("/usr/bin/php" + $version)
+}
+
+def paydia [ action: string ] {
+    cd /var/www/docker/local-services
+    make ("all-" + $action)
+}
+
+def gitlab-feed [ url: string ] {
+    let articles = (http get $url | from xml | get content | where tag == entry | get content | each {|$article| {
+        id: ($article | where tag == id | first | get content.content | first)
+        title: ($article | where tag == title | first | get content.content | first)
+        link: ($article | where tag == link | first | get attributes.href)}})
+    $articles | each {|$article| notify-send $article.title --action="Open" $article.link --expire-time=5000}
+}
+
+$env.PATH = ($env.PATH | prepend "/home/sander/.local/share/fnm")
+load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column '=' | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
+$env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")

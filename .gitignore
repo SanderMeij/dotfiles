@@ -13,3 +13,5 @@
 !.composer/vendor/squizlabs/php_codesniffer/CodeSniffer.conf
 
 keyd
+pkl
+.env

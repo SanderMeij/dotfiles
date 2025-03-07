@@ -15,8 +15,8 @@ set-option -gq "message-bg" "$background"
 set-option -gq "message-command-fg" "$foreground"
 set-option -gq "message-command-bg" "$background"
 
-set-option message-style bg="$primary"
-set-option message-style fg="$text"
+# set-option -gq message-style bg="$primary"
+# set-option -gq message-style fg="$text"
 #
 # set-option -gq "status-attr" "none"
 # set-option -gq "status-left-attr" "none"

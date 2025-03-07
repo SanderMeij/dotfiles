@@ -34,8 +34,7 @@ function M.common_capabilities()
 end
 
 M.toggle_inlay_hints = function()
-  local bufnr = vim.api.nvim_get_current_buf()
-  vim.lsp.inlay_hint.enable(bufnr, not vim.lsp.inlay_hint.is_enabled(bufnr))
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end
 
 function M.config()
@@ -47,7 +46,7 @@ function M.config()
       "Format",
     },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", "Info" },
-    ["<leader>lh"] = { "<cmd>lua require('user.lspconfig').toggle_inlay_hints()<cr>", "Hints" },
+    ["<leader>lh"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
     ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
     ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     ["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
@@ -78,6 +77,7 @@ function M.config()
     "intelephense",
     "gopls",
     "tailwindcss",
+    "volar"
     -- "htmx-lsp"
   }
 
@@ -115,7 +115,7 @@ function M.config()
   end
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", focusable = false })
   require("lspconfig.ui.windows").default_options.border = "rounded"
 
   for _, server in pairs(servers) do
@@ -133,11 +133,11 @@ function M.config()
       require("neodev").setup {}
     end
 
-    if server == "phpactor" or server == "intelephense" then
-        opts['root_dir'] = function()
-            return vim.fs.dirname(vim.fs.find({'install.lock'}, { upward = true })[1])
-        end
-    end
+    -- if server == "phpactor" or server == "intelephense" then
+    --     opts['root_dir'] = function()
+    --         return vim.fs.dirname(vim.fs.find({'install.lock'}, { upward = true })[1])
+    --     end
+    -- end
 
     lspconfig[server].setup(opts)
   end

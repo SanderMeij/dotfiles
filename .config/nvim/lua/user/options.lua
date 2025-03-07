@@ -23,7 +23,7 @@ vim.opt.scrolloff = 4
 vim.opt.shell="bash"
 vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
 vim.opt.shortmess:append "c"
-vim.opt.showcmd = false
+vim.opt.showcmd = true
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 0
 vim.opt.sidescrolloff = 8

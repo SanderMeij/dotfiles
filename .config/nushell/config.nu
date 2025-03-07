@@ -1,4 +1,5 @@
 alias vi = nvim
+alias q = exit
 
 alias g = git
 alias gP = git push
@@ -157,13 +158,12 @@ $env.config = {
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: null # check 'carapace_completer' above as an example
+            completer: {|spans| carapace $spans.0 nushell ...$spans | from json }
         },
     }
 
     filesize: {
-        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
-        format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
+        unit: binary
     }
 
     cursor_shape: {
@@ -396,20 +396,20 @@ $env.config = {
         {
           name: open_neovim_with_pane_capture
           modifier: control
-          keycode: char_v
+          keycode: char_w
           mode: [vi_normal, vi_insert]
           event: {
               send: executehostcommand,
-              cmd: 'tmux capture-pane -p -J -E - -S - | nvim -c $"w! ($env.TMPDIR)capture" -c "normal G"'
+              cmd: 'tmux capture-pane -p -J -E - -S - | nvim -c $"w! (mktemp -d)/capture" -c "normal G"'
           }
         }
-        {
-          name: fzf_menu_nu_ui
-          modifier: control
-          keycode: char_w
-          mode: [emacs, vi_normal, vi_insert]
-          event: { send: menu name: fzf_menu_nu_ui }
-        }
+        # {
+        #   name: fzf_menu_nu_ui
+        #   modifier: control
+        #   keycode: char_w
+        #   mode: [emacs, vi_normal, vi_insert]
+        #   event: { send: menu name: fzf_menu_nu_ui }
+        # }
         {
             name: completion_menu
             modifier: none

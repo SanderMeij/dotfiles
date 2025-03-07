@@ -1,0 +1,26 @@
+[global]
+follow = keyboard
+# frame_width = 0
+font = "Jetbrains Mono Medium"
+stack_duplicates = false
+# corner_radius = 10
+mouse_left_click=do_action
+frame_color = "#89b4fa"
+separator_color= frame
+highlight = "#89b4fa"
+
+[urgency_low]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_normal]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+
+[urgency_critical]
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+frame_color = "#fab387"
+
+[ignore]
+format = "<b>%a: %s</b>\n%b"
