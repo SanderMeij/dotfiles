@@ -1,32 +1,16 @@
 # TODO
-    - Fix tmux urls
-    - Create a watch buffer utilizing Nushell and Neovim
-    - oldworld.nvim
+    -[x] Fix tmux urls
+    -[x] Create a watch buffer utilizing Nushell and Neovim
+    -[ ] oldworld.nvim
+    -[ ] oil no lsp
 
 ## Neovim
     - Fzf lua + frecency algorithm
+        - Toggle hidden
+        - Toggle files/grep
     - Lspsaga
 
 ### Potential shortcuts
-    - set ft=html
-    - 
     - '<,'>sort u
     - %!shuf
-    - 
-    - Delete
-    - Delete!
-    - ene
-    - Mkdir
-    - pwd
-    - 
-    - checkhealth
-    - set shiftwidth=4
-    - 
-    - bd!
-    - e!
-    - bd
-    - 
-    - Lazy
-    - Mason
-    - LspRestart
 

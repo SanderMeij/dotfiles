@@ -3,28 +3,30 @@ M = {
 }
 
 function M.config()
-    local colorbuddy = require('colorbuddy')
-    local colors = require('user.colors')
-    colorbuddy.colorscheme('gruvbuddy')
+    require("colorbuddy").colorscheme('sander')
 
+    local colorbuddy = require('colorbuddy')
     local Color = colorbuddy.Color
     local Group = colorbuddy.Group
     local c = colorbuddy.colors
     local g = colorbuddy.groups
     local s = colorbuddy.styles
 
-    Color.new('white', colors.text)
-    Color.new('red', colors.red)
-    Color.new('pink', colors.pink)
-    Color.new('green', colors.green)
-    Color.new('yellow', colors.yellow)
-    Color.new('blue', colors.blue)
-    Color.new('aqua', colors.sky)
-    Color.new('cyan', colors.lavender)
-    Color.new('purple', colors.mauve)
-    Color.new('violet', colors.flamingo)
-    Color.new('orange', colors.peach)
-    Color.new('brown', colors.maroon)
+    Color.new('white', '#f2e5bc')
+    Color.new('red', '#cc6666')
+    Color.new('pink', '#fef601')
+    Color.new('green', '#99cc99')
+    Color.new('yellow', '#f8fe7a')
+    Color.new('blue', '#81a2be')
+    Color.new('aqua', '#8ec07c')
+    Color.new('cyan', '#8abeb7')
+    Color.new('purple', '#8e6fbd')
+    Color.new('violet', '#b294bb')
+    Color.new('orange', '#de935f')
+    Color.new('brown', '#a3685a')
+
+    Color.new('seagreen', '#698b69')
+    Color.new('turquoise', '#698b69')
 
     local background_string = "#111111"
     Color.new("background", background_string)

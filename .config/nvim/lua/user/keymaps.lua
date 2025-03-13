@@ -1,43 +1,45 @@
-local keymap = vim.keymap.set
-local opts = { noremap = true, silent = true }
+local function keymap(mode, lhs, rhs, desc)
+    local opts = { noremap = true, silent = true }
+    if desc then
+        opts.desc = desc
+    end
+    vim.keymap.set(mode, lhs, rhs, opts)
+end
 
-keymap("n", "<Space>", "", opts)
+keymap("n", "<Space>", "")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-keymap("n", "<C-i>", "<C-i>", opts)
-
-keymap("n", "n", "nzz", opts)
-keymap("n", "N", "Nzz", opts)
-keymap("n", "*", "*zz", opts)
-keymap("n", "#", "#zz", opts)
-keymap("n", "g*", "g*zz", opts)
-keymap("n", "g#", "g#zz", opts)
+keymap("n", "n", "nzz")
+keymap("n", "N", "Nzz")
+keymap("n", "*", "*zz")
+keymap("n", "#", "#zz")
+keymap("n", "g*", "g*zz")
+keymap("n", "g#", "g#zz")
 
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
+keymap("v", "<", "<gv")
+keymap("v", ">", ">gv")
 
 -- Paste without overwriting the default register
 keymap("x", "p", [["_dP]])
 
-vim.cmd [[:amenu 10.100 mousemenu.Goto\ Definition <cmd>lua vim.lsp.buf.definition()<CR>]]
-vim.cmd [[:amenu 10.110 mousemenu.References <cmd>lua vim.lsp.buf.references()<CR>]]
--- vim.cmd [[:amenu 10.120 mousemenu.-sep- *]]
+keymap({ "n", "x" }, "j", "gj")
+keymap({ "n", "x" }, "k", "gk")
 
--- Better going to beginning and end of lines,
--- might be better to make $ and ^ more accessable though
-keymap({ "n", "o", "x" }, "<s-h>", "^", opts)
-keymap({ "n", "o", "x" }, "<s-l>", "g_", opts)
+-- keymap("n", "<C-space>w", "<cmd>ToggleWrap<cr>", "Toggle wrap")
+-- keymap("n", "?", "<cmd>ClearSearch<cr>", "Clear search")
+-- keymap("i", "<C-h>", "<cmd>SignatureHelp<cr>", "Signature help")
+-- keymap("n", "<leader>q", "<cmd>confirm q<cr>", "Quit")
+-- keymap("n", "<leader>Q", "<cmd>confirm qa<cr>", "Quit all")
+-- keymap("n", "<leader>o", "<cmd>!nu -c 'start %'<cr><cr>", "Open file")
+-- keymap("n", "yp", "<cmd>let @+ = expand('%')<cr><cmd>lua vim.notify('Yanked path: ' .. vim.fn.expand('%'))<cr>", "Yank path of current buffer")
 
--- tailwind bearable to work with
-keymap({ "n", "x" }, "j", "gj", opts)
-keymap({ "n", "x" }, "k", "gk", opts)
-keymap("n", "<leader>w", ":lua vim.wo.wrap = not vim.wo.wrap<CR>", opts)
+        -- yp = {'<cmd>let @+ = expand("%")<cr><cmd>lua vim.notify("Yanked path: " .. vim.fn.expand("%"))<cr>', 'Yank path of current buffer' },
+        -- j = { name = "Json" },
+        -- js = { function() M.command('json-sort') end, 'Json sort' },
+        -- je = { function() M.command('json-expand') end, 'Json expand' },
+        -- n = { function() vim.fn.input('Nushell') end, 'Nushell' },
+        --
 
-keymap("n", "<leader>.", "<cmd>!repeat-below<cr><cr>", opts)
-keymap('v', '/', "\"fy/\\V<c-r>f<cr>ggn")
-
-keymap("n", "?", "<cmd>noh<cr>", opts)
-
-keymap("i", "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+-- keymap('n', '<leader>dw', "<cmd>DiagnoseWorkspace<cr>", "Diagnose Workspace")

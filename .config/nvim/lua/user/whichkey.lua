@@ -12,8 +12,6 @@ end
 
 function M.config()
     local mappings = {
-        q = { "<cmd>confirm q<CR>", "Quit" },
-        Q = { "<cmd>confirm qa<CR>", "Quit all" },
         v = { "<cmd>vsplit<CR>", "Split" },
         f = { name = "Find" },
         G = { name = "Git" },
@@ -24,9 +22,9 @@ function M.config()
         y = { name = "Yank" },
         yp = {'<cmd>let @+ = expand("%")<cr><cmd>lua vim.notify("Yanked path: " .. vim.fn.expand("%"))<cr>', 'Yank path of current buffer' },
         j = { name = "Json" },
-        js = { function() M.command('json-sort') end, 'Json sort' },
-        je = { function() M.command('json-expand') end, 'Json expand' },
-        n = { function() vim.fn.input('Nushell') end, 'Nushell' },
+        -- js = { function() M.command('json-sort') end, 'Json sort' },
+        -- je = { function() M.command('json-expand') end, 'Json expand' },
+        -- n = { function() vim.fn.input('Nushell') end, 'Nushell' },
     }
 
     local which_key = require "which-key"
@@ -100,6 +98,7 @@ function M.config()
     bracket_mapping('q', 'try | cprev | catch | clast | catch | endtry',  'try | cnext | catch | cfirst | catch | endtry', 'quickfix item')
     bracket_mapping('d', 'lua vim.diagnostic.goto_prev()',  'lua vim.diagnostic.goto_next()', 'diagnostic')
     bracket_mapping('g', 'lua require("gitsigns").prev_hunk()', 'lua require("gitsigns").next_hunk()', 'hunk')
+    bracket_mapping('t', 'lua require("trouble").prev({ jump = true })', 'lua require("trouble").next({ jump = true })', 'trouble')
 end
 
 return M

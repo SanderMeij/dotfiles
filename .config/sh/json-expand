@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jq 'to_entries | map(setpath(["tmp"] + (.key | split(".")); .value)) | map(.tmp) | reduce .[] as $item ({}; . * $item)' --indent 4 $1

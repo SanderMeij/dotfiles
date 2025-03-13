@@ -176,6 +176,17 @@ def gitlab-feed [ url: string ] {
     $articles | each {|$article| notify-send $article.title --action="Open" $article.link --expire-time=5000}
 }
 
+def show [ command: string ] {
+    script -q -c $command /dev/null | less -R
+}
+
+def dodo [ ...command: string ] {
+    docker exec -it $env.DOCKER_CONTAINER /bin/sh -c ($command | str join ' ')
+}
+
 $env.PATH = ($env.PATH | prepend "/home/sander/.local/share/fnm")
 load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column '=' | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
+
+$env.PATH = ($env.path | prepend "~/bin")
+$env.DIRENV_LOG_FORMAT = ""

@@ -2,9 +2,8 @@ local M = {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    {
-      "folke/neodev.nvim",
-    },
+    "ray-x/lsp_signature.nvim",
+    "folke/neodev.nvim",
   },
 }
 
@@ -51,13 +50,6 @@ function M.config()
     ["<leader>lq"] = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     ["<leader>lr"] = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     ["<leader>ls"] = { "<cmd>TailwindSort<cr>", "Tailwind sort" },
-  }
-
-  wk.register {
-    ["<leader>la"] = {
-      name = "LSP",
-      a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action", mode = "v" },
-    },
   }
 
   local lspconfig = require "lspconfig"
@@ -133,11 +125,11 @@ function M.config()
       require("neodev").setup {}
     end
 
-    -- if server == "phpactor" or server == "intelephense" then
-    --     opts['root_dir'] = function()
-    --         return vim.fs.dirname(vim.fs.find({'install.lock'}, { upward = true })[1])
-    --     end
-    -- end
+    if server == "phpactor" or server == "intelephense" then
+        opts['root_dir'] = function()
+            return vim.fs.dirname(vim.fs.find({'.env'}, { upward = true })[1])
+        end
+    end
 
     lspconfig[server].setup(opts)
   end
