@@ -16,13 +16,15 @@ vim.api.nvim_create_autocmd("FileType", {
 local function filenameFirst(_, path)
     local tail = vim.fs.basename(path)
     local parent = vim.fs.dirname(path)
-    if parent == "." then return tail end
+    if parent == "." then
+        return tail
+    end
     return string.format("%s\t\t%s", tail, parent)
 end
 
 function M.config()
-    local wk = require "which-key"
-    wk.register {
+    local wk = require("which-key")
+    wk.register({
         -- ["<c-space>"] = { "<cmd>Telescope find_files previewer=false<cr>", "Find files" },
         ["<TAB>"] = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
         ["<leader>fb"] = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
@@ -32,13 +34,12 @@ function M.config()
         -- ["<leader>gg"] = { "<cmd>Telescope git_status<cr>", "Git status" },
         ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
         -- ["<leader><space>"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
-    }
+    })
 
-    local icons = require "user.icons"
-    local actions = require "telescope.actions"
+    local icons = require("user.icons")
+    local actions = require("telescope.actions")
 
-
-    require("telescope").setup {
+    require("telescope").setup({
         defaults = {
             prompt_prefix = icons.ui.Telescope .. " ",
             selection_caret = " ",
@@ -91,7 +92,7 @@ function M.config()
                 previewer = false,
                 hidden = true,
                 file_ignore_patterns = {
-                    '.git',
+                    ".git",
                 },
             },
 
@@ -149,9 +150,7 @@ function M.config()
                         ["s"] = actions.git_staging_toggle,
                     },
                 },
-            }
-
-
+            },
         },
         extensions = {
             fzf = {
@@ -161,7 +160,7 @@ function M.config()
                 case_mode = "smart_case", -- or "ignore_case" or "respect_case"
             },
         },
-    }
+    })
 end
 
 return M

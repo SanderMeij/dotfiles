@@ -11,7 +11,7 @@ def format [values] {
     let color = $colors | get $"($values | get color)"
     let icon = $icons | get $"($values | get type)"
     let message = $"($values | get message)"
-    echo $"#[fg=($colors.surface0)]#[fg=($colors.text),bg=($colors.surface0)] ($message) #[fg=($color)]#[fg=($colors.surface0),bg=($color)] ($icon) #[fg=($color),bg=($colors.background)]"
+    echo $"#[fg=($colors.gray2)]#[fg=($colors.text),bg=($colors.gray2)] ($message) #[fg=($color)]#[fg=($colors.gray2),bg=($color)] ($icon) #[fg=($color),bg=($colors.background)]"
 }
 
 let file = ($nu.home-path | append '/.tmux/notifications.sqlite' | str join "")

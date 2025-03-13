@@ -10,9 +10,9 @@ function M.config()
     --     ["<leader>e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     -- }
 
-    local icons = require "user.icons"
+    local icons = require("user.icons")
 
-    require("nvim-tree").setup {
+    require("nvim-tree").setup({
         hijack_netrw = true,
         sync_root_with_cwd = false,
         view = {
@@ -92,7 +92,7 @@ function M.config()
                 error = icons.diagnostics.BoldError,
             },
         },
-    }
+    })
 end
 
 return M

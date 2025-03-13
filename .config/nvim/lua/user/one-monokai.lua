@@ -5,7 +5,7 @@ local M = {
 }
 
 function M.config()
-    vim.cmd.colorscheme 'one_monokai'
+    vim.cmd.colorscheme("one_monokai")
     require("one_monokai").setup({
         themes = function(colors)
             return {

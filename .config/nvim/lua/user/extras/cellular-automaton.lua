@@ -1,5 +1,5 @@
 local M = {
-  "eandrju/cellular-automaton.nvim",
+    "eandrju/cellular-automaton.nvim",
 }
 
 return M

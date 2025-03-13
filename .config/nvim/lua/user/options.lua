@@ -24,7 +24,7 @@ vim.opt.showtabline = 0 -- Hide tabline unless multiple tabs exist
 vim.opt.sidescrolloff = 8 -- Keep 8 columns of context when scrolling sideways
 vim.opt.signcolumn = "yes" -- Always show the sign column
 vim.opt.termguicolors = true -- Enable 24-bit RGB colors
-vim.opt.winborder = 'rounded' -- Rounded window borders
+vim.opt.winborder = "rounded" -- Rounded window borders
 vim.opt.wrap = false -- Disable line wrapping
 
 -- =============================

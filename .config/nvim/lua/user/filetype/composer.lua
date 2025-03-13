@@ -1,5 +1,5 @@
 vim.filetype.add({
-	pattern = {
-		["composer.lock"] = "json",
-	},
+    pattern = {
+        ["composer.lock"] = "json",
+    },
 })

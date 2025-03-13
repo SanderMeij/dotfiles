@@ -25,22 +25,18 @@ M.config = function()
         minimum_width = 20,
         timeout = 2000,
         render = render,
-        background_colour = "#1e1e2e"
+        background_colour = "#1e1e2e",
     })
-    vim.api.nvim_create_autocmd({ "RecordingEnter" },
-        {
-            callback = function()
-                vim.notify('Recording ' .. vim.fn.reg_recording() .. '..')
-            end,
-        }
-    )
-    vim.api.nvim_create_autocmd({ "RecordingLeave" },
-        {
-            callback = function()
-                vim.notify('Recorded ' .. vim.fn.reg_recording() .. '!')
-            end,
-        }
-    )
+    vim.api.nvim_create_autocmd({ "RecordingEnter" }, {
+        callback = function()
+            vim.notify("Recording " .. vim.fn.reg_recording() .. "..")
+        end,
+    })
+    vim.api.nvim_create_autocmd({ "RecordingLeave" }, {
+        callback = function()
+            vim.notify("Recorded " .. vim.fn.reg_recording() .. "!")
+        end,
+    })
 end
 
 return M

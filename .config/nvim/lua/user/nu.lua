@@ -1,11 +1,11 @@
 return {
-    'LhKipp/nvim-nu',
+    "LhKipp/nvim-nu",
     event = "VeryLazy",
     opts = {},
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
     },
-    build = function ()
-        vim.cmd("TSInstall nu") 
-    end
+    build = function()
+        vim.cmd("TSInstall nu")
+    end,
 }

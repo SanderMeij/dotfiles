@@ -34,21 +34,21 @@ alias ? = echo "Has anyone really been far even as decided to use even go want t
 alias hotchip = echo "BITCHES BORN IN THA 90'S THATS UNDER 25 CAN'T COOK CAN'T CLEAN THEY DON'T WANT TO WORK NOTHING. NIGGAZ THAT'S 31 & OVER GET IN RELATIONSHIPS WITH THEM & WONDER WHY SHIT AIN'T WORKING THAT'S BECAUSE ALL YOUNG BITCHES WANT TO DO IS POP PILLS, SMOKE WEED, GET DRUNK, LAY AROUND, SUCK DICK, EAT HOT CHEETOS, CHARGE THEY PHONE, GET A SEW IN WEAVE TWERK, BE BI SEXUAL, EAT MCDONALD'S, WASH THEY PUSSY IN THA SINK, LIE TAKE SELFIES AND TALK SHIT THRU WIFI CUZ THEY PHONE NEVER ON."
 
 let $colors = (open $"($env.HOME)/.config/colors/colors.json")
-let base00 = $colors.base 
-let base01 = $colors.surface0
-let base02 = $colors.surface1
-let base03 = $colors.surface2
-let base04 = $colors.overlay0
-let base05 = $colors.overlay1
-let base06 = $colors.overlay2
-let base07 = $colors.subtext0
-let base08 = $colors.maroon
-let base09 = $colors.peach
+let base00 = $colors.gray0
+let base01 = $colors.gray1
+let base02 = $colors.gray2
+let base03 = $colors.gray3
+let base04 = $colors.gray4
+let base05 = $colors.gray5
+let base06 = $colors.gray6
+let base07 = $colors.gray7
+let base08 = $colors.gray8
+let base09 = $colors.gray9
 let base0a = $colors.yellow
 let base0b = $colors.green
-let base0c = $colors.teal
-let base0d = $colors.sapphire
-let base0e = $colors.mauve
+let base0c = $colors.cyan
+let base0d = $colors.violet
+let base0e = $colors.magenta
 let base0f = $colors.red
 
 let base16_theme = {
@@ -67,7 +67,7 @@ let base16_theme = {
     nothing: $base08
     binary: $base08
     cellpath: $base08
-    hints: dark_gray
+    hints: $base06
 
     # shape_garbage: { fg: $base07 bg: $base08 attr: b} # base16 white on red
     # but i like the regular white on red for parse errors

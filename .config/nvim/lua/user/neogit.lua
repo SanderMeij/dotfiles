@@ -8,9 +8,10 @@ local M = {
 }
 
 function M.config()
-    local icons = require "user.icons"
+    local icons = require("user.icons")
+    local colors = require("user.colors")
 
-    require("neogit").setup {
+    require("neogit").setup({
         auto_refresh = true,
         disable_builtin_notifications = false,
         use_magit_keybindings = false,
@@ -26,7 +27,10 @@ function M.config()
             item = { icons.ui.ChevronRight, icons.ui.ChevronShortDown },
             hunk = { "", "" },
         },
-    }
+        highlight = vim.tbl_extend("force", colors, {
+            md_purple = colors.primary,
+        }),
+    })
 end
 
 return M

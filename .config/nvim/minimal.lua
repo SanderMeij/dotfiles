@@ -1,1 +1,1 @@
-require "user.minimal"
+require("user.minimal")

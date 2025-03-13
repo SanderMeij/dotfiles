@@ -30,23 +30,23 @@ def create_left_prompt [] {
 
 def left_bubble [content, color, icon] {
     let bubble = [
-        $"(ansi { fg: $color, bg: $colors.base })",
-        $"(ansi { fg: $colors.base, bg: $color })($icon) ",
-        $"(ansi { fg: $color, bg: $colors.surface0 }) "
-        $"(ansi { fg: $colors.text, attr: b })($content) ",
-        $"(ansi { fg: $colors.surface0, bg: $colors.base })"
+        $"(ansi { fg: $color, bg: $colors.gray1 })",
+        $"(ansi { fg: $colors.gray1, bg: $color })($icon) ",
+        $"(ansi { fg: $color, bg: $colors.gray2 }) "
+        $"(ansi { fg: $colors.white, attr: b })($content) ",
+        $"(ansi { fg: $colors.gray2, bg: $colors.gray1})"
     ]
     $bubble | str join ""
 }
 
 def right_bubble [content, color, icon] {
     let bubble = [
-        $"(ansi { fg: $colors.surface0, bg: $colors.base })",
-        $"(ansi { fg: $colors.text, bg: $colors.surface0 }) ",
+        $"(ansi { fg: $colors.gray2, bg: $colors.gray1 })",
+        $"(ansi { fg: $colors.white, bg: $colors.gray2 }) ",
         $"($content) ",
-        $"(ansi { fg: $color, bg: $colors.surface0 })"
-        $"(ansi { fg: $colors.surface0, bg: $color }) ($icon) "
-        $"(ansi { fg: $color, bg: $colors.base })"
+        $"(ansi { fg: $color, bg: $colors.gray2 })"
+        $"(ansi { fg: $colors.gray2, bg: $color }) ($icon) "
+        $"(ansi { fg: $color, bg: $colors.gray1 })"
     ]
     $bubble | str join ""
 }

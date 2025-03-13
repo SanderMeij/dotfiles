@@ -1,7 +1,7 @@
-require "user.launch"
-require "user.options"
+require("user.launch")
+require("user.options")
 
-spec "user.colorscheme"
-spec "user.render-markdown"
+spec("user.colorbuddy")
+spec("user.render-markdown")
 
-require "user.lazy"
+require("user.lazy")

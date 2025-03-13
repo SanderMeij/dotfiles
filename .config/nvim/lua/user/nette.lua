@@ -1,4 +1,4 @@
 return {
-	"fpob/nette.vim",
-	ft = "neon",
+    "fpob/nette.vim",
+    ft = "neon",
 }

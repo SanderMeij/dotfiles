@@ -1,50 +1,109 @@
 M = {
-  "tjdevries/colorbuddy.nvim",
+    "tjdevries/colorbuddy.nvim",
+    lazy = false,
+    priority = 1000,
 }
 
 function M.config()
-    require("colorbuddy").colorscheme('sander')
+    local colorbuddy = require("colorbuddy")
+    colorbuddy.colorscheme("sander")
 
-    local colorbuddy = require('colorbuddy')
     local Color = colorbuddy.Color
     local Group = colorbuddy.Group
-    local c = colorbuddy.colors
-    local g = colorbuddy.groups
-    local s = colorbuddy.styles
 
-    Color.new('white', '#f2e5bc')
-    Color.new('red', '#cc6666')
-    Color.new('pink', '#fef601')
-    Color.new('green', '#99cc99')
-    Color.new('yellow', '#f8fe7a')
-    Color.new('blue', '#81a2be')
-    Color.new('aqua', '#8ec07c')
-    Color.new('cyan', '#8abeb7')
-    Color.new('purple', '#8e6fbd')
-    Color.new('violet', '#b294bb')
-    Color.new('orange', '#de935f')
-    Color.new('brown', '#a3685a')
+    local colors = colorbuddy.colors
+    local groups = colorbuddy.groups
+    local styles = colorbuddy.styles
 
-    Color.new('seagreen', '#698b69')
-    Color.new('turquoise', '#698b69')
+    for label, color in pairs(require("user.colors")) do
+        Color.new(label, color)
+    end
 
-    local background_string = "#111111"
-    Color.new("background", background_string)
-    Color.new("gray0", background_string)
+    Group.new("Invisble", colors.gray1)
+    Group.new("Primary", colors.primary)
+    Group.new("Secondary", colors.secondary)
+    Group.new("DimmedGreen", colors.dimmed_green)
+    Group.new("DimmedCyan", colors.dimmed_cyan)
+    Group.new("DimmedBlue", colors.dimmed_blue)
+    Group.new("DimmedViolet", colors.dimmed_violet)
+    Group.new("DimmedMagenta", colors.dimmed_magenta)
+    Group.new("DimmedRed", colors.dimmed_red)
+    Group.new("DimmedOrange", colors.dimmed_orange)
+    Group.new("DimmedYellow", colors.dimmed_yellow)
 
-    Group.new("Normal", c.superwhite, c.gray0)
+    Group.new("LineNr", colors.gray3, colors.gray0)
+    Group.new("Normal", colors.foreground, colors.gray1)
+    Group.new("PMenuSel", colors.gray1, colors.primary)
+    Group.new("Special", colors.cyan)
+    Group.new("WinBarNC", colors.foreground, colors.black)
+    Group.new("Visual", nil, colors.gray3)
+    Group.new("FloatBorder", colors.gray6)
+    Group.new("CurSearch", colors.gray1, colors.primary)
+    Group.new("Search", nil, colors.gray6)
 
-    Group.new("@constant", c.orange, nil, s.none)
-    Group.new("@function", c.yellow, nil, s.none)
-    Group.new("@function.bracket", g.Normal, g.Normal)
-    Group.new("@keyword", c.violet, nil, s.none)
-    Group.new("@keyword.faded", g.nontext.fg:light(), nil, s.none)
-    Group.new("@property", c.blue)
-    Group.new("@variable", c.superwhite, nil)
-    Group.new("@variable.builtin", c.purple:light():light(), g.Normal)
+    Group.new("Background", groups.Normal)
+    Group.new("NormalFloat", groups.Normal)
+    Group.new("MsgArea", groups.Normal)
+    Group.new("PMenu", groups.NormalFloat)
+    Group.new("WinBar", colors.foreground, colors.gray0)
 
-    -- I've always liked lua function calls to be blue. I don't know why.
-    Group.new("@function.call.lua", c.blue:dark(), nil, nil)
+    Group.new("Added", colors.green)
+    Group.new("DiffAdded", groups.Added)
+    Group.new("Changed", colors.yellow)
+    Group.new("DiffChanged", groups.changed)
+    Group.new("Removed", colors.red)
+    Group.new("DiffRemoved", groups.removed)
+
+    Group.new("WarningMsg", colors.yellow)
+    Group.new("ErrorMsg", colors.red)
+    Group.new("ModeMsg", colors.green)
+    Group.new("MoreMsg", colors.blue)
+
+    Group.new("DiagnosticOk", colors.green)
+    Group.new("DiagnosticHint", colors.cyan)
+    Group.new("DiagnosticInfo", colors.blue)
+    Group.new("DiagnosticWarn", colors.yellow)
+    Group.new("DiagnosticError", colors.red)
+
+    Group.new("Comment", colors.gray6)
+    Group.new("Constant", colors.red) -- any constant
+    Group.new("String", colors.green) -- a string constant: "this is a string"
+    Group.new("Character", colors.green) -- a character constant: 'p', '\n'
+    Group.new("Number", colors.magenta) -- a number constant: 234, 0xff
+    Group.new("Boolean", colors.yellow)
+    Group.new("Float", colors.magenta) -- a floating point constant: 2.3e10
+    Group.new("Identifier", colors.fg)
+    Group.new("Function", colors.blue)
+    Group.new("Statement", colors.fg) -- any statement
+    Group.new("Conditional", colors.blue) -- if, then, else, endif, switch, etc.
+    Group.new("Repeat", colors.purple) -- for, do, while, etc.
+    Group.new("Label", colors.purple) -- case, default, etc.
+    Group.new("Operator", colors.yellow) -- sizeof", "+", "*", etc.
+    Group.new("Keyword", colors.purple)
+    Group.new("Exception", colors.purple) -- try, catch, throw
+    Group.new("PreProc", colors.red) -- generic Preprocessor
+    Group.new("Include", colors.purple) -- preprocessor #include
+    Group.new("Define", colors.red) -- preprocessor #define
+    Group.new("Macro", colors.red) -- same as Define
+    Group.new("PreCondit", colors.red) -- preprocessor #if, #else, #endif, etc.
+    Group.new("Type", colors.yellow) -- int, long, char, etc.
+    Group.new("StorageClass", colors.yellow) -- static, register, volatile, etc.
+    Group.new("Structure", colors.red) -- struct, union, enum, etc.
+    Group.new("Typedef", colors.yellow) -- A typedef
+    Group.new("Special", colors.blue) -- any special symbol
+    Group.new("SpecialChar", colors.yellow) -- special character in a constant
+    Group.new("Tag", colors.yellow) -- you can use CTRL-] on this
+    Group.new("SpecialComment", colors.subtext4) -- special things inside a comment
+    Group.new("Debug", colors.yellow) -- debugging statements
+    Group.new("Error", colors.orange) -- any erroneous construct
+    Group.new("Todo", colors.yellow) -- anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+
+    Group.new("@type.phpdoc", colors.dimmed_yellow)
+    Group.new("@attribute.phpdoc", colors.dimmed_red)
+    Group.new("@keyword.phpdoc", colors.dimmed_red)
+    Group.new("@variable.phpdoc", groups.comment)
+    Group.new("@variable.member.phpdoc", groups.comment)
+    Group.new("@variable.parameter.phpdoc", groups.comment)
 end
 
 return M

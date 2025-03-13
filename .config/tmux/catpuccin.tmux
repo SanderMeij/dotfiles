@@ -57,14 +57,14 @@ background_primary="#{?client_prefix,#[bg=$active],#[bg=$primary]}#[fg=$base,bol
 foreground_primary="#{?client_prefix,#[fg=$active],#[fg=$primary]}#[bg=$base,bold]"
 background_secondary="#[fg=$base,bg=$secondary]"
 foreground_secondary="#[fg=$secondary,bg=$background]"
-background_gray="#[fg=$text,bg=$surface0]"
-foreground_gray="#[fg=$surface0,bg=$background]"
+background_gray="#[fg=$text,bg=$gray2]"
+foreground_gray="#[fg=$gray2,bg=$background]"
 
 # Left
 set-option -gq "status-left" ""
 set-window-option -g window-status-separator " "
-set-option -gq "window-status-format" "${foreground_secondary}${background_secondary}#I #[fg=$secondary,bg=$surface0]${background_gray} #W ${foreground_gray}"
-set-option -gq "window-status-current-format" "${foreground_primary}${background_primary}#I ${foreground_primary}#[bg=$surface0]${background_gray} #W ${foreground_gray}"
+set-option -gq "window-status-format" "${foreground_secondary}${background_secondary}#I #[fg=$secondary,bg=$gray2]${background_gray} #W ${foreground_gray}"
+set-option -gq "window-status-current-format" "${foreground_primary}${background_primary}#I ${foreground_primary}#[bg=$gray2]${background_gray} #W ${foreground_gray}"
 
 # Right
-set-option -gq "status-right" "${foreground_gray}${background_gray} #{s|+|$|:#{s|$HOME|~>|:#{session_path}}}${foreground_primary}#[bg=$surface0] ${background_primary}  ${foreground_primary}"
+set-option -gq "status-right" "${foreground_gray}${background_gray} #{s|+|$|:#{s|$HOME|~>|:#{session_path}}}${foreground_primary}#[bg=$gray2] ${background_primary}  ${foreground_primary}"

@@ -6,5 +6,4 @@
 .composer/vendor/*
 
 keyd
-pkl
 .env

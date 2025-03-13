@@ -1,20 +1,19 @@
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-	callback = function()
-		vim.cmd("set formatoptions-=cro")
-	end,
+    callback = function()
+        vim.cmd("set formatoptions-=cro")
+    end,
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-	callback = function()
-		vim.highlight.on_yank({ higroup = "Visual", timeout = 40 })
-	end,
+    callback = function()
+        vim.highlight.on_yank({ higroup = "Visual", timeout = 40 })
+    end,
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "gitcommit", "markdown", "NeogitCommitMessage" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = false
-	end,
+    pattern = { "gitcommit", "markdown", "NeogitCommitMessage" },
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.spell = false
+    end,
 })
-

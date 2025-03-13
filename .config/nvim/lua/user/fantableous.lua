@@ -1,3 +1,3 @@
 return {
-	"qaptoR-nvim/fantableous.nvim",
+    "qaptoR-nvim/fantableous.nvim",
 }

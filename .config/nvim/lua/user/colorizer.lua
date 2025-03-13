@@ -1,17 +1,27 @@
 M = {
-	"brenoprata10/nvim-highlight-colors",
+    "brenoprata10/nvim-highlight-colors",
 }
 
-local custom_colors = {}
-for label, color in pairs(require("user.colors")) do
-	table.insert(custom_colors, {
-		label = "colors." .. label,
-		color = color,
-	})
+M.config = function()
+    local icons = require("user.icons")
+
+    local custom_colors = {}
+    for label, color in pairs(require("user.colors")) do
+        table.insert(custom_colors, {
+            label = "colors." .. label,
+            color = color,
+        })
+    end
+
+    require("nvim-highlight-colors").setup({
+        custom_colors = custom_colors,
+        enable_named_colors = false,
+        render = "virtual",
+        virtual_symbol = icons.misc.Heart,
+        virtual_symbol_position = "eow",
+        virtual_symbol_prefix = " ",
+        virtual_symbol_suffix = "",
+    })
 end
-
-M.opts = {
-	custom_colors = custom_colors,
-}
 
 return M
