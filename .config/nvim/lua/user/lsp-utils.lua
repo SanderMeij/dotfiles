@@ -20,7 +20,7 @@ function M.on_attach(client, bufnr)
   -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
   vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
   -- vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts)
-  vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+  -- vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
 
   vim.keymap.set("n", "gd", "<cmd>Glance definitions<CR>", opts)
   vim.keymap.set("n", "gt", "<cmd>Glance type_definitions<CR>", opts)

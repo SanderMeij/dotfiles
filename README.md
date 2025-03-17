@@ -3,6 +3,7 @@
     -[x] Create a watch buffer utilizing Nushell and Neovim
     -[ ] oldworld.nvim
     -[ ] oil no lsp
+    -[ ] csvview.nvim
 
 ## Neovim
     - Fzf lua + frecency algorithm
