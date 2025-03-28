@@ -1,127 +1,151 @@
 local M = {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-        {
-            "hrsh7th/cmp-nvim-lsp",
-        },
-        {
-            "hrsh7th/cmp-buffer",
-            event = "InsertEnter",
-        },
-        {
-            "hrsh7th/cmp-path",
-            event = "InsertEnter",
-        },
-        {
-            "hrsh7th/cmp-cmdline",
-            event = "InsertEnter",
-        },
-        {
-            "hrsh7th/cmp-nvim-lua",
-            event = "InsertEnter",
-        },
-        {
-            "hrsh7th/cmp-calc",
-            event = "InsertEnter",
-        },
-        {
-            "Exafunction/codeium.nvim",
-            cmd = "Codeium",
-            build = ":Codeium Auth",
-            opts = {},
-        },
-    },
+	'saghen/blink.cmp',
+	version = '*',
+	dependencies = {
+		{
+			'Exafunction/codeium.nvim',
+			cmd = 'Codeium',
+			build = ':Codeium Auth',
+			opts = {
+				enable_cmp_source = false,
+			},
+		},
+	},
+
+	opts_extend = { 'sources.default' },
 }
 
-function M.config()
-    local cmp = require("cmp")
-    local icons = require("user.icons")
+M.opts = {
+	-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+	-- 'super-tab' for mappings similar to vscode (tab to accept)
+	-- 'enter' for enter to accept
+	-- 'none' for no mappings
+	--
+	-- All presets have the following mappings:
+	-- C-space: Open menu or open docs if already open
+	-- C-n/C-p or Up/Down: Select next/previous item
+	-- C-e: Hide menu
+	-- C-k: Toggle signature help (if signature.enabled = true)
+	--
+	-- See :h blink-cmp-config-keymap for defining your own keymap
+	keymap = { preset = "default" },
 
-    vim.api.nvim_set_hl(0, "Codeium", { fg = "#1ae4c7" })
+	appearance = {
+		-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+		-- Adjusts spacing to ensure icons are aligned
+		nerd_font_variant = "mono",
+	},
 
-    cmp.setup({
-        enabled = function()
-            return vim.bo.filetype ~= "oil"
-        end,
-        mapping = cmp.mapping.preset.insert({
-            ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-            ["<C-e>"] = cmp.mapping({
-                i = cmp.mapping.abort(),
-                c = cmp.mapping.close(),
-            }),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        }),
-        formatting = {
-            fields = { "kind", "abbr", "menu" },
-            expandable_indicator = true,
-            format = function(entry, vim_item)
-                vim_item.kind = icons.kind[vim_item.kind]
-                if entry.source.name == "codeium" then
-                    vim_item.kind = icons.misc.Robot
-                    vim_item.kind_hl_group = "Codeium"
-                end
-                if entry.source.name == "buffer" then
-                    vim_item.kind = icons.apps.Vim
-                end
-                if entry.source.name == "calc" then
-                    vim_item.kind = icons.misc.Calculator
-                end
+	-- (Default) Only show the documentation popup when manually triggered
+	completion = { documentation = { auto_show = true } },
 
-                return vim_item
-            end,
-        },
-        sources = {
-            {
-                name = "codeium",
-                max_item_count = 1,
-            },
-            { name = "nvim_lsp" },
-            { name = "nvim_lua" },
-            { name = "buffer" },
-            { name = "path" },
-            { name = "calc" },
-        },
-        confirm_opts = {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-        },
-        window = {
-            completion = {
-                border = "rounded",
-                col_offset = -4,
-                scrollbar = false,
-            },
-            documentation = {
-                border = "rounded",
-            },
-        },
-        experimental = {
-            ghost_text = false,
-        },
-    })
+	-- Default list of enabled providers defined so that you can extend it
+	-- elsewhere in your config, without redefining it, due to `opts_extend`
+	sources = {
+		default = { "lsp", "path", "snippets", "buffer" },
+	},
 
-    -- Disable to keep default vim of cycling history
-    local cmdLineMapping = cmp.mapping.preset.cmdline()
-    cmdLineMapping["<C-N>"] = nil
-    cmdLineMapping["<C-P>"] = nil
+	-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+	-- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+	-- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+	--
+	-- See the fuzzy documentation for more information
+	fuzzy = { implementation = "prefer_rust_with_warning" },
 
-    cmp.setup.cmdline("/", {
-        mapping = cmdLineMapping,
-        sources = {
-            { name = "buffer" },
-        },
-    })
+    cmdline = {
+        enabled = true
+    }
+}
 
-    cmp.setup.cmdline(":", {
-        mapping = cmdLineMapping,
-        sources = cmp.config.sources({
-            { name = "path" },
-        }, {
-            {
-                name = "cmdline",
-            },
-        }),
-    })
-end
+-- function M.config()
+-- local cmp = require("cmp")
+-- local icons = require("user.icons")
+--
+-- vim.api.nvim_set_hl(0, "Codeium", { fg = "#1ae4c7" })
+--
+-- cmp.setup({
+--     enabled = function()
+--         return vim.bo.filetype ~= "oil"
+--     end,
+--     mapping = cmp.mapping.preset.insert({
+--         ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+--         ["<C-e>"] = cmp.mapping({
+--             i = cmp.mapping.abort(),
+--             c = cmp.mapping.close(),
+--         }),
+--         ["<CR>"] = cmp.mapping.confirm({ select = true }),
+--     }),
+--     formatting = {
+--         fields = { "kind", "abbr", "menu" },
+--         expandable_indicator = true,
+--         format = function(entry, vim_item)
+--             vim_item.kind = icons.kind[vim_item.kind]
+--             if entry.source.name == "codeium" then
+--                 vim_item.kind = icons.misc.Robot
+--                 vim_item.kind_hl_group = "Codeium"
+--             end
+--             if entry.source.name == "buffer" then
+--                 vim_item.kind = icons.apps.Vim
+--             end
+--             if entry.source.name == "calc" then
+--                 vim_item.kind = icons.misc.Calculator
+--             end
+--
+--             return vim_item
+--         end,
+--     },
+--     sources = {
+--         {
+--             name = "codeium",
+--             max_item_count = 1,
+--         },
+--         { name = "nvim_lsp" },
+--         { name = "nvim_lua" },
+--         { name = "buffer" },
+--         { name = "path" },
+--         { name = "calc" },
+--     },
+--     confirm_opts = {
+--         behavior = cmp.ConfirmBehavior.Replace,
+--         select = false,
+--     },
+--     window = {
+--         completion = {
+--             border = "rounded",
+--             col_offset = -4,
+--             scrollbar = false,
+--         },
+--         documentation = {
+--             border = "rounded",
+--         },
+--     },
+--     experimental = {
+--         ghost_text = false,
+--     },
+-- })
+--
+-- -- Disable to keep default vim of cycling history
+-- local cmdLineMapping = cmp.mapping.preset.cmdline()
+-- cmdLineMapping["<C-N>"] = nil
+-- cmdLineMapping["<C-P>"] = nil
+--
+-- cmp.setup.cmdline("/", {
+--     mapping = cmdLineMapping,
+--     sources = {
+--         { name = "buffer" },
+--     },
+-- })
+--
+-- cmp.setup.cmdline(":", {
+--     mapping = cmdLineMapping,
+--     sources = cmp.config.sources({
+--         { name = "path" },
+--     }, {
+--         {
+--             name = "cmdline",
+--         },
+--     }),
+-- })
+-- end
 
 return M

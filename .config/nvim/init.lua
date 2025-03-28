@@ -9,7 +9,7 @@ spec("user.colorscheme")
 spec("user.auto-save") -- Auto save files
 spec("user.autopairs") -- Add ) when typing (
 spec("user.breadcrumbs") -- Show context on top of buffer
-spec("user.cmp") -- Completion
+spec("user.cmp") -- Completion. TODO look into blink.cmp (Doesn't work with Codeium though)
 spec("user.colorizer") -- Show color of color codes
 spec("user.devicons") -- Icons for filetypes
 spec("user.eyeliner") -- Highlight potential jumps for f
