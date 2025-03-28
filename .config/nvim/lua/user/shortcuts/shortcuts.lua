@@ -6,6 +6,7 @@ local M = {}
 M.shortcut = function(name, keymap, command, desc, opts)
 	vim.api.nvim_create_user_command(name, command, {
 		desc = desc,
+        nargs = '*',
 	})
 
 	vim.keymap.set("n", keymap, function()

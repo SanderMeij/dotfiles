@@ -9,28 +9,19 @@ local M = {
 
 function M.config()
     local icons = require "user.icons"
-    local wk = require "which-key"
-    wk.register {
-        ["<leader>gg"] = { "<cmd>Neogit<CR>", "Neogit" },
-    }
 
     require("neogit").setup {
         auto_refresh = true,
         disable_builtin_notifications = false,
         use_magit_keybindings = false,
-        -- Change the default way of opening neogit
-        kind = "tab",
-        -- Change the default way of opening the commit popup
+        kind = "floating",
         commit_popup = {
-            kind = "split",
+            kind = "floating",
         },
-        -- Change the default way of opening popups
         popup = {
-            kind = "split",
+            kind = "floating",
         },
-        -- customize displayed signs
         signs = {
-            -- { CLOSED, OPENED }
             section = { icons.ui.ChevronRight, icons.ui.ChevronShortDown },
             item = { icons.ui.ChevronRight, icons.ui.ChevronShortDown },
             hunk = { "", "" },

@@ -1,7 +1,9 @@
 local shortcuts = require("user.shortcuts.shortcuts")
 
-shortcuts.spec("user.shortcuts.watch")
+shortcuts.spec("user.shortcuts.files")
 shortcuts.spec("user.shortcuts.filetype")
+shortcuts.spec("user.shortcuts.grep")
+shortcuts.spec("user.shortcuts.watch")
 
 shortcuts.shortcut("ToggleWrap", "<leader>tw", function()
 	vim.wo.wrap = not vim.wo.wrap
@@ -14,6 +16,15 @@ shortcuts.shortcut(
 	"Clear search highlights",
 	{ disabled = { "nohlsearch", "nohls" } }
 )
+
+shortcuts.shortcut("FormatFile", "<leader>lf", function()
+	vim.lsp.buf.format({
+		async = true,
+		filter = function(client)
+			return client.name ~= "intelephense"
+		end,
+	})
+end, "Format file")
 
 shortcuts.shortcut("SignatureHelp", "<leader>sh", function()
 	vim.lsp.buf.signature_help()
@@ -28,13 +39,39 @@ shortcuts.shortcut("YankPath", "<leader>yp", function()
 	print("Yanked path: " .. vim.fn.expand("%"))
 end, "Yank path of current buffer")
 
-shortcuts.shortcut("JsonSort", "<leader>js", "%! ~/bin/jqsort", "Sort json")
-
-shortcuts.shortcut("JsonExpand", "<leader>je", "%! ~/bin/jqexpand", "Expand json")
-
-shortcuts.shortcut("NewBuffer", "<leader>bn", "enew", "New buffer", { disabled = { "ene", "enew" }} )
+shortcuts.shortcut("NewBuffer", "<leader>bn", "enew", "New buffer", { disabled = { "ene", "enew" } })
 shortcuts.shortcut("DeleteBuffer", "<leader>bd", "confirm bdelete", "Delete buffer", { disabled = { "bd", "bd!" } })
 shortcuts.shortcut("RefreshBuffer", "<leader>br", "confirm edit", "Refresh buffer")
+
+shortcuts.shortcut("Explore", "<leader>e", function()
+	require("oil").open_float()
+end, "Open File Explorer")
+
+shortcuts.shortcut("Git", "<leader>gg", function()
+    require("neogit").open()
+end, "Open Git status")
+
+shortcuts.shortcut("StageHunk", "<leader>gs", function()
+	require("gitsigns").stage_hunk()
+end)
+shortcuts.shortcut("UnstageHunk", "<leader>gu", function()
+	require("gitsigns").undo_stage_hunk()
+end)
+shortcuts.shortcut("PreviewHunk", "<leader>gp", function()
+	require("gitsigns").preview_hunk()
+end)
+shortcuts.shortcut("ResetHunk", "<leader>gr", function()
+	require("gitsigns").reset_hunk()
+end)
+shortcuts.shortcut("StageBuffer", "<leader>gS", function()
+	require("gitsigns").stage_buffer()
+end)
+shortcuts.shortcut("UnstageBuffer", "<leader>gU", function()
+	require("gitsigns").reset_buffer_index()
+end)
+shortcuts.shortcut("GitQuickFix", "<leader>gq", function()
+    require("gitsigns").setqflist()
+end)
 
 shortcuts.shortcut("DiagnoseWorkspace", "<leader>dw", function()
 	print("Populating workspace diagnostics...")
@@ -44,5 +81,9 @@ shortcuts.shortcut("DiagnoseWorkspace", "<leader>dw", function()
 	print("Done!")
 	require("trouble").open("diagnostics")
 end, "Diagnose workspace")
+
+shortcuts.shortcut("MakeItRain", "<leader>?m", "CellularAutomaton make_it_rain", "Make it rain!")
+shortcuts.shortcut("GameOfLife", "<leader>?g", "CellularAutomaton game_of_life", "Game of life!")
+shortcuts.shortcut("Scramble", "<leader>?s", "CellularAutomaton scramble", "Scramble!")
 
 shortcuts.init()

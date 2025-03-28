@@ -1,27 +1,10 @@
 local M = {
   "lewis6991/gitsigns.nvim",
-  event = "BufEnter",
-  cmd = "Gitsigns",
+  event = "BufEnter"
 }
+
 M.config = function()
   local icons = require "user.icons"
-
-  local wk = require "which-key"
-  wk.register {
-    ["<leader>gp"] = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-    ["<leader>gr"] = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-    ["<leader>gl"] = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-    ["<leader>gR"] = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-    ["<leader>gs"] = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-    ["<leader>gu"] = {
-      "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
-      "Undo Stage Hunk",
-    },
-    ["<leader>gd"] = {
-      "<cmd>Gitsigns diffthis HEAD<cr>",
-      "Git Diff",
-    },
-  }
 
   require("gitsigns").setup {
     signs = {
@@ -56,6 +39,7 @@ M.config = function()
       row = 0,
       col = 1,
     },
+    current_line_blame = true,
   }
 end
 

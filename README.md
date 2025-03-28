@@ -2,8 +2,9 @@
     -[x] Fix tmux urls
     -[x] Create a watch buffer utilizing Nushell and Neovim
     -[ ] oldworld.nvim
-    -[ ] oil no lsp
+    -[x] oil no lsp
     -[ ] csvview.nvim
+    -[ ] json null-ls code actions
 
 ## Neovim
     - Fzf lua + frecency algorithm

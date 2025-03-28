@@ -1,7 +1,7 @@
-local function keymap(mode, lhs, rhs, desc)
-    local opts = { noremap = true, silent = true }
-    if desc then
-        opts.desc = desc
+local function keymap(mode, lhs, rhs, opts)
+    local default_opts = { noremap = true, silent = true }
+    if opts then
+        opts = vim.tbl_extend("force", default_opts, opts)
     end
     vim.keymap.set(mode, lhs, rhs, opts)
 end
@@ -26,6 +26,9 @@ keymap("x", "p", [["_dP]])
 
 keymap({ "n", "x" }, "j", "gj")
 keymap({ "n", "x" }, "k", "gk")
+
+keymap("n", "<leader>/", "gcc", { remap = true })
+keymap("v", "<leader>/", "gc", { remap = true })
 
 -- keymap("n", "<C-space>w", "<cmd>ToggleWrap<cr>", "Toggle wrap")
 -- keymap("n", "?", "<cmd>ClearSearch<cr>", "Clear search")

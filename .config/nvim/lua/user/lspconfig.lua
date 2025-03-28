@@ -40,10 +40,10 @@ function M.config()
   local wk = require "which-key"
   wk.register {
     ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-    ["<leader>lf"] = {
-      "<cmd>lua vim.lsp.buf.format({async = true, filter = function(client) return client.name ~= 'typescript-tools' end})<cr>",
-      "Format",
-    },
+    -- ["<leader>lf"] = {
+    --   "<cmd>lua vim.lsp.buf.format({async = true})<cr>",
+    --   "Format",
+    -- },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", "Info" },
     ["<leader>lh"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
     ["<leader>ll"] = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
@@ -65,7 +65,7 @@ function M.config()
     "bashls",
     "jsonls",
     "yamlls",
-    "phpactor",
+    -- "phpactor",
     "intelephense",
     "gopls",
     "tailwindcss",
