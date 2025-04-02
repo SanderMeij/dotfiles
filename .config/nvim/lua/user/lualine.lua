@@ -104,6 +104,10 @@ local function get_attached_clients()
 	return language_servers
 end
 
+function gitlab()
+    return vim.o.gitlabstatus
+end
+
 function M.config()
 	require("lualine").setup({
 		options = {
@@ -120,7 +124,7 @@ function M.config()
 			},
 			lualine_b = { { "filename", path = 1 } },
 			lualine_c = { "branch", 'diff', "diagnostics" },
-			lualine_x = {},
+			lualine_x = { gitlab },
 			lualine_y = { "filetype", "progress" },
 			lualine_z = {
 				{ "location", separator = { left = "", right = "" }, left_padding = 2 },

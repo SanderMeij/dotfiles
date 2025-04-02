@@ -13,11 +13,13 @@ spec("user.cmp") -- Completion. TODO look into blink.cmp (Doesn't work with Code
 spec("user.colorizer") -- Show color of color codes
 spec("user.devicons") -- Icons for filetypes
 spec("user.eyeliner") -- Highlight potential jumps for f
+spec("user.fidget") -- Spinner and progress notifications
 spec("user.fzf") -- Fuzzy finder
 spec("user.gitsigns") -- Git functionality for current buffer
 spec("user.illuminate") -- Highlight matching words
 spec("user.indentline") -- Show indentation level
-spec("user.lsp-virtual-improved") -- Only show diagnostics for current line
+spec("user.lspconfig") -- Lsp config
+spec("user.lualine") -- Better statusline
 spec("user.mason") -- Install tools
 spec("user.neogit") -- Git plugin
 spec("user.neoscroll") -- Smooth scrolling
@@ -34,15 +36,15 @@ spec("user.ufo") -- Better folding
 spec("user.workspace-diagnostics") -- Analyze complete workspace
 
 spec("user.blade") -- Blade php file support
+spec("user.gitlab") -- Gitlab Duo Integration
+spec("user.nette") -- Nette support, only used for neon files
 spec("user.pkl") -- Pkl support
 spec("user.render-markdown") -- Improve markdown support
 spec("user.tailwind-tools") -- Tailwind tools
-spec("user.lualine") -- Better statusline
 
 -- TODO --
 spec("user.telescope") -- TODO remove
 spec("user.whichkey") -- TODO remove
-spec("user.lspconfig") -- TODO look into this more
 
 spec("user.extras.cellular-automaton")
 

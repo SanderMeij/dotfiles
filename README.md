@@ -4,7 +4,7 @@
     -[ ] oldworld.nvim
     -[x] oil no lsp
     -[ ] csvview.nvim
-    -[ ] json null-ls code actions
+    -[x] json null-ls code actions
 
 ## Neovim
     - Fzf lua + frecency algorithm

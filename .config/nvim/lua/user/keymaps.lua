@@ -30,6 +30,8 @@ keymap({ "n", "x" }, "k", "gk")
 keymap("n", "<leader>/", "gcc", { remap = true })
 keymap("v", "<leader>/", "gc", { remap = true })
 
+keymap("i", "<C-h>", function() require('lsp_signature').toggle_float_win() end)
+
 -- keymap("n", "<C-space>w", "<cmd>ToggleWrap<cr>", "Toggle wrap")
 -- keymap("n", "?", "<cmd>ClearSearch<cr>", "Clear search")
 -- keymap("i", "<C-h>", "<cmd>SignatureHelp<cr>", "Signature help")

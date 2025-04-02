@@ -31,7 +31,9 @@ end
 
 M.spec = function(path)
 	local spec = require(path)
-	M.shortcut(spec.name, spec.keymap, spec.command, spec.desc)
+    for _, shortcut in ipairs(spec) do
+       M.shortcut(shortcut.name, shortcut.keymap, shortcut.command, shortcut.desc)
+    end
 end
 
 M.init = function()

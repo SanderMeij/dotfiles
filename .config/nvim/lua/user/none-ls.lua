@@ -16,7 +16,7 @@ function M.config()
     }
 
 	null_ls.setup({
-		debug = false,
+		debug = true,
 		sources = {
 			formatting.stylua,
 			formatting.prettier,

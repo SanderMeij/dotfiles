@@ -1,9 +1,8 @@
 local shortcuts = require("user.shortcuts.shortcuts")
 
-shortcuts.spec("user.shortcuts.files")
+shortcuts.spec("user.shortcuts.fzf")
 shortcuts.spec("user.shortcuts.filetype")
-shortcuts.spec("user.shortcuts.grep")
-shortcuts.spec("user.shortcuts.watch")
+shortcuts.spec("user.shortcuts.lsp")
 
 shortcuts.shortcut("ToggleWrap", "<leader>tw", function()
 	vim.wo.wrap = not vim.wo.wrap
@@ -48,7 +47,7 @@ shortcuts.shortcut("Explore", "<leader>e", function()
 end, "Open File Explorer")
 
 shortcuts.shortcut("Git", "<leader>gg", function()
-    require("neogit").open()
+	require("neogit").open()
 end, "Open Git status")
 
 shortcuts.shortcut("StageHunk", "<leader>gs", function()
@@ -63,6 +62,11 @@ end)
 shortcuts.shortcut("ResetHunk", "<leader>gr", function()
 	require("gitsigns").reset_hunk()
 end)
+
+shortcuts.shortcut("BlameHunk", "<leader>gl", function ()
+    require("gitsigns").blame_line()
+end)
+
 shortcuts.shortcut("StageBuffer", "<leader>gS", function()
 	require("gitsigns").stage_buffer()
 end)
@@ -70,7 +74,7 @@ shortcuts.shortcut("UnstageBuffer", "<leader>gU", function()
 	require("gitsigns").reset_buffer_index()
 end)
 shortcuts.shortcut("GitQuickFix", "<leader>gq", function()
-    require("gitsigns").setqflist()
+	require("gitsigns").setqflist()
 end)
 
 shortcuts.shortcut("DiagnoseWorkspace", "<leader>dw", function()

@@ -1,34 +1,27 @@
 local M = {
-	'saghen/blink.cmp',
-	version = '*',
+	"saghen/blink.cmp",
+	version = "*",
 	dependencies = {
 		{
-			'Exafunction/codeium.nvim',
-			cmd = 'Codeium',
-			build = ':Codeium Auth',
+			"folke/lazydev.nvim",
+			ft = "lua",
 			opts = {
-				enable_cmp_source = false,
+				library = {
+					{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				},
 			},
 		},
 	},
 
-	opts_extend = { 'sources.default' },
+	opts_extend = { "sources.default" },
 }
 
 M.opts = {
-	-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-	-- 'super-tab' for mappings similar to vscode (tab to accept)
-	-- 'enter' for enter to accept
-	-- 'none' for no mappings
-	--
-	-- All presets have the following mappings:
-	-- C-space: Open menu or open docs if already open
-	-- C-n/C-p or Up/Down: Select next/previous item
-	-- C-e: Hide menu
-	-- C-k: Toggle signature help (if signature.enabled = true)
-	--
-	-- See :h blink-cmp-config-keymap for defining your own keymap
-	keymap = { preset = "default" },
+	keymap = {
+		preset = "default",
+		["<C-l>"] = { "select_and_accept" },
+        ["<C-f>"] = { "fallback" }
+	},
 
 	appearance = {
 		-- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -37,12 +30,33 @@ M.opts = {
 	},
 
 	-- (Default) Only show the documentation popup when manually triggered
-	completion = { documentation = { auto_show = true } },
+	completion = {
+		documentation = {
+			auto_show = true,
+			auto_show_delay_ms = 1000,
+			window = {
+				border = "rounded",
+				scrollbar = false,
+			},
+		},
+		menu = {
+			border = "rounded",
+			scrollbar = false,
+		},
+	},
 
 	-- Default list of enabled providers defined so that you can extend it
 	-- elsewhere in your config, without redefining it, due to `opts_extend`
 	sources = {
-		default = { "lsp", "path", "snippets", "buffer" },
+		default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+		providers = {
+			lazydev = {
+				name = "LazyDev",
+				module = "lazydev.integrations.blink",
+				-- make lazydev completions top priority (see `:h blink.cmp`)
+				score_offset = 100,
+			},
+		},
 	},
 
 	-- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -52,9 +66,13 @@ M.opts = {
 	-- See the fuzzy documentation for more information
 	fuzzy = { implementation = "prefer_rust_with_warning" },
 
-    cmdline = {
-        enabled = true
-    }
+	cmdline = {
+		enabled = true,
+		keymap = {
+			["<C-l>"] = { "select_and_accept" },
+		},
+		completion = { menu = { auto_show = true } },
+	},
 }
 
 -- function M.config()
