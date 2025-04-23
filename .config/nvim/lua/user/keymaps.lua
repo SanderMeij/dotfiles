@@ -27,6 +27,9 @@ keymap("x", "p", [["_dP]])
 keymap({ "n", "x" }, "j", "gj")
 keymap({ "n", "x" }, "k", "gk")
 
+keymap("n", "(", "<C-o>")
+keymap("n", ")", "<C-i>")
+
 keymap("n", "<leader>/", "gcc", { remap = true })
 keymap("v", "<leader>/", "gc", { remap = true })
 

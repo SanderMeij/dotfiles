@@ -20,6 +20,7 @@ function M.config()
         "jsonls",
         "lua_ls",
         "pyright",
+        "rust_analyzer",
         "tailwindcss",
         "ts_ls",
         "volar",
@@ -37,16 +38,16 @@ function M.config()
         },
         virtual_text = {
             current_line = true,
-            severity = {
-                max = vim.diagnostic.severity.WARN,
-            },
+            -- severity = {
+            --     max = vim.diagnostic.severity.WARN,
+            -- },
         },
-        virtual_lines = {
-            current_line = true,
-            severity = {
-                min = vim.diagnostic.severity.ERROR,
-            },
-        },
+        -- virtual_lines = {
+        --     current_line = true,
+        --     severity = {
+        --         min = vim.diagnostic.severity.ERROR,
+        --     },
+        -- },
         update_in_insert = false,
         severity_sort = true,
         underline = false,

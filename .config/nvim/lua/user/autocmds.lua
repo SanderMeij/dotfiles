@@ -17,3 +17,19 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         vim.opt_local.spell = false
     end,
 })
+
+vim.api.nvim_create_autocmd("BufLeave", {
+    callback = function()
+        local pattern = vim.fn.getreg("/")
+        vim.b.last_search_pattern = pattern
+    end,
+})
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        if vim.b.last_search_pattern then
+            vim.fn.setreg("/", vim.b.last_search_pattern)
+            vim.cmd("let @/ = b:last_search_pattern")
+        end
+    end,
+})

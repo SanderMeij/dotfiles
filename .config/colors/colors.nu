@@ -47,12 +47,13 @@ export def main [] {
     let colors = ($colors | merge (
         $hues |
             transpose name value |
-            each {|color| {
-                name: ("dimmed_" + $color.name),
+            each {|color| [ 25, 50, 75 ] | each { |percentage| {
+                name: ($color.name + _ + ($percentage | into string)),
                 value: (
-                    pastel color $color.value | pastel mix $colors.gray1 | pastel format hex
+                    pastel color $color.value | pastel mix $colors.gray1 --fraction ((100 - $percentage) / 100) | pastel format hex
                 )
-            }} |
+            }}} |
+            flatten |
             transpose --ignore-titles -r -d
     ))
 

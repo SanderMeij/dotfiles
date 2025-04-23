@@ -20,7 +20,7 @@ shortcuts.shortcut("FormatFile", "<leader>lf", function()
     vim.lsp.buf.format({
         async = true,
         filter = function(client)
-            return client.name ~= "intelephense"
+            return client.name ~= "intelephense" and client.name ~= "eslint" and client.name ~= "volar" and client.name ~= "yamlls"
         end,
     })
 end, "Format file")

@@ -68,7 +68,7 @@ def staged_bubble [gstat] {
 def ahead_behind_bubble [gstat] {
     if $gstat.ahead > 0 or $gstat.behind > 0 {
         let ahead_behind = $"($gstat.ahead) | ($gstat.behind)"
-        right_bubble $ahead_behind $colors.peach 
+        right_bubble $ahead_behind $colors.orange 
     }
 }
 
@@ -189,4 +189,5 @@ load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace 
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 
 $env.PATH = ($env.path | prepend "~/bin")
+$env.PATH = ($env.path | prepend "~/.cargo/bin")
 $env.DIRENV_LOG_FORMAT = ""

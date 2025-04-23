@@ -898,11 +898,11 @@ $env.config = {
         {
             name: go_up_insert
             modifier: CONTROL
-            keycode: Char_u
+            keycode: char_u
             mode: [ vi_insert, vi_normal ]
             event: {
                 send: executehostcommand,
-                cmd: "cd .."
+                cmd: "tmux copy-mode -eu"
             }
         }
         {

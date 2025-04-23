@@ -3,7 +3,7 @@
 stow .
 
 # Convert all config template files to config files
-ls **/*.*.nu -a | each {|file| nu $file.name | save ($file.name | path parse | drop column | path join) --force }
+ls ~/.config/**/*.*.nu -a | each {|file| nu $file.name | save ($file.name | path parse | drop column | path join) --force }
 
 pkill -USR1 kitty
 tmux source-file ~/.config/tmux/tmux.conf

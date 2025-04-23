@@ -30,9 +30,6 @@ if phpcs then
                 "-s",
                 -- phpcs exits with a non-0 exit code when messages are reported but we only want to know if the command fails
                 "--runtime-set",
-                "ignore_warnings_on_exit",
-                "1",
-                "--runtime-set",
                 "ignore_errors_on_exit",
                 "1",
                 -- process stdin
