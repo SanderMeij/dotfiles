@@ -1,7 +1,7 @@
 # TODO
     -[x] Fix tmux urls
     -[x] Create a watch buffer utilizing Nushell and Neovim
-    -[ ] oldworld.nvim
+    -[x] oldworld.nvim
     -[x] oil no lsp
     -[ ] csvview.nvim
     -[x] json null-ls code actions
