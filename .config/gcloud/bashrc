@@ -1,0 +1,21 @@
+clear
+echo "Welcome back, $(whoami)!"
+
+export GIT_SSH_COMMAND="ssh -i /paydia-deployer/secrets/id_ed25519_gitlab_development_ci_cd -o IdentitiesOnly=yes"
+
+alias git="sudo -u www-data --preserve-env=GIT_SSH_COMMAND git"
+alias php='php_version_from_composer'
+alias composer='php_version_from_composer /usr/local/bin/composer'
+
+php_version_from_composer() {
+
+    if [ -f "composer.json" ]; then
+        PHP_VERSION=$(grep -Po '"php":\s*"\K[^"]+' composer.json | sed 's/^^//')
+        if command -v "/usr/bin/php$PHP_VERSION" > /dev/null 2>&1; then
+            sudo -u www-data /usr/bin/php$PHP_VERSION "$@"
+            return
+        fi
+    fi
+
+    /usr/bin/php "$@"
+}

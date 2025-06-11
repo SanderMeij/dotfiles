@@ -21,6 +21,8 @@ keymap("n", "g#", "g#zz")
 keymap("v", "<", "<gv")
 keymap("v", ">", ">gv")
 
+keymap("n", "c", [["_c]])
+keymap("n", "C", [["_C]])
 -- Paste without overwriting the default register
 keymap("x", "p", [["_dP]])
 

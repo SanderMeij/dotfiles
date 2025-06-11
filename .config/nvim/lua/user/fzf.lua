@@ -19,7 +19,7 @@ M.config = function()
             },
         },
         grep = {
-            rg_opts = "--color=never --line-number --column --smart-case --max-columns=4096 -e",
+            rg_opts = "--color=never --line-number --column --smart-case --glob=!.git/ --max-columns=4096 -e",
         },
         fzf_opts = {
             ["--pointer"] = "",

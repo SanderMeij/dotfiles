@@ -1,26 +1,27 @@
 [global]
 follow = keyboard
-# frame_width = 0
 font = "Jetbrains Mono Medium"
 stack_duplicates = false
-# corner_radius = 10
+corner_radius = 5
 mouse_left_click=do_action
-frame_color = "#89b4fa"
 separator_color= frame
-highlight = "#89b4fa"
+highlight = "#92A2D5"
+icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/:/usr/share/icons/Adwaita/16x16/legacy/
 
 [urgency_low]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+background = "#1B1B1C"
+foreground = "#C9C7CD"
+frame_color = "#6C6874"
 
 [urgency_normal]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
+background = "#1B1B1C"
+foreground = "#C9C7CD"
+frame_color = "#6C6874"
 
 [urgency_critical]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-frame_color = "#fab387"
+background = "#1B1B1C"
+foreground = "#C9C7CD"
+frame_color = "#6C6874"
 
 [ignore]
 format = "<b>%a: %s</b>\n%b"

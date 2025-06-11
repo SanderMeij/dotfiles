@@ -184,6 +184,17 @@ def dodo [ ...command: string ] {
     docker exec -it $env.DOCKER_CONTAINER /bin/sh -c ($command | str join ' ')
 }
 
+def pass [ domain: string, ...args: string ] {
+    print "Master password:"
+    let password = input --suppress-output
+    if ($args | length) > 0 {
+        saltthepass -h sha3 -p $password -d $domain -p $args.0 | str substring 0..19 | xclip -i -selection clipboard
+    } else {
+        saltthepass -h sha3 -p $password -d $domain | str substring 0..19 | xclip -i -selection clipboard
+    }
+    print "Copied to clipboard!"
+}
+
 $env.PATH = ($env.PATH | prepend "/home/sander/.local/share/fnm")
 load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column '=' | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })
 $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")

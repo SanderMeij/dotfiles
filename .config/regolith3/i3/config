@@ -55,7 +55,7 @@ tiling_drag modifier titlebar
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+space exec --no-startup-id rofi -show drun
+bindsym $mod+space exec --no-startup-id ilia -p apps
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -174,8 +174,7 @@ bindsym $mod+r mode "resize"
 exec --no-startup-id /usr/lib/gsd-xsettings
 exec --no-startup-id xset r rate 200 50 
 for_window [class="^.*"] border pixel 0
-# bindsym $mod+Escape exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
-bindsym $mod+Return exec i3lock -n -c "#1B1B1C"
+bindsym $mod+Return exec dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
 bar {
     tray_output none

@@ -14,6 +14,8 @@ let values = {
     # background_image: "~/background.png",
     # background_image_layout: "scaled",
     # background_tint: 0.995,
+    # background_opacity: 0.9
+    # dynamic_background_opacity: "yes"
     foreground: $colors.foreground,
     background: $colors.gray1,
     color0: $colors.black,

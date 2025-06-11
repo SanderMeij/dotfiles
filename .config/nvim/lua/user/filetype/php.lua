@@ -6,11 +6,24 @@ vim.api.nvim_create_autocmd("FileType", {
 local null_ls = require("null-ls")
 local helpers = require("null-ls.helpers")
 
-local phpcs = nil
-if os.execute("test -f vendor/bin/phpcs") == 0 then
-    phpcs = "vendor/bin/phpcs"
-elseif os.execute("hash phpcs") == 0 then
-    phpcs = "phpcs"
+local phpcs = 'phpcs'
+local phpcbf = 'phpcbf'
+local standard = 'PSR-12'
+
+local ruleset = vim.fs.find('ruleset.xml', { upward = true })[1]
+if ruleset then
+    standard = ruleset
+    local dirname = vim.fs.dirname(ruleset)
+
+    local composer_phpcs = dirname .. '/vendor/bin/phpcs'
+    if os.execute("test -f " .. composer_phpcs) == 0 then
+        phpcs = composer_phpcs
+    end
+
+    local composer_phpcbf = dirname .. '/vendor/bin/phpcbf'
+    if os.execute("test -f " .. composer_phpcbf) == 0 then
+        phpcbf = composer_phpcbf
+    end
 end
 
 if phpcs then
@@ -21,7 +34,7 @@ if phpcs then
         generator = null_ls.generator({
             command = phpcs,
             args = {
-                "--standard=ruleset.xml",
+                "--standard=" .. standard,
                 "--tab-width=4",
                 "--report=json",
                 -- silence status messages during processing as they are invalid JSON
@@ -67,13 +80,6 @@ if phpcs then
     })
 end
 
-local phpcbf = nil
-if os.execute("test -f vendor/bin/phpcbf") == 0 then
-    phpcbf = "vendor/bin/phpcbf"
-elseif os.execute("hash phpcbf") == 0 then
-    phpcbf = "phpcbf"
-end
-
 if phpcbf then
     null_ls.register({
         name = phpcbf,
@@ -82,7 +88,7 @@ if phpcbf then
         generator = null_ls.formatter({
             command = phpcbf,
             args = {
-                "--standard=ruleset.xml",
+                "--standard=" .. standard,
                 "--tab-width=4",
                 -- silence status messages during processing
                 "-q",

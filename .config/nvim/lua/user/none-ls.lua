@@ -18,12 +18,13 @@ function M.config()
     null_ls.setup({
         debug = true,
         sources = {
-            formatting.stylua,
-            formatting.prettier,
-            formatting.black,
-            formatting.sqlfluff.with(dialect),
             diagnostics.phpstan,
             diagnostics.sqlfluff.with(dialect),
+            formatting.black,
+            formatting.prettier,
+            formatting.sqlfluff.with(dialect),
+            formatting.stylua,
+            formatting.xmllint,
             null_ls.builtins.completion.spell,
         },
     })

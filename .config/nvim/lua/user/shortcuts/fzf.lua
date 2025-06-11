@@ -4,7 +4,7 @@ return {
         name = "Files",
         keymap = "<c-space>",
         command = function(opts)
-            fzf = require("fzf-lua")
+            local fzf = require("fzf-lua")
             fzf.files({
                 -- debug = true,
                 -- formatter = "path.filename_first",
@@ -14,8 +14,8 @@ return {
                 query = opts.args,
                 winopts = { width = 0.5 },
                 actions = {
-                    ["ctrl-space"] = function(_, fzf)
-                        vim.cmd("Grep " .. fzf["last_query"])
+                    ["ctrl-space"] = function(_, fzf_data)
+                        vim.cmd("Grep " .. fzf_data["last_query"])
                     end,
                     ["ctrl-i"] = fzf.actions.toggle_ignore,
                 },
@@ -27,14 +27,14 @@ return {
         name = "Grep",
         keymap = "<leader><space>",
         command = function(opts)
-            fzf = require("fzf-lua")
+            local fzf = require("fzf-lua")
             fzf.live_grep({
                 hidden = true,
                 query = opts.args,
                 prompt = " " .. icons.ui.FindText .. " ",
                 actions = {
-                    ["ctrl-space"] = function(_, fzf)
-                        vim.cmd("Files " .. fzf["last_query"])
+                    ["ctrl-space"] = function(_, fzf_data)
+                        vim.cmd("Files " .. fzf_data["last_query"])
                     end,
                     ["ctrl-i"] = fzf.actions.toggle_ignore
                 },

@@ -1,0 +1,42 @@
+(defpoll time :interval "1s"
+    `date "+%H:%M"`)
+(defpoll date :interval "5s"
+    `date "+%a %m %b"`)
+(defpoll docker :interval "5s"
+    `docker pc | wc -l`)
+(defpoll tmux :interval "5s"
+    `tmux list-panes -a | wc -l`)
+(defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh")
+
+(defwindow example
+    :monitor 0
+    :geometry (geometry :x "0%"
+        :y "20px"
+        :width "90%"
+        :height "30px"
+        :anchor "top center")
+    :stacking "fg"
+    :reserve (struts :distance "40px" :side "top")
+    :windowtype "dock"
+    :wm-ignore false
+    (bar :text "Say hello!"
+        :name "Tim"
+        :class "greeter"))
+
+(defwidget bar [?text name]
+    (box :orientation "horizontal"
+        :hexpand true
+        :class "bar"
+        (button :onclick "notify-send 'Hello' 'Hello, ${name}'"
+            "Greet")
+        "󱈑 ${EWW_BATTERY.BAT0.capacity}%"
+        (box
+            " ${volume.volume}%"
+            (scale :value "${volume.volume}" :onchange "pamixer --set-volume {}")
+        )
+        " ${tmux}"
+        "󰡨 ${docker}"
+        "${date}"
+        "${time}"
+    )
+)

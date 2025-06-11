@@ -12,9 +12,9 @@ spec("user.breadcrumbs") -- Show context on top of buffer
 spec("user.cmp") -- Completion
 spec("user.colorizer") -- Show color of color codes
 spec("user.devicons") -- Icons for filetypes
-spec("user.eyeliner") -- Highlight potential jumps for f
 spec("user.fidget") -- Spinner and progress notifications
 spec("user.full-visual-line") -- Highlight full line in visual line mode
+spec("user.fyler")
 spec("user.fzf") -- Fuzzy finder
 spec("user.gitsigns") -- Git functionality for current buffer
 spec("user.illuminate") -- Highlight matching words
