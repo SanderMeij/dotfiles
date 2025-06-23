@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd("User", {
             local buf = opts.data.saved_buffer
 
             local buf_ft = vim.api.nvim_buf_get_option(buf, "filetype")
-            if buf_ft == "oil" then
+            if buf_ft == "oil" or buf_ft == "fyler-main" then
                 return
             end
 

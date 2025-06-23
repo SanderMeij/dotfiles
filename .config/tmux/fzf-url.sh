@@ -1,28 +1,6 @@
-#!/usr/bin/env bash
-#===============================================================================
-#   Author: Wenxuan
-#    Email: wenxuangm@gmail.com
-#  Created: 2018-04-06 12:12
-#===============================================================================
-get_fzf_options() {
-    local fzf_options
-    local fzf_default_options='-w 100% -h 50% --multi -0 --no-preview'
-    fzf_options="$(tmux show -gqv '@fzf-url-fzf-options')"
-    [ -n "$fzf_options" ] && echo "$fzf_options" || echo "$fzf_default_options"
-}
+#!/bin/bash
 
-custom_open=$3
-open_url() {
-    if [[ -n $custom_open ]]; then 
-        $custom_open "$@"
-    elif hash xdg-open &>/dev/null; then
-        nohup xdg-open "$@"
-    elif hash open &>/dev/null; then
-        nohup open "$@"
-    elif [[ -n $BROWSER ]]; then
-        nohup "$BROWSER" "$@"
-    fi
-}
+source ~/.config/bash/fzf-options.sh
 
 content="$(tmux capture-pane -J -p -e |sed -r 's/\x1B\[[0-9;]*[mK]//g'))"
 urls=$(echo "$content" |grep -oE '(https?|ftp|file):/?//[-A-Za-z0-9+&@#/%?=~_|!:,.;]*[-A-Za-z0-9+&@#/%=~_|]')
@@ -32,12 +10,21 @@ gits=$(echo "$content" |grep -oE '(ssh://)?git@\S*' | sed 's/:/\//g' | sed 's/^\
 gh=$(echo "$content" |grep -oE "['\"]([_A-Za-z0-9-]*/[_.A-Za-z0-9-]*)['\"]" | sed "s/['\"]//g" | sed 's#.#https://github.com/&#')
 items=$(printf '%s\n' "${urls[@]}" "${wwws[@]}" "${gh[@]}" "${ips[@]}" "${gits[@]}" |
     grep -v '^$' |
-    sort -u |
-    nl -w3 -s '  '
+    sort -u
 )
 [ -z "$items" ] && tmux display 'No URLs found' && exit
+echo "$items"
+exit
 
-fzf <<< "$items" | awk '{print $2}' | \
-    while read -r chosen; do
-        open_url "$chosen" &>"/tmp/tmux-$(id -u)-fzf-url.log"
-    done
+# tmux popup "xdg-open $(fzf <<< \"$items\")"
+# tmux popup "xdg-open https://google.com"
+
+fzf <<< "$items" | awk '{print $2}' | while read -r chosen; do
+    echo "Opening url $chosen" >> ~/.log
+      export DISPLAY=\${DISPLAY:-:0}
+      export WAYLAND_DISPLAY=\$WAYLAND_DISPLAY
+      export XDG_RUNTIME_DIR=\$XDG_RUNTIME_DIR
+      export XAUTHORITY=\$XAUTHORITY
+    xdg-open "$chosen" >> ~/.log
+done
+exit

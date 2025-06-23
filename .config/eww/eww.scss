@@ -1,5 +1,21 @@
-.bar {
-    background-color: black;
-    color: white;
+@import "./colors.scss";
+
+* {
     font-family: Jetbrains Mono Medium;
+    font-size: 14px;
+    background-color: $black;
+    color: $white;
+}
+
+.bar0 {
+    margin-top: -5px;
+}
+
+tooltip.background {
+    border: 1px solid $gray6;
+}
+
+.systray {
+    padding-right: 6px;
+    padding-left: 6px;
 }

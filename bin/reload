@@ -1,4 +1,4 @@
-#!/bin/nu
+#!/snap/bin/nu
 
 stow .
 

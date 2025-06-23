@@ -188,7 +188,7 @@ def pass [ domain: string, ...args: string ] {
     print "Master password:"
     let password = input --suppress-output
     if ($args | length) > 0 {
-        saltthepass -h sha3 -p $password -d $domain -p $args.0 | str substring 0..19 | xclip -i -selection clipboard
+        saltthepass -h sha3 -p $password -d $domain -r $args.0 | str substring 0..19 | xclip -i -selection clipboard
     } else {
         saltthepass -h sha3 -p $password -d $domain | str substring 0..19 | xclip -i -selection clipboard
     }

@@ -1,42 +1,65 @@
 (defpoll time :interval "1s"
     `date "+%H:%M"`)
 (defpoll date :interval "5s"
-    `date "+%a %m %b"`)
-(defpoll docker :interval "5s"
-    `docker pc | wc -l`)
-(defpoll tmux :interval "5s"
-    `tmux list-panes -a | wc -l`)
+    `date "+%A %d-%m-%Y"`)
 (defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh")
 
-(defwindow example
+(defwindow bar0
     :monitor 0
     :geometry (geometry :x "0%"
-        :y "20px"
-        :width "90%"
-        :height "30px"
+        :height "24px"
         :anchor "top center")
     :stacking "fg"
-    :reserve (struts :distance "40px" :side "top")
     :windowtype "dock"
     :wm-ignore false
-    (bar :text "Say hello!"
-        :name "Tim"
-        :class "greeter"))
+    (bar :name "bar0")
+    :class "bar0"
+)
+
+(defwindow bar1
+    :monitor 1
+    :geometry (geometry :x "0%"
+        :height "24px"
+        :anchor "top center")
+    :stacking "fg"
+    :windowtype "dock"
+    :wm-ignore false
+    (bar :name "bar1")
+)
+
+(defwindow bar2
+    :monitor 2
+    :geometry (geometry :x "0%"
+        :height "24px"
+        :anchor "top center")
+    :stacking "fg"
+    :windowtype "dock"
+    :wm-ignore false
+    (bar :name "bar2")
+)
 
 (defwidget bar [?text name]
     (box :orientation "horizontal"
         :hexpand true
         :class "bar"
-        (button :onclick "notify-send 'Hello' 'Hello, ${name}'"
-            "Greet")
-        "󱈑 ${EWW_BATTERY.BAT0.capacity}%"
-        (box
-            " ${volume.volume}%"
-            (scale :value "${volume.volume}" :onchange "pamixer --set-volume {}")
+        (box :orientation "horizontal"
         )
-        " ${tmux}"
-        "󰡨 ${docker}"
-        "${date}"
-        "${time}"
+        (box
+            :tooltip date
+            "${time}"
+        )
+        (box :orientation "horizontal"
+            :space-evenly false
+            :halign "end"
+            :class "systray"
+            "󱈑 ${EWW_BATTERY.BAT0.capacity}% | "
+            {volume.muted ? " | " : " ${volume.volume}% | "}
+            (systray
+                :prepend-new true
+                :spacing 8
+                :space-evenly false
+                :icon-size 16
+            )
+        )
     )
 )

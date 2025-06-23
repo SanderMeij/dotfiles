@@ -6,6 +6,7 @@ require("user.autocmds")
 
 spec("user.colorbuddy")
 
+spec("user.mini-icons")
 spec("user.auto-save") -- Auto save files
 spec("user.autopairs") -- Add ) when typing (
 spec("user.breadcrumbs") -- Show context on top of buffer
@@ -14,7 +15,7 @@ spec("user.colorizer") -- Show color of color codes
 spec("user.devicons") -- Icons for filetypes
 spec("user.fidget") -- Spinner and progress notifications
 spec("user.full-visual-line") -- Highlight full line in visual line mode
-spec("user.fyler")
+-- spec("user.fyler")
 spec("user.fzf") -- Fuzzy finder
 spec("user.gitsigns") -- Git functionality for current buffer
 spec("user.illuminate") -- Highlight matching words
