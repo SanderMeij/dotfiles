@@ -13,18 +13,10 @@ items=$(printf '%s\n' "${urls[@]}" "${wwws[@]}" "${gh[@]}" "${ips[@]}" "${gits[@
     sort -u
 )
 [ -z "$items" ] && tmux display 'No URLs found' && exit
-echo "$items"
-exit
 
-# tmux popup "xdg-open $(fzf <<< \"$items\")"
-# tmux popup "xdg-open https://google.com"
-
-fzf <<< "$items" | awk '{print $2}' | while read -r chosen; do
-    echo "Opening url $chosen" >> ~/.log
-      export DISPLAY=\${DISPLAY:-:0}
-      export WAYLAND_DISPLAY=\$WAYLAND_DISPLAY
-      export XDG_RUNTIME_DIR=\$XDG_RUNTIME_DIR
-      export XAUTHORITY=\$XAUTHORITY
-    xdg-open "$chosen" >> ~/.log
+fzf <<< "$items" | while read -r chosen; do
+    echo "Opening URL: $chosen"
+    xdg-open "$chosen" &> /dev/null  
 done
-exit
+
+sleep 1
