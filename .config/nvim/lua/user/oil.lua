@@ -1,6 +1,13 @@
 local M = {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = { {
+        "<leader>e",
+        function()
+            require("oil").open_float()
+        end,
+        "Open File Explorer",
+    } },
 }
 
 function M.config()

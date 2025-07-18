@@ -1,7 +1,7 @@
 (defpoll time :interval "1s"
     `date "+%H:%M"`)
 (defpoll date :interval "5s"
-    `date "+%A %d-%m-%Y"`)
+    `date "+%d-%m-%Y"`)
 (defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh")
 
 (defwindow bar0
@@ -12,8 +12,8 @@
     :stacking "fg"
     :windowtype "dock"
     :wm-ignore false
-    (bar :name "bar0")
     :class "bar0"
+    (bar :name "bar0")
 )
 
 (defwindow bar1
@@ -54,6 +54,7 @@
             :class "systray"
             "󱈑 ${EWW_BATTERY.BAT0.capacity}% | "
             {volume.muted ? " | " : " ${volume.volume}% | "}
+            "${date} | "
             (systray
                 :prepend-new true
                 :spacing 8

@@ -1,6 +1,6 @@
 local M = {
     "saghen/blink.cmp",
-    version = "*",
+    version = "1.*",
     dependencies = {
         {
             "folke/lazydev.nvim",

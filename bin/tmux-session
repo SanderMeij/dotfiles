@@ -2,52 +2,40 @@
 
 source ~/.config/bash/fzf-options.sh
 
-active_directories=$(tmux list-sessions -F "#{session_name}" | sed "s|~|$HOME|")
-exclude_directories=$(tmux list-sessions -f "#{session_attached}" -F "#{session_name}" | sed "s|~|$HOME|")
+active_directories=$(tmux list-sessions -F "#{session_name}")
+exclude_directories=$(tmux list-sessions -f "#{session_attached}" -F "#{session_name}")
 
 function tmux-switch-session() {
-    selected_name=$(echo $selected | sed "s|$HOME|~|" | sed 's/\./_/g')
+    name=$(echo $selected | sed 's/\./_/g')
+    path=$(echo $selected | sed "s|~|$HOME|g")
     if [[ $TMUX ]]; then
-        # tmux kill-session -t "_wp"
-        # chmod +x $selected/attach.sh
-        # tmux new-session -ds "_wp" -c $selected $selected/attach.sh
-        if ! tmux has-session -t=$selected_name 2> /dev/null; then
-            tmux new-session -ds $selected_name -c $selected
+        if ! tmux has-session -t=$name 2> /dev/null; then
+            tmux new-session -ds $name -c $path
         fi
-        tmux switch-client -t $selected_name
+        tmux switch-client -t $name
         return
     else
-        tmux new-session -A -s $selected_name -c $selected
+        tmux new-session -A -s $name -c $path
     fi
 }
 
 function fzf-session() {
-    selected=$(~/development/github/rander/target/release/rander session get --locations $1 --active $active_directories --exclude $exclude_directories | sed "s|^$HOME|~|" | fzf --no-sort --select-1 --border-label="Select workspace" --preview='~/development/github/rander/target/release/rander session info $(echo {} | sed "s|~|$HOME|")')
+    selected=$(find-workspaces | rander session get --active $active_directories --exclude $exclude_directories | fzf --no-sort --select-1 --border-label="Select workspace" --preview='~/development/github/rander/target/release/rander session info $(echo {})')
 
     if [[ -z $selected ]]; then
         return
     fi
 
-    selected=$(echo $selected | sed "s|~|$HOME|")
-    ~/development/github/rander/target/release/rander session add "$selected"
+    rander session add "$selected"
     tmux-switch-session $selected
 }
 
 function previous-session() {
-    selected=$(~/development/github/rander/target/release/rander session previous --active $active_directories --exclude $exclude_directories) 
+    selected=$(find-workspaces | rander session previous --active $active_directories --exclude $exclude_directories) 
     if [[ -z $selected ]]; then
         return
     fi
-    ~/development/github/rander/target/release/rander session add "$selected" 0
-    tmux-switch-session $selected
-}
-
-function next-session() {
-    selected=$(~/development/github/rander/target/release/rander session next --active $active_directories --exclude $exclude_directories) 
-    if [[ -z $selected ]]; then
-        return
-    fi
-    ~/development/github/rander/target/release/rander session add "$selected" 0
+    rander session add "$selected" 0
     tmux-switch-session $selected
 }
 
@@ -55,14 +43,7 @@ case $1 in
     previous)
         previous-session
         ;;
-    next)
-        next-session
-        ;;
     *)
-        for i in {2..5}; do
-            new_directories=$(find ~ -mindepth $i -maxdepth $i -type d -name ".git" -not -path '*/.*/*' -not -path "$directories" -exec dirname {} \;)
-            directories="$directories $new_directories"
-        done
-        fzf-session "$directories"
+        fzf-session
         ;;
 esac

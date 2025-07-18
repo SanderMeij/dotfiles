@@ -26,10 +26,21 @@ vim.api.nvim_create_autocmd("BufLeave", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
+    callback = function(buffer)
         if vim.b.last_search_pattern then
             vim.fn.setreg("/", vim.b.last_search_pattern)
             vim.cmd("let @/ = b:last_search_pattern")
+        end
+
+        local cwd = vim.fn.getcwd()
+        local file = vim.fn.fnamemodify(buffer.file, ":.")
+        local stat = vim.uv.fs_stat(file)
+        if stat and stat.type == "file" then
+            vim.system({ "rander", cwd, "add", file }, {}, function(result)
+                if result.code ~= 0 then
+                    print("Error:", result.stderr)
+                end
+            end)
         end
     end,
 })

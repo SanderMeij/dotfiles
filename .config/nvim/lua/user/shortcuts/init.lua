@@ -42,10 +42,6 @@ shortcuts.shortcut("NewBuffer", "<leader>bn", "enew", "New buffer", { disabled =
 shortcuts.shortcut("DeleteBuffer", "<leader>bd", "confirm bdelete", "Delete buffer", { disabled = { "bd", "bd!" } })
 shortcuts.shortcut("RefreshBuffer", "<leader>br", "confirm edit", "Refresh buffer")
 
-shortcuts.shortcut("Explore", "<leader>e", function()
-    require("oil").open_float()
-end, "Open File Explorer")
-
 shortcuts.shortcut("Git", "<leader>gg", function()
     require("neogit").open()
 end, "Open Git status")

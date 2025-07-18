@@ -1,25 +1,29 @@
 local icons = require("user.icons")
+
 return {
     {
         name = "Files",
         keymap = "<c-space>",
         command = function(opts)
-            local fzf = require("fzf-lua")
-            fzf.files({
-                -- debug = true,
-                -- formatter = "path.filename_first",
-                hidden = true,
-                previewer = false,
+            local snacks = require("snacks")
+            snacks.picker("rander", {
+                pattern = opts.args,
                 prompt = " " .. icons.ui.FindFile .. " ",
-                query = opts.args,
-                winopts = { width = 0.5 },
-                actions = {
-                    ["ctrl-space"] = function(_, fzf_data)
-                        vim.cmd("Grep " .. fzf_data["last_query"])
-                    end,
-                    ["ctrl-i"] = fzf.actions.toggle_ignore,
+                hidden = true,
+                win = {
+                    input = {
+                        keys = {
+                            ["<c-space>"] = {
+                                function(picker)
+                                    local search = vim.api.nvim_buf_get_lines(picker.buf, 0, -1, false)[1]
+                                    picker:close()
+                                    vim.cmd("Grep " .. search)
+                                end,
+                                mode = { "n", "i" },
+                            },
+                        },
+                    },
                 },
-                cwd_prompt = false,
             })
         end,
     },
@@ -27,25 +31,26 @@ return {
         name = "Grep",
         keymap = "<leader><space>",
         command = function(opts)
-            local fzf = require("fzf-lua")
-            fzf.live_grep({
-                hidden = true,
-                query = opts.args,
+            local snacks = require("snacks")
+            snacks.picker("grep", {
+                search = opts.args,
                 prompt = " " .. icons.ui.FindText .. " ",
-                actions = {
-                    ["ctrl-space"] = function(_, fzf_data)
-                        vim.cmd("Files " .. fzf_data["last_query"])
-                    end,
-                    ["ctrl-i"] = fzf.actions.toggle_ignore
+                hidden = true,
+                win = {
+                    input = {
+                        keys = {
+                            ["<c-space>"] = {
+                                function(picker)
+                                    local search = vim.api.nvim_buf_get_lines(picker.buf, 0, -1, false)[1]
+                                    picker:close()
+                                    vim.cmd("Files " .. search)
+                                end,
+                                mode = { "n", "i" },
+                            },
+                        },
+                    },
                 },
             })
-        end,
-    },
-    {
-        name = "FindHighlight",
-        keymap = "<leader>fj",
-        command = function()
-            require("fzf-lua").highlights()
         end,
     },
 }

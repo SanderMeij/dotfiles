@@ -82,7 +82,7 @@ def create_right_prompt [] {
             $"(right_bubble $gstat.branch $colors.blue )"
         ]
         
-        $prompt | filter {|x| $x != ""} | str join " "
+        $prompt | where {|x| $x != ""} | str join " "
     }
 }
 
@@ -194,6 +194,15 @@ def pass [ domain: string, ...args: string ] {
     }
     print "Copied to clipboard!"
 }
+
+def copy [] {
+    print $in
+    $in | xclip -i -selection clipboard
+}
+
+alias test-ssh = gcloud compute ssh --zone "europe-west4-a" "legacy-test-1" --project "tests-349812"
+alias acceptance-ssh = gcloud compute ssh --zone "europe-west4-c" "legacy-acceptance-www-1" --project "acceptance-359711" 
+alias production-ssh = gcloud compute ssh --zone "europe-west4-a" "legacy-production-www-1" --project "production-351908" 
 
 $env.PATH = ($env.PATH | prepend "/home/sander/.local/share/fnm")
 load-env (fnm env --shell bash | lines | str replace 'export ' '' | str replace -a '"' '' | split column '=' | rename name value | where name != "FNM_ARCH" and name != "PATH" | reduce -f {} {|it, acc| $acc | upsert $it.name $it.value })

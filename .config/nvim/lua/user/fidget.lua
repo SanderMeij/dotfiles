@@ -8,7 +8,7 @@ return {
                 y_padding = 1,
                 align = "top",
             },
-            override_vim_notify = true,
+            -- override_vim_notify = true,
         },
     },
 }

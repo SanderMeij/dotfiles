@@ -1,6 +1,6 @@
 local M = {
     "okuuva/auto-save.nvim",
-    event = "VeryLazy",
+    event = { "InsertLeave", "TextChanged" },
     opts = {},
 }
 
@@ -14,11 +14,16 @@ vim.api.nvim_create_autocmd("User", {
             local buf = opts.data.saved_buffer
 
             local buf_ft = vim.api.nvim_buf_get_option(buf, "filetype")
-            if buf_ft == "oil" or buf_ft == "fyler-main" then
+            if buf_ft == "oil" or buf_ft == "qf" then
                 return
             end
 
             local filename = vim.api.nvim_buf_get_name(buf)
+            if filename == "" then
+                filename = vim.fn.stdpath("data") .. "/auto-save/" .. tostring(os.time())
+                vim.notify(filename)
+                vim.api.nvim_buf_set_name(0, filename)
+            end
 
             local dir = vim.fn.fnamemodify(filename, ":h")
             if vim.fn.isdirectory(dir) == 0 then

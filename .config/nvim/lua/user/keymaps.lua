@@ -40,19 +40,28 @@ keymap("i", "<C-h>", function()
     require("lsp_signature").toggle_float_win()
 end)
 
--- keymap("n", "<C-space>w", "<cmd>ToggleWrap<cr>", "Toggle wrap")
--- keymap("n", "?", "<cmd>ClearSearch<cr>", "Clear search")
--- keymap("i", "<C-h>", "<cmd>SignatureHelp<cr>", "Signature help")
--- keymap("n", "<leader>q", "<cmd>confirm q<cr>", "Quit")
--- keymap("n", "<leader>Q", "<cmd>confirm qa<cr>", "Quit all")
--- keymap("n", "<leader>o", "<cmd>!nu -c 'start %'<cr><cr>", "Open file")
--- keymap("n", "yp", "<cmd>let @+ = expand('%')<cr><cmd>lua vim.notify('Yanked path: ' .. vim.fn.expand('%'))<cr>", "Yank path of current buffer")
+local bracket_mapping = function(mapping, previous, next, description)
+    local ctrl = function()
+        vim.keymap.set("n", "<c-p>", function()
+            vim.cmd(previous)
+        end, { noremap = true, silent = true })
+        vim.keymap.set("n", "<c-n>", function()
+            vim.cmd(next)
+        end, { noremap = true, silent = true })
+    end
+end
 
--- yp = {'<cmd>let @+ = expand("%")<cr><cmd>lua vim.notify("Yanked path: " .. vim.fn.expand("%"))<cr>', 'Yank path of current buffer' },
--- j = { name = "Json" },
--- js = { function() M.command('json-sort') end, 'Json sort' },
--- je = { function() M.command('json-expand') end, 'Json expand' },
--- n = { function() vim.fn.input('Nushell') end, 'Nushell' },
---
-
--- keymap('n', '<leader>dw', "<cmd>DiagnoseWorkspace<cr>", "Diagnose Workspace")
+bracket_mapping(
+    "q",
+    "try | cprev | catch | clast | catch | endtry",
+    "try | cnext | catch | cfirst | catch | endtry",
+    "quickfix item"
+)
+bracket_mapping("d", "lua vim.diagnostic.goto_prev()", "lua vim.diagnostic.goto_next()", "diagnostic")
+bracket_mapping("g", 'lua require("gitsigns").prev_hunk()', 'lua require("gitsigns").next_hunk()', "hunk")
+bracket_mapping(
+    "t",
+    'lua require("trouble").prev({ jump = true })',
+    'lua require("trouble").next({ jump = true })',
+    "trouble"
+)
