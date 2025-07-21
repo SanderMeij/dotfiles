@@ -26,7 +26,7 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
-        bigfile = { enabled = false },
+        bigfile = { enabled = true },
         dashboard = { enabled = true, preset = { keys = {}, header = "" } },
         explorer = { enabled = false },
         indent = {
@@ -105,6 +105,9 @@ return {
                     keys = {
                         ["<c-h>"] = { "toggle_hidden", mode = { "i", "n" } },
                         ["<tab>"] = { "toggle_ignored", mode = { "i", "n" } },
+                        ["<c-j>"] = { { "list_top", "confirm" }, mode = { "i", "n" } },
+                        ["<c-k>"] = { { "list_top", "list_down", "confirm" }, mode = { "i", "n" } },
+                        ["<c-l>"] = { { "list_top", "list_down", "list_down", "confirm" }, mode = { "i", "n" } },
                     },
                 },
             },
