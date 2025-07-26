@@ -41,6 +41,12 @@ return {
         input = { enabled = true },
         picker = {
             enabled = true,
+            matcher = {
+                filename_bonus = false,
+            },
+            sort = {
+                fields = { "idx" },
+            },
             sources = {
                 rander = {
                     finder = function(opts, ctx)
@@ -91,8 +97,8 @@ return {
                         preview = false,
                     },
                     format = function(item, _)
-                        local icons = require('mini.icons')
-                        local icon, highlight = icons.get('extension', item.text)
+                        local icons = require("mini.icons")
+                        local icon, highlight = icons.get("extension", item.text)
                         return {
                             { icon .. " ", highlight },
                             { item.text, item.text_hl },
@@ -116,7 +122,7 @@ return {
         quickfile = { enabled = false },
         scope = { enabled = false },
         scroll = {
-            enabled = true,
+            enabled = false,
             animate = {
                 duration = { step = 5, total = 50 },
                 easing = "linear",

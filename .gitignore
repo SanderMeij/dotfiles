@@ -6,4 +6,6 @@
 .composer/vendor/*
 
 keyd
+bin/eww
+bin/rander
 .env

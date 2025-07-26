@@ -26,7 +26,7 @@ if ruleset then
     end
 end
 
-if phpcs then
+if false then
     null_ls.register({
         name = phpcs,
         method = null_ls.methods.DIAGNOSTICS,

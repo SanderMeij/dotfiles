@@ -49,6 +49,14 @@ local bracket_mapping = function(mapping, previous, next, description)
             vim.cmd(next)
         end, { noremap = true, silent = true })
     end
+    keymap("n", "[" .. mapping, function ()
+        vim.cmd(previous)
+        ctrl()
+    end)
+    keymap("n", "]" .. mapping, function ()
+        vim.cmd(next)
+        ctrl()
+    end)
 end
 
 bracket_mapping(
