@@ -8,6 +8,7 @@ local helpers = require("null-ls.helpers")
 
 local phpcs = 'phpcs'
 local phpcbf = 'phpcbf'
+local phpstan = 'phpstan'
 local standard = 'PSR-12'
 
 local ruleset = vim.fs.find('ruleset.xml', { upward = true })[1]
@@ -23,6 +24,17 @@ if ruleset then
     local composer_phpcbf = dirname .. '/vendor/bin/phpcbf'
     if os.execute("test -f " .. composer_phpcbf) == 0 then
         phpcbf = composer_phpcbf
+    end
+end
+
+local phpstan_config = vim.fs.find('phpstan.neon', { upward = true })[1]
+if phpstan_config then
+    standard = ruleset
+    local dirname = vim.fs.dirname(phpstan_config)
+
+    local composer_phpstan = dirname .. '/vendor/bin/phpstan'
+    if os.execute("test -f " .. composer_phpstan) == 0 then
+        phpstan = composer_phpstan
     end
 end
 
@@ -105,3 +117,38 @@ if phpcbf then
         }),
     })
 end
+
+-- null_ls.register({
+--     name = phpstan,
+--     meta = {
+--         url = "https://github.com/phpstan/phpstan",
+--         description = "PHP static analysis tool.",
+--         notes = {
+--             "Requires a valid `phpstan.neon` at root.",
+--             "If in place validation is required set `method` to `diagnostics_on_save` and `to_temp_file` to `false`",
+--         },
+--     },
+--     method = null_ls.methods.DIAGNOSTICS,
+--     filetypes = { "php" },
+--     generator = null_ls.generator({
+--         command = phpstan,
+--         args = { "analyze", "--configuration", phpstan_config, "--error-format", "json", "--no-progress", "$FILENAME" },
+--         format = "json_raw",
+--         to_temp_file = true,
+--         check_exit_code = function(code)
+--             return code <= 1
+--         end,
+--         on_output = function(params)
+--             local path = params.temp_path or params.bufname
+--             local parser = helpers.diagnostics.from_json({})
+--             params.messages = params.output
+--                     and params.output.files
+--                     and params.output.files[path]
+--                     and params.output.files[path].messages
+--                 or {}
+--
+--             return parser({ output = params.messages })
+--         end,
+--     }),
+--     factory = helpers.generator_factory,
+-- })

@@ -5,10 +5,10 @@ M = {
             os.execute("tmux split-window -l 10")
         end,
         left_reached = function()
-            vim.cmd("vert topleft split")
+            vim.cmd("tmux previous-window")
         end,
         right_reached = function()
-            vim.cmd("vert botright split")
+            vim.cmd("tmux next-window")
         end,
     },
     keys = {

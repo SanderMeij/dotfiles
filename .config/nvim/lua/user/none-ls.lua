@@ -19,14 +19,15 @@ function M.config()
         debug = true,
         sources = {
             -- diagnostics.phpstan,
-            diagnostics.sqlfluff.with(dialect),
+            -- diagnostics.sqlfluff.with(dialect),
             formatting.black,
-            formatting.prettier,
-            formatting.sqlfluff.with(dialect),
+            -- formatting.prettier,
+            -- formatting.sqlfluff.with(dialect),
             formatting.stylua,
             formatting.xmllint,
             formatting.blade_formatter,
             null_ls.builtins.completion.spell,
+            formatting.djlint,
         },
     })
 end

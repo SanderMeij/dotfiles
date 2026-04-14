@@ -4,8 +4,10 @@
 .config/kitty/kitty.conf
 
 .composer/vendor/*
+node_modules
 
 keyd
 bin/eww
 bin/rander
 .env
+deno.lock

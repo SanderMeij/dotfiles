@@ -34,6 +34,10 @@ M.config = function(_, opts)
         },
 
         completion = {
+            list = { selection = { preselect = true, auto_insert = false } },
+
+
+
             documentation = {
                 auto_show = true,
                 auto_show_delay_ms = 1000,
@@ -43,13 +47,27 @@ M.config = function(_, opts)
                 },
             },
             menu = {
+                -- auto_show = false,
                 border = "rounded",
                 scrollbar = false,
+                draw = {
+                    gap = 2,
+                    padding = 2,
+                    max_height = 50,
+                },
+                direction_priority = { "n", "s" },
+                -- ghost_text = {
+                --     enabled = vim.g.ai_cmp,
+                -- },
+
             },
+          ghost_text = { enabled = true, show_with_menu=true },
+
+            
         },
 
         sources = {
-            default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+            default = { "lsp", "lazydev", "path", "snippets", "buffer" },
             providers = {
                 lazydev = {
                     name = "LazyDev",
@@ -59,7 +77,21 @@ M.config = function(_, opts)
             },
         },
 
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = {
+          sorts = {
+
+            -- function(a, b)
+            --   if a.source_name ~= 'LSP' or b.source_name ~= 'LSP' then
+            --     return
+            --   end
+            --   local name = vim.lsp.get_client_by_id(b.client_id).name
+            --   return name ~= 'ai_lsp'
+            -- end,
+            -- 'score',
+            -- 'sort_text',
+          },
+         implementation = "prefer_rust_with_warning",
+        },
 
         cmdline = {
             enabled = true,

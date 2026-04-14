@@ -44,11 +44,4 @@ return {
             vim.lsp.buf.rename()
         end,
     },
-    {
-        name = "LspActions",
-        keymap = "<leader>la",
-        command = function()
-            vim.lsp.buf.code_action()
-        end,
-    },
 }

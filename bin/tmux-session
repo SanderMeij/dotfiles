@@ -28,6 +28,8 @@ function fzf-session() {
 
     rander session add "$selected"
     tmux-switch-session $selected
+    ~/.local/bin/watson stop > /dev/null 2>&1
+    ~/.local/bin/watson start "$selected" > /dev/null 2>&1
 }
 
 function previous-session() {

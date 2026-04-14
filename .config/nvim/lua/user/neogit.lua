@@ -3,7 +3,6 @@ local M = {
     event = "VeryLazy",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "sindrets/diffview.nvim",
     },
 }
 

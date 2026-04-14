@@ -68,8 +68,7 @@ return {
                         end
                         local file_list = table.concat(buffer_files, " ")
 
-                        return require("snacks.picker.source.proc").proc({
-                            opts,
+                        return require("snacks.picker.source.proc").proc(
                             {
                                 notify = true,
                                 cmd = "sh",
@@ -89,7 +88,8 @@ return {
                                     item.icon = "󰒓"
                                 end,
                             },
-                        }, ctx)
+                            ctx
+                        )
                     end,
                     title = "Files",
                     layout = {

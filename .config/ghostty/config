@@ -1,0 +1,31 @@
+font-size = 12
+font-family = "JetBrains Mono Medium"
+font-family-bold = "JetBrains Mono Bold"
+font-family-italic = "Cascadia Mono Italic"
+font-family-bold-italic = "Cascadia Mono Bold Italic"
+window-decoration = "none"
+
+command = "nu"
+
+foreground = "#C9C7CD"
+background = "#1B1B1C"
+
+palette = 0=#131314
+palette = 1=#EA83A5
+palette = 2=#90B99F
+palette = 3=#E6B99D
+palette = 4=#92A2D5
+palette = 5=#E29ECA
+palette = 6=#85B5BA
+palette = 7=#C9C7CD
+palette = 8=#131314
+palette = 9=#EA83A5
+palette = 10=#90B99F
+palette = 11=#E6B99D
+palette = 12=#92A2D5
+palette = 13=#E29ECA
+palette = 14=#85B5BA
+palette = 15=#C9C7CD
+
+keybind = ctrl+v=paste_from_clipboard
+keybind = ctrl+enter=unbind

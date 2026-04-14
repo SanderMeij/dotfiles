@@ -28,7 +28,6 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
@@ -193,19 +192,23 @@ workspace $w_terminal output DP-3-1
 workspace $w_database output DP-3-1
 workspace $w_redis output DP-3-1
 workspace $w_vscode output DP-3-1
-workspace $w_browser output DP-3-2
-workspace $w_slack output DP-3-2
+workspace $w_cachegrind output DP-3-8
+workspace $w_browser output DP-3-8
+workspace $w_slack output DP-3-8
 workspace $w_ultrawide output DP-3
 
-for_window [class="kitty"] move container to workspace $w_terminal
+for_window [class="ghostty"] move container to workspace $w_terminal
 for_window [class="beekeeper-studio"] move container to workspace $w_database
 for_window [class="Redis Insight"] move container to workspace $w_redis
 for_window [class="Google-chrome"] move container to workspace $w_browser
+for_window [class="zen"] move container to workspace $w_browser
 for_window [class="Slack"] move container to workspace $w_slack
 for_window [class="Code"] move container to workspace $w_vscode
+for_window [class="kcachegrind"] move container to workspace $w_cachegrind
 
 exec --no-startup-id google-chrome
-exec --no-startup-id kitty
+exec --no-startup-id zen
+exec --no-startup-id ghostty
 exec --no-startup-id /snap/bin/slack
 exec_always --no-startup-id 'opt/Beekeeper Studio/beekeeper-studio'
 
@@ -216,6 +219,7 @@ bindsym $mod+d workspace $w_database;
 bindsym $mod+g workspace $w_laptop;
 bindsym $mod+u workspace $w_ultrawide;
 bindsym $mod+v workspace $w_vscode;
+bindsym $mod+c workspace $w_cachegrind;
 
 gaps inner 10
 smart_gaps on

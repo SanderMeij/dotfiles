@@ -1,19 +1,25 @@
 #!/snap/bin/nu
 
-git fetch
+git fetch --prune
 
 let tags = git tag | grep '[[:digit:]]\.[[:digit:]]\.[[:digit:]]' | lines | sort -n
 let unreleased_tags = git branch -r | grep 'origin/release-candidate' | sed 's/origin\/release-candidate-\(.*\)/\1/' | lines | each {$in | str trim} | sort -n
 let tag = try { $unreleased_tags | last } catch { $tags | last }
 let branch = try { $'origin/release-candidate-($unreleased_tags | last)' } catch { 'origin/master' }
 
-let description = git cherry -v $branch origin/development | sed 's/\+ [^ ]* \([^ ]* (.*)\) - .*/- \1/' | lines | sort | uniq | str join "\n"
+let description = git cherry -v $branch origin/development
+    | sed 's/\+ [^ ]* \([^ ]* (.*)\) - .*/- \1/'
+    | lines
+    | where $it =~ '- .* (.*#\d+)'
+    | sort
+    | uniq
+    | str join "\n"
 if $description == '' {
     exit 0
 }
 
 let tag = $tag | split row '.' | each { $in | into int }
-let tag = if $description =~ '^- feature' { $'($tag.0).($tag.1 + 1).0' } else { $'($tag.0).($tag.1).($tag.2 + 1)' }
+let tag = if $description =~ '- feature \(' { $'($tag.0).($tag.1 + 1).0' } else { $'($tag.0).($tag.1).($tag.2 + 1)' }
 
 let branch = $'release-candidate-($tag)' 
 git push -u origin $'origin/development:refs/heads/($branch)'

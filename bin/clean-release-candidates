@@ -1,0 +1,40 @@
+#!/snap/bin/nu
+
+try { git status } catch { exit 0 }
+
+let project_id = (glab repo view --output json | from json | get id)
+
+git branch -r
+| lines
+| str trim
+| str replace 'origin/' ''
+| where $it =~ 'release-candidate-.*'
+| each {|branch|
+    let api = (glab api $"/projects/($project_id)/repository/branches/($branch)" | from json)
+
+    let author = ($api.commit.author_name)
+    let msg = ($api.commit.title)  
+
+    # Find merge requests for this branch (source branch)
+    let mrs = (glab api $"/projects/($project_id)/merge_requests?source_branch=($branch)&state=opened" | from json)
+
+    let mr_urls = if ($mrs | length) > 0 {
+        ($mrs | each {|mr| $mr.web_url}) | str join ", "
+    } else {
+        "No open merge request"
+    }
+
+    print $"\nBranch: ($branch)"
+    print $"Last commit author: ($author)"
+    print $"Message: ($msg)"
+    print $"Merge request\(s\): ($mr_urls)"
+    print $"Latest tag: (git tag --sort=-creatordate | head -n 1)"
+
+    let answer = (input "Delete this branch? (y/n): ")
+
+    if $answer == "y" {
+        git push origin --delete $branch
+    } else {
+        print "Skipped."
+    }
+}

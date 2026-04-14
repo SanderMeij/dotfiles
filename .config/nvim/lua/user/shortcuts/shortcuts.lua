@@ -37,16 +37,16 @@ M.spec = function(path)
 end
 
 M.init = function()
-    M.shortcut("FindShortcut", "<leader>fs", function()
-        require("fzf-lua").fzf_exec(utils.table_keys(SHORTCUTS), {
-            prompt = "shortcut ❯ ",
-            actions = {
-                ["default"] = function(selected)
-                    vim.cmd(selected[1])
-                end,
-            },
-        })
-    end, "Search shortcuts")
+    -- M.shortcut("FindShortcut", "<leader>fs", function()
+    --     require("fzf-lua").fzf_exec(utils.table_keys(SHORTCUTS), {
+    --         prompt = "shortcut ❯ ",
+    --         actions = {
+    --             ["default"] = function(selected)
+    --                 vim.cmd(selected[1])
+    --             end,
+    --         },
+    --     })
+    -- end, "Search shortcuts")
 end
 
 return M

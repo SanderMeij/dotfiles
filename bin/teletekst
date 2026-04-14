@@ -1,0 +1,8 @@
+#!/snap/bin/nu
+
+http get "https://teletekst-data.nos.nl/webplus" |
+    htmlq '#content .blue.bg-white' --text |
+    lines |
+    where ($it | str stats).words > 2 |
+    get (date now | format date '%M' | into int | $in // 15) |
+    str trim 

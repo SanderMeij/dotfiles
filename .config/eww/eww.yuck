@@ -1,8 +1,9 @@
 (defpoll time :interval "1s"
     `date "+%H:%M"`)
 (defpoll date :interval "5s"
-    `date "+%d-%m-%Y"`)
+    `date "+%d-%m"`)
 (defpoll volume :interval "1s" "~/.config/eww/scripts/volume.sh")
+(defpoll teletekst :interval "900s" "~/bin/teletekst")
 
 (defwindow bar0
     :monitor 0
@@ -43,10 +44,12 @@
         :hexpand true
         :class "bar"
         (box :orientation "horizontal"
+            :halign "start"
+            " 󰎕 ${teletekst}"
         )
         (box
             :tooltip date
-            "${time}"
+            "${date} ${time}"
         )
         (box :orientation "horizontal"
             :space-evenly false
@@ -54,7 +57,6 @@
             :class "systray"
             "󱈑 ${EWW_BATTERY.BAT0.capacity}% | "
             {volume.muted ? " | " : " ${volume.volume}% | "}
-            "${date} | "
             (systray
                 :prepend-new true
                 :spacing 8

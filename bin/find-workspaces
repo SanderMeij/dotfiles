@@ -3,5 +3,5 @@
 for i in {2..5}; do
     while IFS= read -r -d '' dir; do
         dirname "$dir" | sed "s|^$HOME|~|"
-    done < <(find ~ -mindepth $i -maxdepth $i -type d -name ".git" -not -path '*/.*/*' -print0)
+    done < <(find ~ -mindepth $i -maxdepth $i -type d -name ".git" -o -name ".jj" -not -path '*/.*/*' -print0)
 done

@@ -1,4 +1,3 @@
-local icons = require("user.icons")
 
 return {
     {
@@ -8,7 +7,7 @@ return {
             local snacks = require("snacks")
             snacks.picker("rander", {
                 pattern = opts.args,
-                prompt = " " .. icons.ui.FindFile .. " ",
+                prompt = " 󰈞 ",
                 hidden = true,
                 win = {
                     input = {
@@ -34,7 +33,7 @@ return {
             local snacks = require("snacks")
             snacks.picker("grep", {
                 search = opts.args,
-                prompt = " " .. icons.ui.FindText .. " ",
+                prompt = " 󰊄 ",
                 hidden = true,
                 win = {
                     input = {

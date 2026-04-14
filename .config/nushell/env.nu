@@ -1,12 +1,12 @@
 let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 
 def create_left_prompt [] {
-    mut home = $nu.home-path
+    mut home = $nu.home-dir
     mut indicator = "~>"
     let session_path = (tmux display-message -p '#{session_path}')
     if $session_path != "" {
         $home = $session_path
-        $indicator = "->"
+        $indicator = ""
     }
 
     let dir = (
@@ -139,10 +139,13 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 $env.PATH = ($env.PATH | split row (char esep) | prepend '/usr/local/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.local/bin')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/go/bin/')
+$env.PATH = ($env.PATH | split row (char esep) | prepend '~/.deno/bin/')
 
-$env.TMUX_NOTIFICATIONS = ($nu.home-path | append '/.tmux/notifications.sqlite' | str join "")
+$env.TMUX_NOTIFICATIONS = ($nu.home-dir | append '/.tmux/notifications.sqlite' | str join "")
 
-open ~/.env | from toml | load-env
+open ~/.env | load-env
 
 def notify [ message, type = "message", color = "yellow" ] {
     let query = $"INSERT INTO notifications VALUES \('($type)', '($message)', '($color)', DateTime\('now'\)\) ON CONFLICT(type) DO UPDATE SET message='($message)', color='($color)', updated_at=DateTime\('now'\)"
@@ -184,6 +187,34 @@ def dodo [ ...command: string ] {
     docker exec -it $env.DOCKER_CONTAINER /bin/sh -c ($command | str join ' ')
 }
 
+def "from env" []: string -> record {
+  lines
+    | split column '#' # remove comments
+    | get column0
+    | parse "{key}={value}"
+    | update value {
+        str trim                        # Trim whitespace between value and inline comments
+          | str trim -c '"'             # unquote double-quoted values
+          | str trim -c "'"             # unquote single-quoted values
+          | str replace -a "\\n" "\n"   # replace `\n` with newline char
+          | str replace -a "\\r" "\r"   # replace `\r` with carriage return
+          | str replace -a "\\t" "\t"   # replace `\t` with tab
+    }
+    | transpose -r -d
+}
+
+export def "to env" [] {
+    transpose key value
+        | each {
+            |row| if $row.value =~ r#'^[0-9]|[\s"'`#$(){}\[\]|&;*?!<>=\\]'# {
+                $row | format pattern "{key}='{value}'"
+            } else {
+                $row | format pattern "{key}={value}"
+            }
+        }
+        | str join (char nl)
+}
+
 def pass [ domain: string, ...args: string ] {
     print "Master password:"
     let password = input --suppress-output
@@ -200,6 +231,7 @@ def copy [] {
     $in | xclip -i -selection clipboard
 }
 
+alias paste = xclip -o -sel clip
 alias test-ssh = gcloud compute ssh --zone "europe-west4-a" "legacy-test-1" --project "tests-349812"
 alias acceptance-ssh = gcloud compute ssh --zone "europe-west4-c" "legacy-acceptance-www-1" --project "acceptance-359711" 
 alias production-ssh = gcloud compute ssh --zone "europe-west4-a" "legacy-production-www-1" --project "production-351908" 

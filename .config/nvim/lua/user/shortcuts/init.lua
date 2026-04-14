@@ -16,15 +16,6 @@ shortcuts.shortcut(
     { disabled = { "nohlsearch", "nohls" } }
 )
 
-shortcuts.shortcut("FormatFile", "<leader>lf", function()
-    vim.lsp.buf.format({
-        async = true,
-        filter = function(client)
-            return client.name ~= "intelephense" and client.name ~= "eslint" and client.name ~= "volar" and client.name ~= "yamlls"
-        end,
-    })
-end, "Format file")
-
 shortcuts.shortcut("SignatureHelp", "<leader>sh", function()
     vim.lsp.buf.signature_help()
 end, "Show signature help")
@@ -52,9 +43,6 @@ end)
 shortcuts.shortcut("UnstageHunk", "<leader>gu", function()
     require("gitsigns").undo_stage_hunk()
 end)
-shortcuts.shortcut("PreviewHunk", "<leader>gp", function()
-    require("gitsigns").preview_hunk()
-end)
 shortcuts.shortcut("ResetHunk", "<leader>gr", function()
     require("gitsigns").reset_hunk()
 end)
@@ -69,9 +57,7 @@ end)
 shortcuts.shortcut("UnstageBuffer", "<leader>gU", function()
     require("gitsigns").reset_buffer_index()
 end)
-shortcuts.shortcut("GitQuickFix", "<leader>gq", function()
-    require("gitsigns").setqflist()
-end)
+
 
 shortcuts.shortcut("DiagnoseWorkspace", "<leader>dw", function()
     print("Populating workspace diagnostics...")

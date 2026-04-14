@@ -202,16 +202,18 @@ workspace $w_vscode output DP-3-1
 workspace $w_browser output DP-3-2
 workspace $w_slack output DP-3-2
 
-for_window [class="kitty"] move container to workspace $w_terminal
+for_window [class="ghostty"] move container to workspace $w_terminal
 for_window [class="beekeeper-studio"] move container to workspace $w_database
 for_window [class="Redis Insight"] move container to workspace $w_redis
 for_window [class="jetbrains-phpstorm"] move container to workspace $w_phpstorm
 for_window [class="Google-chrome"] move container to workspace $w_browser
+for_window [class="zen"] move container to workspace $w_browser
 for_window [class="Slack"] move container to workspace $w_slack
 for_window [class="Code"] move container to workspace $w_vscode
 
 exec --no-startup-id google-chrome
-exec --no-startup-id kitty
+exec --no-startup-id zen
+exec --no-startup-id ghostty
 exec --no-startup-id /snap/bin/slack
 exec --no-startup-id /snap/bin/phpstorm
 exec_always --no-startup-id 'opt/Beekeeper Studio/beekeeper-studio'
