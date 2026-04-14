@@ -79,5 +79,3 @@ return {
     brown_50 = "#805a53",
     brown_75 = "#b97d71",
 }
-
-
