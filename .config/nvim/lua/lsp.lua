@@ -8,5 +8,7 @@ vim.lsp.enable({
     "helm_ls",
     "ai-lsp",
     "denols",
+    -- "phpantom",
+    "intelephense",
 })
 vim.diagnostic.config({ virtual_text = true })
