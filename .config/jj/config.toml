@@ -1,0 +1,8 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Sander Meij"
+email = "meij.sander@gmail.com"
+
+[ui]
+diff-formatter = ["/home/sander/.cargo/bin/difft", "--color=always", "$left", "$right"]

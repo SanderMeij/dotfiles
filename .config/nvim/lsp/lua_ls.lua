@@ -1,4 +1,5 @@
 return {
+    icon = "lua",
     cmd = { 'lua-language-server' },
     filetypes = { 'lua' },
     root_markers = {

@@ -1,6 +1,7 @@
 require('plugins')
+require('statusline')
+require('cmp')
 require('options')
 require('keymaps')
 require('autocmds')
-require('statusline')
 require('lsp')

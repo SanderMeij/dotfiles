@@ -1,3 +1,5 @@
+-- require('vim._core.ui2').enable()
+
 vim.pack.add({
 	{ src = "https://github.com/0xAdk/full_visual_line.nvim" },
 	{ src = "https://github.com/NeogitOrg/neogit" },
@@ -11,9 +13,9 @@ vim.pack.add({
 	{ src = "https://github.com/kevinhwang91/nvim-ufo" },
 	{ src = "https://github.com/kevinhwang91/promise-async" },
 	{ src = "https://github.com/kylechui/nvim-surround" },
-	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.diff" },
 	{ src = "https://github.com/nvim-mini/mini.icons" },
 	{ src = "https://github.com/okuuva/auto-save.nvim" },
@@ -95,6 +97,9 @@ Group.new("MiniIconsYellow", Colors.yellow)
 Group.new("ModeMsg", Colors.green)
 Group.new("MoreMsg", Colors.blue)
 Group.new("MsgArea", Colors.foreground, Colors.black)
+Group.new("NeogitDiffAddInline", Colors.green, Colors.green_50)
+Group.new("NeogitDiffDeleteInline", Colors.red, Colors.red_50)
+Group.new("NonText", Colors.gray6)
 Group.new("Normal", Colors.foreground, Colors.gray1)
 Group.new("Number", Colors.magenta)
 Group.new("Operator", Colors.yellow)
@@ -130,8 +135,6 @@ Group.new("WinBar", Colors.foreground, Colors.gray0)
 Group.new("WinBarNC", Colors.foreground, Colors.black)
 Group.new("Yellow50", Colors.yellow_50)
 Group.new("Yellow75", Colors.yellow_75)
-Group.new("NeogitDiffDeleteInline", Colors.red, Colors.red_50)
-Group.new("NeogitDiffAddInline", Colors.green, Colors.green_50)
 
 Group.new("@variable.member.phpdoc", Groups.comment)
 Group.new("@variable.parameter.phpdoc", Groups.comment)
@@ -146,11 +149,12 @@ Group.new("DiffDelete", Groups.removed)
 Group.new("NormalFloat", Groups.Normal)
 Group.new("PMenu", Groups.NormalFloat)
 
+local icons = require("mini.icons")
+icons.setup({})
+
 require("auto-save").setup({})
 require("full_visual_line").setup({})
-require("gitsigns").setup({ signcolumn = true })
 require("mason").setup({})
-require("mini.icons").setup({})
 require("quicker").setup({})
 require("neogit").setup({
 	auto_refresh = true,
@@ -275,76 +279,6 @@ require("neovim_tmux_navigator").setup({
 	end,
 })
 
-require("blink.cmp").setup({
-	keymap = {
-		preset = "default",
-		["<C-l>"] = { "select_and_accept" },
-		["<C-f>"] = { "fallback" },
-	},
-
-	appearance = {
-		nerd_font_variant = "mono",
-	},
-
-	completion = {
-		list = { selection = { preselect = true, auto_insert = false } },
-
-		documentation = {
-			auto_show = true,
-			auto_show_delay_ms = 1000,
-			window = {
-				border = "rounded",
-				scrollbar = false,
-			},
-		},
-		menu = {
-			border = "rounded",
-			scrollbar = false,
-			draw = {
-				gap = 2,
-				padding = 2,
-			},
-			direction_priority = { "n", "s" },
-		},
-		ghost_text = { enabled = true, show_with_menu = true },
-	},
-
-	sources = {
-		default = { "lsp", "lazydev", "path", "snippets", "buffer" },
-		providers = {
-			lazydev = {
-				name = "LazyDev",
-				module = "lazydev.integrations.blink",
-				score_offset = 100,
-			},
-		},
-	},
-
-	fuzzy = {
-		sorts = {
-			-- function(a, b)
-			-- 	if a.source_name ~= "LSP" or b.source_name ~= "LSP" then
-			-- 		return
-			-- 	end
-			-- 	local name = vim.lsp.get_client_by_id(b.client_id).name
-			-- 	return name ~= "ai_lsp"
-			-- end,
-			-- "score",
-			-- "sort_text",
-		},
-		implementation = "prefer_rust_with_warning",
-	},
-
-	signature = { enabled = true },
-
-	cmdline = {
-		enabled = true,
-		keymap = {
-			["<C-l>"] = { "select_and_accept" },
-		},
-		completion = { menu = { auto_show = true } },
-	},
-})
 
 local hl = {
 	"Invisble",
@@ -369,91 +303,6 @@ local function relative_buffer_file(buf)
 	return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":.")
 end
 
-local cache = {}
-
-local function get_buf_realpath(buf_id)
-	return vim.loop.fs_realpath(vim.api.nvim_buf_get_name(buf_id)) or ""
-end
-
-local function repo_dir(path)
-	local result = vim.system({ "jj", "--ignore-working-copy", "root" }, { cwd = vim.fs.dirname(path) }):wait()
-	if result.code == 0 then
-		return vim.trim(result.stdout)
-	else
-		return nil
-	end
-end
-
-local function invalidate_cache(buf_id)
-	local cache = cache[buf_id]
-	if cache == nil then
-		return false
-	end
-	pcall(function()
-		cache.fs_event:stop()
-		cache.timer:stop()
-	end)
-	cache[buf_id] = nil
-end
-
-local function start_watching(buf_id, path)
-	local repo = repo_dir(path)
-	if repo == nil then
-		return false
-	end
-	local watchfile = vim.fs.joinpath(repo, ".jj/working_copy")
-
-	local buf_fs_event, timer = vim.loop.new_fs_event(), vim.loop.new_timer()
-	local set_ref_text = function()
-		vim.system(
-			{ "jj", "--ignore-working-copy", "file", "show", "-r", "@-", '"' .. path .. '"' },
-			{ cwd = vim.fs.dirname(path), text = true },
-			vim.schedule_wrap(function(res)
-				local MiniDiff = require("mini.diff")
-				MiniDiff.set_ref_text(buf_id, res.stdout)
-			end)
-		)
-	end
-
-	local watch_index = function(_, filename, _)
-		if filename ~= "checkout" then
-			return
-		end
-		timer:stop()
-		timer:start(50, 0, set_ref_text)
-	end
-	buf_fs_event:start(watchfile, { recursive = true }, watch_index)
-
-	invalidate_cache(buf_id)
-	cache[buf_id] = { fs_event = buf_fs_event, timer = timer }
-
-	set_ref_text()
-end
-
-local diff = require("mini.diff")
-diff.setup({
-	-- view = {
-	-- 	style = "number",
-	-- },
-	-- source = {
-	-- 	name = "jj",
-	-- 	attach = function(buf_id)
-	-- 		if cache[buf_id] ~= nil then
-	-- 			return false
-	-- 		end
-	--
-	-- 		local path = get_buf_realpath(buf_id)
-	-- 		if path == "" then
-	-- 			return false
-	-- 		end
-	--
-	-- 		return start_watching(buf_id, path)
-	-- 	end,
-	-- 	detach = function(buf_id)
-	-- 		invalidate_cache(buf_id)
-	-- 	end,
-	-- },
-})
 
 require("snacks").setup({
 	bigfile = { enabled = true },
@@ -523,7 +372,6 @@ require("snacks").setup({
 					preview = false,
 				},
 				format = function(item, _)
-					local icons = require("mini.icons")
 					local icon, highlight = icons.get("extension", item.text)
 					return {
 						{ icon .. " ", highlight },
@@ -641,7 +489,7 @@ require("ufo").setup({
 	close_fold_kinds_for_ft = {
 		default = {
 			"imports",
-			"region",
+			-- "region",
 		},
 	},
 })

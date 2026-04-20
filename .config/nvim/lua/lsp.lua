@@ -9,7 +9,7 @@ vim.lsp.enable({
     "lua_ls",
     "rust-analyzer",
     "texlab",
-    "ts_ls",
+    -- "ts_ls",
     -- "phpantom",
 })
 vim.diagnostic.config({ virtual_text = true })

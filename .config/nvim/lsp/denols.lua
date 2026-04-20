@@ -1,4 +1,5 @@
 return {
+    icon = "deno",
     cmd = { 'deno', 'lsp' },
     filetypes = { 'typescript' },
     root_markers = { "deno.json", "deno.jsonc" },
