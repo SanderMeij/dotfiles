@@ -16,16 +16,13 @@ end
 require("blink.cmp").setup({
 	keymap = {
 		preset = "default",
-		-- ["<C-l>"] = { "select_and_accept" },
-		["<C-f>"] = { "fallback" },
+		["<C-f>"] = { "select_and_accept" },
 		["<C-k>"] = {
 			function(_)
 				require("blink.cmp.completion.trigger").hide()
 			end,
 		},
-		["<C-l>"] = {
-			"accept_line",
-		},
+		-- ["<C-f>"] = { "accept_line", },
 	},
 
 	appearance = {

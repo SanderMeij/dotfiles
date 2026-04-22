@@ -1,6 +1,7 @@
 require('plugins')
 require('statusline')
 require('cmp')
+require('diff')
 require('options')
 require('keymaps')
 require('autocmds')

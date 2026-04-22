@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "php", "go" },
+	pattern = { "php", "go", "blade" },
 	callback = function()
 		vim.treesitter.start()
 	end,

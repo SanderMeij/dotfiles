@@ -25,7 +25,7 @@ require("lualine").setup({
 		component_separators = "|",
 		section_separators = { left = "", right = "" },
 		show_filename_only = false,
-		ignore_focus = { "NvimTree" },
+        globalstatus = true,
 	},
 	sections = {
 		lualine_a = {
@@ -38,7 +38,6 @@ require("lualine").setup({
 				function()
 					local clients = vim.lsp.get_clients({ bufnr = 0 })
 					if next(clients) == nil then
-                         
 						return ""
 					end
 
