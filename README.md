@@ -16,8 +16,8 @@
         - Disregard uses when switching very quickly
     
     - Lspsaga
+    - test
 
 ### Potential shortcuts
     - '<,'>sort u
     - %!shuf
-

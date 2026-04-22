@@ -132,7 +132,59 @@ keymap("n", "gD", vim.lsp.buf.declaration)
 keymap("n", "gl", vim.diagnostic.open_float)
 keymap("n", "<leader>g", "<cmd>Neogit<cr>")
 keymap("n", "U", "gHgh", { remap = true })
-keymap({"n", "v"}, "<leader>a", vim.lsp.buf.code_action)
+keymap({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action)
 keymap("n", "<leader>s", function()
 	require("snacks").picker()
+end)
+
+local function add_jj_diff_to_quickfix()
+	local files = vim.fn.systemlist("ai diff --name-only")
+	local qf_list = {}
+
+	for _, filename in ipairs(files) do
+		-- Get old version (before changes)
+		local old_content = vim.fn.system("ai show " .. vim.fn.shellescape(filename))
+		-- Get new version (current working copy)
+
+		local file = io.open(filename, "r")
+		local new_content = ""
+		if file then
+			new_content = file:read("*a")
+		else
+			file = io.open(filename, "w")
+			file:close()
+			new_content = ""
+		end
+		-- Get diff indices
+		local diff_result = vim.text.diff(old_content, new_content, {
+			result_type = "indices",
+            algorithm = "histogram",
+		})
+
+		-- Add each hunk to quickfix
+		for _, hunk in ipairs(diff_result) do
+			vim.print(vim.inspect(hunk))
+			local old_start, old_count = hunk[1], hunk[2]
+			local new_start, new_count = hunk[3], hunk[4]
+
+			local text = string.format("-%d,%d +%d,%d", old_start, old_count, new_start, new_count)
+			vim.print(text)
+
+			table.insert(qf_list, {
+				filename = filename,
+				lnum = new_start > 0 and new_start or 1,
+				col = 1,
+				text = text,
+				type = "I",
+			})
+		end
+	end
+
+	vim.fn.setqflist(qf_list, "r")
+	vim.cmd("copen")
+	vim.notify(string.format("Added %d hunks to quickfix", #qf_list), vim.log.levels.INFO)
+end
+
+keymap("n", "]f", function()
+	add_jj_diff_to_quickfix()
 end)
