@@ -24,6 +24,7 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/stevearc/quicker.nvim" },
 	{ src = "https://github.com/tjdevries/colorbuddy.nvim" },
+    { src = "https://github.com/Julian/lean.nvim" },
 })
 
 local colors = require("colors")
@@ -496,3 +497,5 @@ require("ufo").setup({
 		},
 	},
 })
+
+require("lean").setup({ mappings = true })
