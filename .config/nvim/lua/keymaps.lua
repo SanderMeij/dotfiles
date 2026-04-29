@@ -155,7 +155,7 @@ keymap("v", "<leader>aj", function()
 
 	vim.ui.input({ prompt = "AI Prompt: " }, function(input)
 		if input and input ~= "" then
-			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. " -f " .. vim.fn.shellescape(file_spec))
+			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. vim.fn.shellescape(file_spec))
 		end
 	end)
 end)
