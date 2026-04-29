@@ -145,6 +145,21 @@ keymap("n", "<leader>aj", function()
 	end)
 end)
 
+keymap("v", "<leader>aj", function()
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+	local file_spec = vim.fn.fnamemodify(vim.fn.expand("%"), ":.") .. ":" .. start_line .. "-" .. end_line
+
+	vim.ui.input({ prompt = "AI Prompt: " }, function(input)
+		if input and input ~= "" then
+			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. " -f " .. vim.fn.shellescape(file_spec))
+		end
+	end)
+end)
+
 local function add_jj_diff_to_quickfix()
 	local files = vim.fn.systemlist("ai diff --name-only")
 	local qf_list = {}
