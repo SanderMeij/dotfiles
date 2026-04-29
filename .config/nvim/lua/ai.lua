@@ -9,7 +9,7 @@ local function keymap(mode, lhs, rhs, opts)
 end
 
 keymap("n", "<leader>aj", function()
-    snacks.input({ prompt = "AI Prompt", history = "ai"}, function(input)
+    snacks.input({ prompt = "AI Write", history = "ai"}, function(input)
 		if input and input ~= "" then
 			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input))
 		end
@@ -24,9 +24,32 @@ keymap("v", "<leader>aj", function()
 	end
 	local file_spec = vim.fn.fnamemodify(vim.fn.expand("%"), ":.") .. ":" .. start_line .. "-" .. end_line
 
-    snacks.input({ prompt = "AI Prompt", history = "ai"}, function(input)
+    snacks.input({ prompt = "AI Write", history = "ai"}, function(input)
 		if input and input ~= "" then
 			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. " " .. vim.fn.shellescape(file_spec))
+		end
+	end)
+end)
+
+keymap("n", "<leader>ak", function()
+    snacks.input({ prompt = "AI Read", history = "ai"}, function(input)
+		if input and input ~= "" then
+			require("snacks").terminal.open("ai read " .. vim.fn.shellescape(input))
+		end
+    end)
+end)
+
+keymap("v", "<leader>ak", function()
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+	local file_spec = vim.fn.fnamemodify(vim.fn.expand("%"), ":.") .. ":" .. start_line .. "-" .. end_line
+
+    snacks.input({ prompt = "AI Read", history = "ai"}, function(input)
+		if input and input ~= "" then
+			require("snacks").terminal.open("ai read " .. vim.fn.shellescape(input) .. " " .. vim.fn.shellescape(file_spec))
 		end
 	end)
 end)
