@@ -321,6 +321,7 @@ require("snacks").setup({
 		},
 	},
 	input = { enabled = true },
+	terminal = { enabled = true },
 	picker = {
 		enabled = true,
 		matcher = {

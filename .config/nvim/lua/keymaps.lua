@@ -137,6 +137,14 @@ keymap("n", "<leader>s", function()
 	require("snacks").picker()
 end)
 
+keymap("n", "<leader>aj", function()
+	vim.ui.input({ prompt = "AI Prompt: " }, function(input)
+		if input and input ~= "" then
+			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input))
+		end
+	end)
+end)
+
 local function add_jj_diff_to_quickfix()
 	local files = vim.fn.systemlist("ai diff --name-only")
 	local qf_list = {}
