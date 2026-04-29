@@ -73,7 +73,15 @@ require("blink.cmp").setup({
 				module = "lazydev.integrations.blink",
 				score_offset = 100,
 			},
+            ai_history = {
+                name = "AI History",
+                module = "ai-history",
+                score_offset = 100,
+            }
 		},
+        per_filetype = {
+            ai_input = { "ai_history" }
+        }
 	},
 
 	fuzzy = {

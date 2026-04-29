@@ -24,7 +24,7 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/stevearc/quicker.nvim" },
 	{ src = "https://github.com/tjdevries/colorbuddy.nvim" },
-    { src = "https://github.com/Julian/lean.nvim" },
+	{ src = "https://github.com/Julian/lean.nvim" },
 })
 
 local colors = require("colors")
@@ -283,7 +283,6 @@ require("neovim_tmux_navigator").setup({
 	end,
 })
 
-
 local hl = {
 	"Invisble",
 	"Green50",
@@ -307,7 +306,6 @@ local function relative_buffer_file(buf)
 	return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":.")
 end
 
-
 require("snacks").setup({
 	bigfile = { enabled = true },
 	explorer = { enabled = false },
@@ -320,7 +318,24 @@ require("snacks").setup({
 			hl = hl,
 		},
 	},
-	input = { enabled = true },
+	input = {
+		enabled = true,
+	},
+	styles = {
+		input = {
+			bo = {
+				filetype = "ai_input",
+				buftype = "prompt",
+			},
+			b = {
+				completion = true,
+			},
+			keys = {
+				i_up = { "<c-p>", { "hist_up" }, mode = { "i", "n" } },
+				i_down = { "<c-n>", { "hist_down" }, mode = { "i", "n" } },
+			},
+		},
+	},
 	terminal = { enabled = true },
 	picker = {
 		enabled = true,

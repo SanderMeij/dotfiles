@@ -1,3 +1,5 @@
+local snacks = require("snacks")
+
 local function keymap(mode, lhs, rhs, opts)
 	local default_opts = { noremap = true, silent = true }
 	if opts then
@@ -7,11 +9,11 @@ local function keymap(mode, lhs, rhs, opts)
 end
 
 keymap("n", "<leader>aj", function()
-	vim.ui.input({ prompt = "AI Prompt: " }, function(input)
+    snacks.input({ prompt = "AI Prompt", history = "ai"}, function(input)
 		if input and input ~= "" then
 			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input))
 		end
-	end)
+    end)
 end)
 
 keymap("v", "<leader>aj", function()
@@ -22,9 +24,9 @@ keymap("v", "<leader>aj", function()
 	end
 	local file_spec = vim.fn.fnamemodify(vim.fn.expand("%"), ":.") .. ":" .. start_line .. "-" .. end_line
 
-	vim.ui.input({ prompt = "AI Prompt: " }, function(input)
+    snacks.input({ prompt = "AI Prompt", history = "ai"}, function(input)
 		if input and input ~= "" then
-			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. vim.fn.shellescape(file_spec))
+			require("snacks").terminal.open("ai prompt " .. vim.fn.shellescape(input) .. " " .. vim.fn.shellescape(file_spec))
 		end
 	end)
 end)

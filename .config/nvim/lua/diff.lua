@@ -55,7 +55,6 @@ local function start_watching(buf_id, path, cmd)
 			cmd,
 			{ cwd = repo, text = true },
 			vim.schedule_wrap(function(res)
-	               vim.notify(vim.inspect(res.code))
 				if res.code ~= 0 then
 					vim.api.nvim_set_hl(0, "MiniDiffOverChange", { fg = nil, bg = colors.red_50 })
 					vim.api.nvim_set_hl(0, "MiniDiffOverContextBuf", { fg = nil, bg = colors.green_25 })
@@ -75,37 +74,29 @@ local function start_watching(buf_id, path, cmd)
 							diff.set_ref_text(buf_id, res.stdout)
 						end)
 					)
-	               else
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverChange", { fg = nil, bg = colors.green_50 })
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverContextBuf", { fg = nil, bg = colors.red_25 })
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverAdd", { fg = nil, bg = colors.red_25 })
-	                   vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { fg = colors.red })
-	                   vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { fg = colors.green })
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverContext", { fg = nil, bg = colors.green_25 })
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { fg = nil, bg = colors.red_50 })
-	                   vim.api.nvim_set_hl(0, "MiniDiffOverDelete", { fg = nil, bg = colors.green_25 })
-	                   diff.set_ref_text(buf_id, res.stdout)
-	               end
+				else
+					vim.api.nvim_set_hl(0, "MiniDiffOverChange", { fg = nil, bg = colors.green_50 })
+					vim.api.nvim_set_hl(0, "MiniDiffOverContextBuf", { fg = nil, bg = colors.red_25 })
+					vim.api.nvim_set_hl(0, "MiniDiffOverAdd", { fg = nil, bg = colors.red_25 })
+					vim.api.nvim_set_hl(0, "MiniDiffSignAdd", { fg = colors.red })
+					vim.api.nvim_set_hl(0, "MiniDiffSignDelete", { fg = colors.green })
+					vim.api.nvim_set_hl(0, "MiniDiffOverContext", { fg = nil, bg = colors.green_25 })
+					vim.api.nvim_set_hl(0, "MiniDiffOverChangeBuf", { fg = nil, bg = colors.red_50 })
+					vim.api.nvim_set_hl(0, "MiniDiffOverDelete", { fg = nil, bg = colors.green_25 })
+					diff.set_ref_text(buf_id, res.stdout)
+				end
 			end)
 		)
 	end
-
 
 	local watch_index = function(_, _, _)
 		timer:stop()
 		timer:start(50, 0, set_ref)
 	end
-	buf_fs_event:start(
-        watchfile,
-        { recursive = true },
-        function(_, _, _)
-            timer:stop()
-            timer:start(50, 0, function()
-                
-                
-            end)
-        end
-    )
+	buf_fs_event:start(watchfile, { recursive = true }, function(_, _, _)
+		timer:stop()
+		timer:start(50, 0, function() end)
+	end)
 
 	invalidate_cache(buf_id)
 	cache[buf_id] = { fs_event = buf_fs_event, timer = timer }
@@ -148,6 +139,10 @@ diff.setup({
 			name = "ai",
 			attach = attach({ "ai", "show" }),
 			detach = invalidate_cache,
+			apply_hunks = function(buf_id, hunks)
+				vim.notify(vim.inspect(hunks))
+				vim.notify(vim.inspect(require("mini.diff").get_buf_data()))
+			end,
 		},
 		{
 			name = "jj",
