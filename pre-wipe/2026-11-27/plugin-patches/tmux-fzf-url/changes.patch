@@ -1,0 +1,13 @@
+diff --git a/fzf-url.sh b/fzf-url.sh
+index b43090d..ace3a3d 100755
+--- a/fzf-url.sh
++++ b/fzf-url.sh
+@@ -12,7 +12,7 @@ get_fzf_options() {
+ }
+ 
+ fzf_filter() {
+-  eval "fzf-tmux $(get_fzf_options)"
++  eval "fzf"
+ }
+ 
+ custom_open=$3

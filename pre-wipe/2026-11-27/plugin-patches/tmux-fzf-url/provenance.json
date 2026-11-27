@@ -1,0 +1,13 @@
+{
+  "project": "tmux-fzf-url",
+  "upstream": "github.com/wfxr/tmux-fzf-url",
+  "upstream_base_commit": "fb82d88b3515ec5228dd5975d45cea5e3d110503",
+  "description": "Use plain fzf instead of the fzf-tmux/options invocation.",
+  "changed_files": [
+    "fzf-url.sh"
+  ],
+  "patch_sha256": "2959e12843d12b3b9551d350a87225de349c91fd2302186cb7774ef24f3c5703",
+  "modified_file_sha256": "429ba5640002926992e7afd8511898bd1f3e77b5f1d1fef9dd7dfa456a5b9a07",
+  "format": "git diff --binary HEAD; apply to the exact upstream base with git apply",
+  "privacy": "Only the reviewed customization is included; no remote configuration, credentials, environment files or jj metadata."
+}
