@@ -1,0 +1,13 @@
+{
+  "project": "herdr-next-agent",
+  "upstream": "github.com/martin-ro/herdr-next-agent",
+  "upstream_base_commit": "765b7c24a933353e6117df59a9c7b787db374a19",
+  "description": "Use pane_id instead of terminal_id for agent ordering and focus.",
+  "changed_files": [
+    "next_agent.py"
+  ],
+  "patch_sha256": "d671e7b1ad8ab1046d606a4a73838bc049e980d5316e7221e5d03df323811008",
+  "modified_file_sha256": "c7e57373e15780519258b17dff2aa56d73756249ef8c37184d089e62163a9129",
+  "format": "git diff --binary HEAD; apply to the exact upstream base with git apply",
+  "privacy": "Only the reviewed customization is included; no remote configuration, credentials, environment files or jj metadata."
+}
