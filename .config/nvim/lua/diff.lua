@@ -47,7 +47,7 @@ local function start_watching(buf_id, path, cmd)
 	if repo == nil then
 		return false
 	end
-	local watchfile = vim.fs.joinpath(repo, ".agents/current")
+	local watchfile = vim.fs.joinpath(repo, ".agents/sessions.json")
 
 	local buf_fs_event, timer = vim.loop.new_fs_event(), vim.loop.new_timer()
 	local set_ref_text = function()
@@ -135,20 +135,20 @@ diff.setup({
 		algorithm = "histogram",
 	},
 	source = {
-		{
-			name = "ai",
-			attach = attach({ "ai", "show" }),
-			detach = invalidate_cache,
-			apply_hunks = function(buf_id, hunks)
-				vim.notify(vim.inspect(hunks))
-				vim.notify(vim.inspect(require("mini.diff").get_buf_data()))
-			end,
-		},
-		{
-			name = "jj",
-			attach = attach({ "jj", "--ignore-working-copy", "file", "show", "-r", "@-" }),
-			detach = invalidate_cache,
-		},
+		-- {
+		-- 	name = "ai",
+		-- 	attach = attach({ "ai", "show" }),
+		-- 	detach = invalidate_cache,
+		-- 	apply_hunks = function(buf_id, hunks)
+		-- 		vim.notify(vim.inspect(hunks))
+		-- 		vim.notify(vim.inspect(require("mini.diff").get_buf_data()))
+		-- 	end,
+		-- },
+		-- {
+		-- 	name = "jj",
+		-- 	attach = attach({ "jj", "--ignore-working-copy", "file", "show", "-r", "@-" }),
+		-- 	detach = invalidate_cache,
+		-- },
 		diff.gen_source.git(),
 	},
 })

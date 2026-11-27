@@ -371,7 +371,7 @@ require("snacks").setup({
 						cmd = "sh",
 						args = {
 							"-c",
-							"fdfind --type file --exclude .jj"
+							"fdfind --type file --exclude .jj --exclude .lake"
 								.. fd_args
 								.. " | rander "
 								.. cwd

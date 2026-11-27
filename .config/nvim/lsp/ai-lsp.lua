@@ -1,5 +1,17 @@
 return {
-    icon = "robot",
-    cmd = { '/home/sander/development/ai-lsp/ai-lsp' },
-    filetypes = { 'sql', 'markdown', 'txt', 'go', 'lua', 'php', 'javascript', 'python', 'lean' },
+	icon = "robot",
+	cmd = { "/home/sander/development/ai-lsp/ai-lsp" },
+	filetypes = {
+		"css",
+		"go",
+		"html",
+		"javascript",
+		"lean",
+		"lua",
+		"markdown",
+		"php",
+		"python",
+		"sql",
+		"txt",
+	},
 }
