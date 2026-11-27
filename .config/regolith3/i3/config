@@ -188,13 +188,13 @@ set $w_ultrawide "Ultrawide"
 set $w_vscode "VSCode"
 
 workspace $w_laptop output eDP-1
-workspace $w_terminal output DP-3-1
-workspace $w_database output DP-3-1
-workspace $w_redis output DP-3-1
-workspace $w_vscode output DP-3-1
-workspace $w_cachegrind output DP-3-8
-workspace $w_browser output DP-3-8
-workspace $w_slack output DP-3-8
+workspace $w_terminal output DP-3-8
+workspace $w_database output DP-3-8
+workspace $w_redis output DP-3-8
+workspace $w_vscode output DP-3-8
+workspace $w_cachegrind output DP-3-1
+workspace $w_browser output DP-3-1
+workspace $w_slack output DP-3-1
 workspace $w_ultrawide output DP-3
 
 for_window [class="ghostty"] move container to workspace $w_terminal
@@ -202,7 +202,7 @@ for_window [class="beekeeper-studio"] move container to workspace $w_database
 for_window [class="Redis Insight"] move container to workspace $w_redis
 for_window [class="Google-chrome"] move container to workspace $w_browser
 for_window [class="zen"] move container to workspace $w_browser
-for_window [class="Slack"] move container to workspace $w_slack
+for_window [class="slack"] move container to workspace $w_slack
 for_window [class="Code"] move container to workspace $w_vscode
 for_window [class="kcachegrind"] move container to workspace $w_cachegrind
 

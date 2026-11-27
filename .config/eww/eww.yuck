@@ -6,7 +6,7 @@
 (defpoll teletekst :interval "900s" "~/bin/teletekst")
 
 (defwindow bar0
-    :monitor 0
+    :monitor "eDP-1"
     :geometry (geometry :x "0%"
         :height "24px"
         :anchor "top center")

@@ -3,7 +3,7 @@ let $colors = (open $"($env.HOME)/.config/colors/colors.json")
 def create_left_prompt [] {
     mut home = $nu.home-dir
     mut indicator = "~>"
-    let session_path = (tmux display-message -p '#{session_path}')
+    let session_path = (herdr workspace list | from json | get result.workspaces | where focused | first | get label | str replace '~' $env.HOME)
     if $session_path != "" {
         $home = $session_path
         $indicator = ""
@@ -243,3 +243,4 @@ $env.PATH = ($env.PATH | prepend $"($env.FNM_MULTISHELL_PATH)/bin")
 $env.PATH = ($env.path | prepend "~/bin")
 $env.PATH = ($env.path | prepend "~/.cargo/bin")
 $env.DIRENV_LOG_FORMAT = ""
+

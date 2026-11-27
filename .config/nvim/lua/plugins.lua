@@ -2,6 +2,7 @@
 
 vim.pack.add({
 	{ src = "https://github.com/0xAdk/full_visual_line.nvim" },
+	{ src = "https://github.com/Julian/lean.nvim" },
 	{ src = "https://github.com/NeogitOrg/neogit" },
 	{ src = "https://github.com/RRethy/vim-illuminate" },
 	{ src = "https://github.com/SanderMeij/neovim_tmux_navigator", version = "rewrite" },
@@ -24,7 +25,8 @@ vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
 	{ src = "https://github.com/stevearc/quicker.nvim" },
 	{ src = "https://github.com/tjdevries/colorbuddy.nvim" },
-	{ src = "https://github.com/Julian/lean.nvim" },
+	{ src = "https://github.com/lmilojevicc/herdr-splits.nvim" },
+	{ src = "https://github.com/romus204/tree-sitter-manager.nvim" },
 })
 
 local colors = require("colors")
@@ -271,17 +273,17 @@ require("dropbar").setup({
 	},
 })
 
-require("neovim_tmux_navigator").setup({
-	bottom_reached = function()
-		os.execute("tmux split-window -l 10")
-	end,
-	left_reached = function()
-		os.execute("tmux previous-window")
-	end,
-	right_reached = function()
-		os.execute("tmux next-window")
-	end,
-})
+-- require("neovim_tmux_navigator").setup({
+-- 	bottom_reached = function()
+-- 		os.execute("herdr pane split --direction down --ratio 0.75 --focus")
+-- 	end,
+-- 	-- left_reached = function()
+-- 	-- 	os.execute("tmux previous-window")
+-- 	-- end,
+-- 	-- right_reached = function()
+-- 	-- 	os.execute("tmux next-window")
+-- 	-- end,
+-- })
 
 local hl = {
 	"Invisble",
@@ -371,7 +373,7 @@ require("snacks").setup({
 						cmd = "sh",
 						args = {
 							"-c",
-							"fdfind --type file --exclude .jj"
+							"fdfind --type file --exclude .jj --exclude .lake"
 								.. fd_args
 								.. " | rander "
 								.. cwd
@@ -460,13 +462,15 @@ require("conform").setup({
 		go = { "gofumpt" },
 		html = { "prettier" },
 		javascript = { "prettier" },
-		typescript = { "prettier" },
 		json = { "prettier" },
 		lua = { "stylua", lsp_format = "fallback" },
 		php = { "mago_format" },
 		sql = { "prettier" },
 		svg = { "prettier" },
+		templ = { "templ" },
+		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
+		blade = { "blade-formatter" },
 	},
 })
 
@@ -515,3 +519,42 @@ require("ufo").setup({
 })
 
 require("lean").setup({ mappings = true })
+require("tree-sitter-manager").setup()
+
+require("herdr-splits").setup({
+	-- Defaults shown. All fields optional.
+	default_amount = 0.03, -- Herdr resize ratio
+	neovim_amount = 3, -- Neovim resize cells
+	at_edge = function()
+        os.execute("nu -c 'herdr pane neighbor --current --direction down | from json | try { get result.neighbor.neighbor_pane_id; herdr pane focus --direction down } catch { herdr pane split --direction down --ratio 0.75 --focus }'")
+    end,
+	ignored_buftypes = { "nofile", "quickfix", "prompt", "help", "terminal" },
+	ignored_filetypes = {
+		"NvimTree",
+		-- sidebars
+		"neo-tree",
+		"snacks_dashboard",
+		"snacks_explorer",
+		"snacks_picker",
+		-- DB / REPL / data sidebars
+		"dadbod-ui",
+		"dbout",
+		-- outlines / symbols
+		"aerial",
+		"Outline",
+		-- diagnostics / quick lists
+		"Trouble",
+		"quickfix",
+	},
+	move_cursor_same_row = false,
+	herdr_bin = nil, -- auto-detected from HERDR_BIN_PATH
+	floating_zindex_max = 50, -- floats with zindex < this are treated as embedded sidebars
+	ignore_previewwindows = false, -- opt-in: also treat previewwindow windows (e.g. .dbout) as sidebars
+	-- auto_sync_herdr = true,      -- opt-in: sync Herdr-side scripts on update
+	-- Managed keys — written to the generated herdr-splits.conf so the
+	-- Herdr-side scripts agree. Pass Neovim notation (e.g. <M-Left>).
+	nav_keys = { left = "<C-h>", down = "<C-j>", up = "<C-k>", right = "<C-l>" },
+	resize_keys = { left = "<M-h>", down = "<M-j>", up = "<M-k>", right = "<M-l>" },
+	unzoom_on_nav = true, -- auto-unzoom when navigating away from a zoomed pane
+	nav_at_edge = "wrap", -- 'wrap' | 'stop' — Herdr pane-boundary wrap (distinct from at_edge)
+})

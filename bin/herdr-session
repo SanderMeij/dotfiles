@@ -1,0 +1,119 @@
+#!/usr/bin/env nu
+
+# Note: Nushell cannot directly source Bash (.sh) files to alter its environment.
+# You will need to convert fzf-options.sh to a Nushell script (e.g., fzf-options.nu) 
+# or set the required environment variables directly in your config.nu.
+# source ~/.config/nu/fzf-options.nu
+
+# Safely extract workspace data and parse the JSON natively
+let workspaces = (
+    try { 
+        herdr workspace list | from json | get -o result.workspaces | default []
+    } catch { 
+        [] 
+    }
+)
+
+# Extract lists of labels (compact removes nulls if any exist)
+let active_directories = ($workspaces | get -o label | compact)
+let exclude_directories = ($workspaces | where focused == true | get -o label | compact)
+
+def herdr-switch-workspace [target: string] {
+    # Replace dots with underscores and expand the `~` to the full home directory path
+    let name = ($target | str replace --all '.' '_')
+    let expanded_path = ($target | path expand)
+
+    # Prefer the exact label for existing workspaces, including non-directory names.
+    let get_ws_id = {||
+        try {
+            let available = (herdr workspace list | from json | get -o result.workspaces | default [])
+            let exact_id = ($available | where label == $target | get -o 0.workspace_id)
+            if ($exact_id | is-not-empty) {
+                $exact_id
+            } else {
+                $available | where label == $name | get -o 0.workspace_id
+            }
+        } catch { 
+            null 
+        }
+    }
+
+    mut ws_id = (do $get_ws_id)
+
+    if $env.HERDR_ENV == "1" {
+        # If ws_id is empty, the workspace does not exist yet
+        if ($ws_id | is-empty) {
+            try {
+                herdr workspace create --cwd $expanded_path --label $name --no-focus err> /dev/null
+            } catch {
+                herdr workspace create $name --cwd $expanded_path
+            }
+            
+            # Fetch the newly created workspace_id
+            $ws_id = (do $get_ws_id)
+        }
+        
+        # Focus using the workspace_id
+        if ($ws_id | is-not-empty) {
+            herdr workspace focus $ws_id
+        }
+    } else {
+        # Running outside Herdr: create if missing, then attach
+        if ($ws_id | is-empty) {
+            try {
+                herdr workspace create --cwd $expanded_path --label $name err> /dev/null
+            } catch {
+                herdr workspace create $name --cwd $expanded_path
+            }
+        }
+
+        if ($ws_id | is-not-empty) {
+            herdr workspace focus $ws_id
+        }
+        
+        try {
+            herdr session attach err> /dev/null
+        } catch {
+            herdr
+        }
+    }
+}
+
+def herdr-workspace [] {
+    # Cleaned up the redundant $(echo {}) from the preview command 
+    let fzf_preview = 'rander session info {}'
+
+    # Note: We use the `...` spread operator to pass the Nu lists as multiple arguments to `rander`
+    let ranked = (
+        find-workspaces
+        | lines
+        | append $active_directories
+        | uniq
+        | where {|candidate| $candidate not-in $exclude_directories }
+        | str join (char nl)
+        | rander session get --active ...$active_directories --exclude ...$exclude_directories
+        | lines
+    )
+
+    # Keep all active workspaces first, preserving rander's order within each group.
+    let selected = (
+        $ranked
+        | where {|candidate| $candidate in $active_directories }
+        | append ($ranked | where {|candidate| $candidate not-in $active_directories })
+        | str join (char nl)
+        | fzf --no-sort --select-1 --border-label="Select workspace" --preview=$fzf_preview --height=10 --info='inline-right' --no-scrollbar --pointer='' --preview-window='down,1,border-none' --prompt=' ' --reverse --bind='ctrl-j:pos(1)+accept' --bind='ctrl-k:pos(2)+accept' --bind='ctrl-l:pos(3)+accept'
+        | complete
+        | get stdout
+        | str trim
+    )
+
+    if ($selected | is-empty) {
+        return
+    }
+
+    rander session add $selected
+    herdr-switch-workspace $selected
+}
+
+# Execute the main function
+herdr-workspace

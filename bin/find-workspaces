@@ -1,7 +1,3 @@
 #!/bin/bash
 
-for i in {2..5}; do
-    while IFS= read -r -d '' dir; do
-        dirname "$dir" | sed "s|^$HOME|~|"
-    done < <(find ~ -mindepth $i -maxdepth $i -type d -name ".git" -o -name ".jj" -not -path '*/.*/*' -print0)
-done
+find ~ -maxdepth 5 -type d -name ".*" ! -name ".git" ! -name ".jj" -prune -o \( -name ".git" -o -name ".jj" \) -prune -printf '%h\n' | sed "s|^$HOME|~|"

@@ -158,7 +158,7 @@ $env.config = {
         external: {
             enable: true # set to false to prevent nushell looking into $env.PATH to find more suggestions, `false` recommended for WSL users as this look up may be very slow
             max_results: 100 # setting it lower can improve completion performance at the cost of omitting some options
-            completer: {|spans| carapace $spans.0 nushell ...$spans | from json }
+            completer: {|place| carapace $place.command.0 nushell ...$place.command | from json }
         },
     }
 
@@ -518,7 +518,7 @@ $env.config = {
             event: { send: openeditor }
         }
         {
-            name: move_up
+            name: move_up_arrow
             modifier: none
             keycode: up
             mode: [emacs, vi_normal, vi_insert]
@@ -530,7 +530,7 @@ $env.config = {
             }
         }
         {
-            name: move_down
+            name: move_down_arrow
             modifier: none
             keycode: down
             mode: [emacs, vi_normal, vi_insert]
@@ -542,7 +542,7 @@ $env.config = {
             }
         }
         {
-            name: move_left
+            name: move_left_arrow
             modifier: none
             keycode: left
             mode: [emacs, vi_normal, vi_insert]
@@ -554,7 +554,7 @@ $env.config = {
             }
         }
         {
-            name: move_right_or_take_history_hint
+            name: move_right_arrow_or_take_history_hint
             modifier: none
             keycode: right
             mode: [emacs, vi_normal, vi_insert]
@@ -567,14 +567,14 @@ $env.config = {
             }
         }
         {
-            name: move_one_word_left
+            name: move_one_word_left_control_arrow
             modifier: control
             keycode: left
             mode: [emacs, vi_normal, vi_insert]
             event: {edit: movewordleft}
         }
         {
-            name: move_one_word_right_or_take_history_hint
+            name: move_one_word_right_control_arrow_or_take_history_hint
             modifier: control
             keycode: right
             mode: [emacs, vi_normal, vi_insert]
@@ -586,14 +586,14 @@ $env.config = {
             }
         }
         {
-            name: move_to_line_start
+            name: move_to_line_start_home
             modifier: none
             keycode: home
             mode: [emacs, vi_normal, vi_insert]
             event: {edit: movetolinestart}
         }
         {
-            name: move_to_line_start
+            name: move_to_line_start_control_a
             modifier: control
             keycode: char_a
             mode: [emacs, vi_normal, vi_insert]
@@ -612,7 +612,7 @@ $env.config = {
             }
         }
         {
-            name: move_to_line_start
+            name: move_to_line_start_control_home
             modifier: control
             keycode: home
             mode: [emacs, vi_normal, vi_insert]
@@ -626,7 +626,7 @@ $env.config = {
             event: {edit: movetolineend}
         }
         {
-            name: move_up
+            name: move_up_control_p
             modifier: control
             keycode: char_p
             mode: [emacs, vi_normal, vi_insert]
@@ -638,7 +638,7 @@ $env.config = {
             }
         }
         {
-            name: move_down
+            name: move_down_control_t
             modifier: control
             keycode: char_t
             mode: [emacs, vi_normal, vi_insert]
@@ -657,42 +657,42 @@ $env.config = {
             event: {edit: backspace}
         }
         {
-            name: delete_one_word_backward
+            name: delete_one_word_backward_control_backspace
             modifier: control
             keycode: backspace
             mode: [emacs, vi_insert]
             event: {edit: backspaceword}
         }
         {
-            name: delete_one_character_forward
+            name: delete_one_character_forward_delete
             modifier: none
             keycode: delete
             mode: [emacs, vi_insert]
             event: {edit: delete}
         }
         {
-            name: delete_one_character_forward
+            name: delete_one_character_forward_control_delete
             modifier: control
             keycode: delete
             mode: [emacs, vi_insert]
             event: {edit: delete}
         }
         {
-            name: delete_one_character_forward
+            name: delete_one_character_backward_control_h
             modifier: control
             keycode: char_h
             mode: [emacs, vi_insert]
             event: {edit: backspace}
         }
         {
-            name: delete_one_word_backward
+            name: delete_one_word_backward_control_w
             modifier: control
             keycode: char_w
             mode: [emacs, vi_insert]
             event: {edit: backspaceword}
         }
         {
-            name: move_left
+            name: move_left_backspace
             modifier: none
             keycode: backspace
             mode: vi_normal
@@ -706,7 +706,7 @@ $env.config = {
             event: {send: enter}
         }
         {
-            name: move_left
+            name: move_left_control_b
             modifier: control
             keycode: char_b
             mode: emacs
@@ -718,7 +718,7 @@ $env.config = {
             }
         }
         {
-            name: move_right_or_take_history_hint
+            name: move_right_control_f_or_take_history_hint
             modifier: control
             keycode: char_f
             mode: emacs
@@ -780,14 +780,14 @@ $env.config = {
             event: {edit: swapgraphemes}
         }
         {
-            name: move_one_word_left
+            name: move_one_word_left_alt_arrow
             modifier: alt
             keycode: left
             mode: emacs
             event: {edit: movewordleft}
         }
         {
-            name: move_one_word_right_or_take_history_hint
+            name: move_one_word_right_alt_arrow_or_take_history_hint
             modifier: alt
             keycode: right
             mode: emacs
@@ -799,14 +799,14 @@ $env.config = {
             }
         }
         {
-            name: move_one_word_left
+            name: move_one_word_left_alt_b
             modifier: alt
             keycode: char_b
             mode: emacs
             event: {edit: movewordleft}
         }
         {
-            name: move_one_word_right_or_take_history_hint
+            name: move_one_word_right_alt_f_or_take_history_hint
             modifier: alt
             keycode: char_f
             mode: emacs
@@ -825,14 +825,14 @@ $env.config = {
             event: {edit: deleteword}
         }
         {
-            name: delete_one_word_backward
+            name: delete_one_word_backward_alt_backspace
             modifier: alt
             keycode: backspace
             mode: emacs
             event: {edit: backspaceword}
         }
         {
-            name: delete_one_word_backward
+            name: delete_one_word_backward_alt_m
             modifier: alt
             keycode: char_m
             mode: emacs
@@ -922,3 +922,5 @@ $env.config = {
 
 
 source ~/.config/atuin/init.nu
+
+plugin use xlsx

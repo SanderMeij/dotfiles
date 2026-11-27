@@ -1,0 +1,60 @@
+onboarding = false
+
+[terminal]
+default_shell = "nu"
+
+[keys]
+prefix = "ctrl+a"
+
+[[keys.command]]
+key = "prefix+ctrl+space"
+type = "popup"
+command = "nu -c ~/bin/herdr-session"
+height = 11
+
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "herdr-splits.nav-left"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "herdr-splits.nav-down"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "herdr-splits.nav-up"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "herdr-splits.nav-right"
+
+[[keys.command]]
+key = "prefix+k"
+type = "plugin_action"
+command = "martinro.next-agent.jump"
+description = "next agent needing attention"
+
+[[keys.command]]
+key = "prefix+i"
+type = "shell"
+command = 'python3 "/home/sander/development/sem/host/dev-workspace/open_task_url.py" review'
+description = "Open task Plannotator"
+
+[[keys.command]]
+key = "prefix+u"
+type = "shell"
+command = 'python3 "/home/sander/development/sem/host/dev-workspace/open_task_url.py" preview'
+description = "Open task app preview"
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "system"
+
+[ui]
+prompt_new_tab_name = false

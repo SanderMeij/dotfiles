@@ -80,7 +80,7 @@ require("blink.cmp").setup({
             }
 		},
         per_filetype = {
-            ai_input = { "ai_history" }
+            -- ai_input = { "ai_history" }
         }
 	},
 
